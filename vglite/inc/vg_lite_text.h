@@ -2,7 +2,7 @@
 *
 *    The MIT License (MIT)
 *
-*    Copyright 2020, 2024 NXP
+*    Copyright 2020 NXP
 *    All Rights Reserved.
 *
 *    Permission is hereby granted, free of charge, to any person obtaining
@@ -36,51 +36,10 @@ extern "C" {
 #include "vg_lite.h"
 
 /* Macros *********************************************************************/
-/* Encoding type support*/
-#define VG_ENCODING_ASCII 0
-#define VG_ENCODING_UTF8  1
-#define VG_ENCODING_UTF16 2
-#define VG_ENCODING_UTF32 3
-#define VG_ENCODING_WCHAR 4
 
-#ifndef VG_ENCODING
-#define VG_ENCODING VG_ENCODING_UTF8
-#endif  
-/* Encoding type of input strings. */
-#if VG_ENCODING == VG_ENCODING_ASCII
-#define MF_ENCODING MF_ENCODING_ASCII
-typedef char  vg_char;
-#define VG_CHAR(x)  x
-#define VG_TEXT(x)  x
-#elif VG_ENCODING == VG_ENCODING_UTF8
-#define MF_ENCODING MF_ENCODING_UTF8
-typedef char  vg_char;
-#define VG_CHAR(x)  x
-#define VG_TEXT(x)  u8##x
-#elif VG_ENCODING == VG_ENCODING_UTF16
-#define MF_ENCODING MF_ENCODING_UTF16
-typedef uint16_t  vg_char;
-#define VG_CHAR(x)  u##x
-#define VG_TEXT(x)  u##x
-#elif VG_ENCODING == VG_ENCODING_UTF32
-#define MF_ENCODING MF_ENCODING_UTF32
-typedef uint32_t  vg_char;
-#define VG_CHAR(x)  U##x
-#define VG_TEXT(x)  U##x
-#elif VG_ENCODING == VG_ENCODING_WCHAR
-#define MF_ENCODING MF_ENCODING_WCHAR
-#include <stddef.h>
-typedef wchar_t  vg_char;
-#define VG_CHAR(x)  L##x
-#define VG_TEXT(x)  L##x
-#endif
-
-#define VG_STR(x) VG_STRING(x)
-#define VG_STRING(x) VG_TEXT(x)
-
-#define MAX_FONT_NAME_LEN               (64)
-#define VG_LITE_INVALID_FONT            (-1)
-#define INVALID_FONT_PROPERTY_IDX       (-1)
+#define MAX_FONT_NAME_LEN (64)
+#define INVALID_FONT       (-1)
+#define INVALID_FONT_PROPERTY_IDX (-1)
 
 /* Types **********************************************************************/
 
@@ -176,8 +135,8 @@ typedef wchar_t  vg_char;
      */
     typedef struct vg_lite_font_params
     {
-        char name[MAX_FONT_NAME_LEN]; /*! font-family name */
-        eFontType_t    font_type;     /*! Raster/Vector font */
+        const char name[MAX_FONT_NAME_LEN]; /*! font-family name */
+        eFontType_t    font_type;    /*! Raster/Vector font */
         eFontWeight_t   font_weight;  /*! Font weight enum value */
         eFontStretch_t  font_stretch; /*! Font stretch enum value */
         eFontStyle_t    font_style;   /*! Font style enum value */
@@ -320,27 +279,30 @@ typedef wchar_t  vg_char;
      @param target
      Pointer to render target
 
-     @param text
-     ASCII text that needs to be rendered on render
-
      @param font
      Pointer to font handle
 
      @param x
      x position in pixels in X-axis for text rendering
 
-     @param y
+     @param Y
      y position in pixels in Y-axis for text rendering
+
+     @param blend
+     Specifies how text gets blened in text area. Typical value is ELM_BLEND_SRC_OVER
+
+     @param font
+     Active font handle
 
      @param matrix
      Translation matrix that is used while rendering text.
      @attention Scaling and rotation matrix are not supported.
 
-     @param blend
-     Specifies how text gets blened in text area. Typical value is ELM_BLEND_SRC_OVER
-
      @param attributes
      Font attributes that controls how text gets rendered in render buffer.
+
+     @param text
+     ASCII text that needs to be rendered on render
 
      @result
      Returns the status as defined by <code>vg_lite_error_t</code>.
@@ -349,13 +311,13 @@ typedef wchar_t  vg_char;
      */
     vg_lite_error_t vg_lite_draw_text(
                       vg_lite_buffer_t *target,
-                      vg_char *text,
-                      vg_lite_font_t font,
                       int x,
-                      int y,
+                      int y, 
+                      vg_lite_blend_t blend, 
+                      vg_lite_font_t font, 
                       vg_lite_matrix_t *matrix,
-                      vg_lite_blend_t blend,
-                      vg_lite_font_attributes_t *attributes);
+                      vg_lite_font_attributes_t  * attributes,
+                      char *text);
 
     /*!
      @abstract This API searches registered font for given name with 
@@ -400,11 +362,6 @@ typedef wchar_t  vg_char;
         eFontStretch_t font_stretch,
         eFontStyle_t   font_style,
         int font_height);
-
-    /*!
-     @abstract Initializes support for text drawing.
-     */
-    void vg_lite_text_init(void);
 
 #ifdef __cplusplus
 }

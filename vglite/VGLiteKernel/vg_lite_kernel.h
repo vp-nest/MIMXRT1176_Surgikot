@@ -91,13 +91,12 @@ typedef enum vg_lite_error
     VG_LITE_GENERIC_IO,         /*! Cannot communicate with the kernel driver. */
     VG_LITE_NOT_SUPPORT,        /*! Function call not supported. */
     VG_LITE_MULTI_THREAD_FAIL,  /*! Multi-thread/tasks fail. */
-    VG_LITE_ALREADY_EXISTS,     /*! Object already exists */
-    VG_LITE_NOT_ALIGNED,        /*! Data alignment error */
+    VG_LITE_ALREADY_EXISTS,     /*! Element already exists (e.g. font exists) */
+    VG_LITE_NOT_ALIGNED         /*! Data alignment error */
 }
 vg_lite_error_t;
 #endif
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 typedef enum vg_lite_buffer_signal
 {
     VG_LITE_IDLE = 0,        /*! Buffer available. */
@@ -105,7 +104,6 @@ typedef enum vg_lite_buffer_signal
     VG_LITE_IN_QUEUE,        /*! Buffer has been send to queue. */
 }
 vg_lite_buffer_signal_t;
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 typedef enum vg_lite_kernel_counter
 {
@@ -161,17 +159,11 @@ typedef enum vg_lite_kernel_command
     /* Query mem. */
     VG_LITE_QUERY_MEM,
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
     /* Mutex lock. */
     VG_LITE_LOCK,
 
     /* Mutex unlock. */
     VG_LITE_UNLOCK,
-
-    /* query context switch. */
-    VG_LITE_QUERY_CONTEXT_SWITCH,
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
-
 }
 vg_lite_kernel_command_t;
 
@@ -180,23 +172,12 @@ struct vg_lite_kernel_context {
     void      * command_buffer[CMDBUF_COUNT];
     void      * command_buffer_logical[CMDBUF_COUNT];
     uint32_t    command_buffer_physical[CMDBUF_COUNT];
-
-#if !defined(VG_DRIVER_SINGLE_THREAD)
     vg_lite_os_async_event_t async_event[CMDBUF_COUNT];
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
     /* Tessellation buffer. */
     void      * tessellation_buffer;
     void      * tessellation_buffer_logical;
     uint32_t    tessellation_buffer_physical;
-
-#if !defined(VG_DRIVER_SINGLE_THREAD)
-    /* context buffer. */
-    void      * context_buffer[CMDBUF_COUNT];
-    void      * context_buffer_logical[CMDBUF_COUNT];
-    uint32_t    context_buffer_physical[CMDBUF_COUNT];
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
-
 };
 
 /* Context structure. */
@@ -221,11 +202,6 @@ typedef struct vg_lite_kernel_initialize
     /* Command buffer size. */
     uint32_t command_buffer_size;
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
-    /* Context buffer size. */
-    uint32_t context_buffer_size;
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
-
     /* Tessellation buffer width. */
     int32_t tessellation_width;
 
@@ -245,14 +221,6 @@ typedef struct vg_lite_kernel_initialize
 
     /* GPU address for command buffer. */
     uint32_t command_buffer_gpu[CMDBUF_COUNT];
-
-#if !defined(VG_DRIVER_SINGLE_THREAD)
-    /* Allocated context buffer. */
-    void * context_buffer[CMDBUF_COUNT];
-
-    /* GPU address for context buffer. */
-    uint32_t context_buffer_gpu[CMDBUF_COUNT];
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
     /* GPU addresses for tesselation buffers. */
     uint32_t tessellation_buffer_gpu[3];
@@ -333,16 +301,8 @@ typedef struct vg_lite_kernel_wait
     /* Timeout in milliseconds. */
     uint32_t timeout_ms;
 
-#if defined(VG_DRIVER_SINGLE_THREAD)
-    /* The event to wait. */
-    uint32_t event_mask;
-
-    /* The event(s) got after waiting. */
-    uint32_t event_got;
-#else
     /* Command Buffer ID. */
     uint32_t command_id;
-#endif /* VG_DRIVER_SINGLE_THREAD */
 }
 vg_lite_kernel_wait_t;
 
@@ -426,15 +386,6 @@ typedef struct vg_lite_kernel_mem
     uint32_t bytes;
 }
 vg_lite_kernel_mem_t;
-
-#if !defined(VG_DRIVER_SINGLE_THREAD)
-typedef struct vg_lite_kernel_context_switch
-{
-    uint8_t isContextSwitched;
-    uint32_t context;
-}
-vg_lite_kernel_context_switch_t;
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 vg_lite_error_t vg_lite_kernel(vg_lite_kernel_command_t command, void * data);
 

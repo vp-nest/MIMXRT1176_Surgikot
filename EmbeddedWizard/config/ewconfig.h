@@ -69,8 +69,11 @@
    **************************************************************************** */
 #define EW_PLATFORM_STRING    "IMXRT1170-EVK"
 
-#define SDRAM_BASE_ADDR       0x80000000
-#define SDRAM_SIZE_BYTES      (48 * 1024 * 1024)
+#define EXECUTION_MEMORY_SIZE	(26*1024*1024)	//26M Bytes
+#define GUI_MEMORY_START_ADDR 	(0x80000000 + EXECUTION_MEMORY_SIZE)
+
+#define SDRAM_BASE_ADDR       GUI_MEMORY_START_ADDR
+#define SDRAM_SIZE_BYTES      (30 * 1024 * 1024)
 
 #define EW_USE_TERMINAL_INPUT 0
 #define EW_CPU_LOAD_MEASURING 1

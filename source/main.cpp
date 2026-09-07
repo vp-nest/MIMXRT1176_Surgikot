@@ -87,6 +87,7 @@ int main(void) {
 	s_upgradeTask.start();
 	s_guiTask.start();
 	PRINTF("Tasks Started...\r\n");
+	PRINTF("Free heap size: %d\r\n", xPortGetFreeHeapSize());
 
 	os::scheduler::start();
 

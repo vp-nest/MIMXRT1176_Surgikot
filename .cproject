@@ -361,7 +361,7 @@
 								<option id="com.crt.advproject.link.cpp.lto.optmization.level.145148053" name="Link-time optimization level" superClass="com.crt.advproject.link.cpp.lto.optmization.level"/>
 								<option id="com.crt.advproject.link.cpp.fpu.749875795" name="Floating point" superClass="com.crt.advproject.link.cpp.fpu" value="com.crt.advproject.link.cpp.fpu.fpv5sp.hard" valueType="enumerated"/>
 								<option id="com.crt.advproject.link.cpp.manage.657930573" name="Manage linker script" superClass="com.crt.advproject.link.cpp.manage" value="true" valueType="boolean"/>
-								<option id="com.crt.advproject.link.cpp.script.1050738675" name="Linker script" superClass="com.crt.advproject.link.cpp.script" value="MIMXRT1176_Base_Project_Debug.ld" valueType="string"/>
+								<option id="com.crt.advproject.link.cpp.script.1050738675" name="Linker script" superClass="com.crt.advproject.link.cpp.script" value="MIMXRT1176_Surgikot_Debug.ld" valueType="string"/>
 								<option id="com.crt.advproject.link.cpp.scriptdir.558937458" name="Script path" superClass="com.crt.advproject.link.cpp.scriptdir" value="" valueType="string"/>
 								<option id="com.crt.advproject.link.cpp.crpenable.283332040" name="Enable automatic placement of Code Read Protection field in image" superClass="com.crt.advproject.link.cpp.crpenable"/>
 								<option id="com.crt.advproject.link.cpp.flashconfigenable.1934969844" name="Enable automatic placement of Flash Configuration field in image" superClass="com.crt.advproject.link.cpp.flashconfigenable" value="true" valueType="boolean"/>
@@ -725,7 +725,7 @@
 								<option id="com.crt.advproject.link.cpp.lto.optmization.level.530426002" name="Link-time optimization level" superClass="com.crt.advproject.link.cpp.lto.optmization.level"/>
 								<option id="com.crt.advproject.link.cpp.fpu.210324618" name="Floating point" superClass="com.crt.advproject.link.cpp.fpu" value="com.crt.advproject.link.cpp.fpu.fpv5sp.hard" valueType="enumerated"/>
 								<option id="com.crt.advproject.link.cpp.manage.511611083" name="Manage linker script" superClass="com.crt.advproject.link.cpp.manage" value="true" valueType="boolean"/>
-								<option id="com.crt.advproject.link.cpp.script.977025645" name="Linker script" superClass="com.crt.advproject.link.cpp.script" value="MIMXRT1176_Base_Project_Release.ld" valueType="string"/>
+								<option id="com.crt.advproject.link.cpp.script.977025645" name="Linker script" superClass="com.crt.advproject.link.cpp.script" value="MIMXRT1176_Surgikot_Release.ld" valueType="string"/>
 								<option id="com.crt.advproject.link.cpp.scriptdir.1335160740" name="Script path" superClass="com.crt.advproject.link.cpp.scriptdir"/>
 								<option id="com.crt.advproject.link.cpp.crpenable.1498272285" name="Enable automatic placement of Code Read Protection field in image" superClass="com.crt.advproject.link.cpp.crpenable"/>
 								<option id="com.crt.advproject.link.cpp.flashconfigenable.638824025" name="Enable automatic placement of Flash Configuration field in image" superClass="com.crt.advproject.link.cpp.flashconfigenable" value="true" valueType="boolean"/>
@@ -873,9 +873,9 @@
 &lt;vendor&gt;NXP&lt;/vendor&gt;&#13;
 &lt;memory can_program="true" id="Flash" is_ro="true" size="0" type="Flash"/&gt;&#13;
 &lt;memory id="RAM" size="2048" type="RAM"/&gt;&#13;
-&lt;memoryInstance derived_from="Flash" driver="MIMXRT1170_SFDP_QSPI.cfx" edited="true" id="BOARD_FLASH" location="0x30000000" size="0x4000000"/&gt;&#13;
-&lt;memoryInstance derived_from="RAM" edited="true" id="BOARD_SDRAM" location="0x80000000" size="0x3000000"/&gt;&#13;
-&lt;memoryInstance derived_from="RAM" edited="true" id="NCACHE_REGION" location="0x83000000" size="0x1000000"/&gt;&#13;
+&lt;memoryInstance derived_from="Flash" driver="MIMXRT1170_SFDP_QSPI.cfx" edited="true" id="BOARD_FLASH" location="0x30000000" size="0x1000000"/&gt;&#13;
+&lt;memoryInstance derived_from="RAM" edited="true" id="BOARD_SDRAM" location="0x80000000" size="0x1a00000"/&gt;&#13;
+&lt;memoryInstance derived_from="RAM" edited="true" id="NCACHE_REGION" location="0x83800000" size="0x800000"/&gt;&#13;
 &lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_DTC_cm7" location="0x20000000" size="0x40000"/&gt;&#13;
 &lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_ITC_cm7" location="0x0" size="0x40000"/&gt;&#13;
 &lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_OC1" location="0x20240000" size="0x80000"/&gt;&#13;

@@ -34,7 +34,7 @@ namespace stack {
     constexpr os::StackSize kUartComm          = os::StackSize::words(2048);
     constexpr os::StackSize kUsbUpgrade        = os::StackSize::words(2048);
     constexpr os::StackSize kLogger            = os::StackSize::words(2048);
-    constexpr os::StackSize kGui               = os::StackSize::words(2048);
+    constexpr os::StackSize kGui               = os::StackSize::words(8048);
 
 } // namespace stack
 } // namespace app

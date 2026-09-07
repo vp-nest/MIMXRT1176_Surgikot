@@ -1,45 +1,15 @@
-/****************************************************************************
-*
-*    Copyright 2012 - 2020 Vivante Corporation, Santa Clara, California.
-*    All Rights Reserved.
-*
-*    Permission is hereby granted, free of charge, to any person obtaining
-*    a copy of this software and associated documentation files (the
-*    'Software'), to deal in the Software without restriction, including
-*    without limitation the rights to use, copy, modify, merge, publish,
-*    distribute, sub license, and/or sell copies of the Software, and to
-*    permit persons to whom the Software is furnished to do so, subject
-*    to the following conditions:
-*
-*    The above copyright notice and this permission notice (including the
-*    next paragraph) shall be included in all copies or substantial
-*    portions of the Software.
-*
-*    THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-*    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
-*    IN NO EVENT SHALL VIVANTE AND/OR ITS SUPPLIERS BE LIABLE FOR ANY
-*    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-*    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-*    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*
-*****************************************************************************/
-
 #include "vg_lite_os.h"
 
 #include "FreeRTOS.h"
 #include "semphr.h"
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 #include "task.h"
 #include "queue.h"
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 #include "vg_lite_hw.h"
 #include "vg_lite_hal.h"
 
 /* If bit31 is activated this indicates a bus error */
 #define IS_AXI_BUS_ERR(x) ((x)&(1U << 31))
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 #define ISR_WAIT_TIME   0x1FFFF
 #define MAX_MUTEX_TIME  100
 #define TASK_WAIT_TIME  20
@@ -52,14 +22,6 @@
 #define QUEUE_TASK_SIZE  1024
 #define QUEUE_LENGTH     8
 #define MAX_QUEUE_WAIT_NUM  10
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TURE
-#define TURE 1
-#endif
 
 typedef struct vg_lite_queue{
     uint32_t  cmd_physical;
@@ -80,8 +42,6 @@ static vg_lite_os_t os_obj = {0};
 
 SemaphoreHandle_t semaphore[TASK_LENGTH] = {NULL};
 SemaphoreHandle_t command_semaphore = NULL;
-uint32_t curContext;
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 SemaphoreHandle_t int_queue;
 volatile uint32_t int_flags;
 
@@ -95,7 +55,6 @@ void __attribute__((weak)) vg_lite_bus_error_handler()
      return;
 }
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 /* command queue function */
 void command_queue(void * parameters)
 {
@@ -122,55 +81,14 @@ void command_queue(void * parameters)
                                   TASK_WAIT_TIME/portTICK_PERIOD_MS);
                 if(ret == pdPASS)
                 {
-#if defined(PRINT_COMMAND_BUFFER)
-                    int i = 0;
-                    for(i=0;i < (peek_queue->cmd_size + 3) / 4; i++)
-                    {
-                        if(i % 4 == 0)
-                            printf("\r\n");
-                        printf("0x%08x ",((uint32_t*)(peek_queue->cmd_physical + peek_queue->cmd_offset))[i]);
-                    }
-#endif
                     vg_lite_hal_poke(VG_LITE_HW_CMDBUF_ADDRESS, peek_queue->cmd_physical + peek_queue->cmd_offset);
                     vg_lite_hal_poke(VG_LITE_HW_CMDBUF_SIZE, (peek_queue->cmd_size +7)/8 );
 
                     if(vg_lite_hal_wait_interrupt(ISR_WAIT_TIME, (uint32_t)~0, &even_got))
                         peek_queue->event->signal = VG_LITE_HW_FINISHED;
                     else
-#if defined(PRINT_DEBUG_REGISTER)
-                    {
-                        unsigned int debug;
-                        unsigned int iter;
-                        for(iter =0; iter < 16 ; iter ++)
-                        {
-                             vg_lite_hal_poke(0x470, iter);
-                             debug = vg_lite_hal_peek(0x450);
-                             printf("0x450[%d] = 0x%x\n", iter,debug);
-                        }
-                        for(iter =0; iter < 16 ; iter ++)
-                        {
-                             vg_lite_hal_poke(0x470, iter <<16);
-                             debug = vg_lite_hal_peek(0x454);
-                             printf("0x454[%d] = 0x%x\n", iter,debug);
-                        }
-                        for(iter =0; iter < 16 ; iter ++)
-                        {
-                             vg_lite_hal_poke(0x478, iter);
-                             debug = vg_lite_hal_peek(0x468);
-                             printf("0x468[%d] = 0x%x\n", iter,debug);
-                        }
-                        for(iter =0; iter < 16 ; iter ++)
-                        {
-                             vg_lite_hal_poke(0x478, iter);
-                             debug = vg_lite_hal_peek(0x46C);
-                             printf("0x46C[%d] = 0x%x\n", iter,debug);
-                        }
-#endif
                         /* wait timeout */
                         peek_queue->event->signal = VG_LITE_IDLE;
-#if defined(PRINT_DEBUG_REGISTER)
-                    }
-#endif
                     if(semaphore[peek_queue->event->semaphore_id]){
                         xSemaphoreGive(semaphore[peek_queue->event->semaphore_id]);
                     }
@@ -195,7 +113,6 @@ void * vg_lite_os_get_tls( )
 {
     return pvTaskGetThreadLocalStoragePointer(NULL, 0);
 }
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 void * vg_lite_os_malloc(uint32_t size)
 {
@@ -207,12 +124,10 @@ void vg_lite_os_free(void * memory)
     vPortFree(memory);
 }
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 void vg_lite_os_reset_tls()
 {
     vTaskSetThreadLocalStoragePointer(NULL, 0, NULL);
 }
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 void vg_lite_os_sleep(uint32_t msec)
 {
@@ -221,15 +136,12 @@ void vg_lite_os_sleep(uint32_t msec)
 
 int32_t vg_lite_os_initialize(void)
 {
-#if !defined(VG_DRIVER_SINGLE_THREAD)
     static int task_number = 0;
     BaseType_t ret;
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
     int_queue = xSemaphoreCreateBinary();
     int_flags = 0;
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
     if(mutex == NULL)
     {
         mutex = xSemaphoreCreateMutex();
@@ -256,22 +168,18 @@ int32_t vg_lite_os_initialize(void)
             return VG_LITE_SUCCESS;
         }
     }
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
     return VG_LITE_SUCCESS;
 }
 
 void vg_lite_os_deinitialize(void)
 {
     /* TODO: Remove clock. */
-#if !defined(VG_DRIVER_SINGLE_THREAD)
     vSemaphoreDelete(mutex);
     mutex = 0;
-#endif /* VG_DRIVER_SINGLE_THREAD */
     vSemaphoreDelete(int_queue);
     /* TODO: Remove power. */
 }
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 int32_t vg_lite_os_lock()
 {
     if(mutex == NULL)
@@ -291,7 +199,7 @@ int32_t vg_lite_os_unlock()
     return VG_LITE_SUCCESS;
 }
 
-int32_t vg_lite_os_submit(uint32_t context, uint32_t physical, uint32_t offset, uint32_t size, vg_lite_os_async_event_t *event)
+int32_t vg_lite_os_submit(uint32_t physical, uint32_t offset, uint32_t size, vg_lite_os_async_event_t *event)
 {
     vg_lite_queue_t* queue_node;
 
@@ -314,7 +222,6 @@ int32_t vg_lite_os_submit(uint32_t context, uint32_t physical, uint32_t offset, 
                   (void *) &queue_node,
                   ISR_WAIT_TIME/portTICK_PERIOD_MS) != pdTRUE)
         return VG_LITE_MULTI_THREAD_FAIL;
-    curContext = context;
 
     if (vg_lite_os_wait_event(event) == VG_LITE_SUCCESS) {
         if(xSemaphoreGive(command_semaphore) != pdTRUE)
@@ -341,7 +248,6 @@ int32_t vg_lite_os_wait(uint32_t timeout, vg_lite_os_async_event_t *event)
     }
     return VG_LITE_TIMEOUT;
 }
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 void vg_lite_os_IRQHandler(void)
 {
@@ -399,7 +305,6 @@ int32_t vg_lite_os_wait_interrupt(uint32_t timeout, uint32_t mask, uint32_t * va
 #endif
 }
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 int32_t vg_lite_os_init_event(vg_lite_os_async_event_t *event,
                                       uint32_t semaphore_id,
                                       int32_t state)
@@ -454,11 +359,3 @@ int32_t vg_lite_os_signal_event(vg_lite_os_async_event_t *event)
     xSemaphoreGive(semaphore[event->semaphore_id]);
     return VG_LITE_SUCCESS;
 }
-
-int8_t vg_lite_os_query_context_switch(uint32_t context)
-{
-   if(!curContext || curContext == context)
-        return FALSE;
-    return TURE;
-}
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */

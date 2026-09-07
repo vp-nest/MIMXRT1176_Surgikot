@@ -34,9 +34,7 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "task.h"
-#if !defined(VG_DRIVER_SINGLE_THREAD)
 #include "queue.h"
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 #else
 #include "xil_cache.h"
 #endif
@@ -142,18 +140,6 @@ struct vg_lite_device {
     uint32_t size;
     struct memory_heap heap;
     int irq_enabled;
-
-#if defined(VG_DRIVER_SINGLE_THREAD)
-    volatile uint32_t int_flags;
-#if _BAREMETAL
-        /* wait_queue_head_t int_queue; */
-        xSemaphoreHandle int_queue;
-#else
-        /* wait_queue_head_t int_queue; */
-        SemaphoreHandle_t int_queue;
-#endif
-#endif /* VG_DRIVER_SINGLE_THREAD */
-
     void * device;
     int registered;
     int major;
@@ -218,7 +204,6 @@ static int split_node(heap_node_t * node, unsigned long size)
 
     /* Allocate a new node. */
     split = (heap_node_t *)vg_lite_os_malloc(sizeof(heap_node_t));
-
     if (split == NULL)
         return -1;
 
@@ -405,17 +390,15 @@ void vg_lite_hal_unmap(void * handle)
     (void) handle;
 }
 
-#if !defined(VG_DRIVER_SINGLE_THREAD)
-vg_lite_error_t vg_lite_hal_submit(uint32_t context,uint32_t physical, uint32_t offset, uint32_t size, vg_lite_os_async_event_t *event)
+vg_lite_error_t vg_lite_hal_submit(uint32_t physical, uint32_t offset, uint32_t size, vg_lite_os_async_event_t *event)
 {
-    return (vg_lite_error_t)vg_lite_os_submit(context,physical,offset,size,event);
+    return (vg_lite_error_t)vg_lite_os_submit(physical,offset,size,event);
 }
 
 vg_lite_error_t vg_lite_hal_wait(uint32_t timeout, vg_lite_os_async_event_t *event)
 {
     return  (vg_lite_error_t)vg_lite_os_wait(timeout,event);
 }
-#endif /* not defined(VG_DRIVER_SINGLE_THREAD) */
 
 static void vg_lite_exit(void)
 {
@@ -484,7 +467,6 @@ static int vg_lite_init(void)
     device->heap.free = device->size;
 
     node = (heap_node_t *)vg_lite_os_malloc(sizeof(heap_node_t));
-
     if (node == NULL) {
         vg_lite_exit();
         return -1;
@@ -493,12 +475,6 @@ static int vg_lite_init(void)
     node->size = device->size;
     node->status = 0;
     add_list(&node->list, &device->heap.list);
-#if defined(VG_DRIVER_SINGLE_THREAD)
-#if !_BAREMETAL /*for rt500*/
-        device->int_queue = xSemaphoreCreateBinary();
-        device->int_flags = 0;
-#endif
-#endif /* VG_DRIVER_SINGLE_THREAD */
     /* Success. */
     return 0;
 }

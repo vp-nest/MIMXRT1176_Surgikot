@@ -20,7 +20,7 @@ extern "C" {
 void GuiTask::init()
 {
     // lv_init();
-    // BOARD_InitDisplay(); BOARD_InitTouch();
+	// BOARD_InitDisplay(); BOARD_InitTouch();
     // Build the screen(s) and widgets here, e.g.:
     //   lv_obj_t* upgradeBtn = lv_btn_create(scr);
     //   lv_obj_add_event_cb(upgradeBtn, [](lv_event_t* e){
