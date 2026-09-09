@@ -62,6 +62,12 @@
 #define _CoreOutline_
 #endif
 
+/* Forward declaration of the class Core::SlideTouchHandler */
+#ifndef _CoreSlideTouchHandler_
+  EW_DECLARE_CLASS( CoreSlideTouchHandler )
+#define _CoreSlideTouchHandler_
+#endif
+
 /* Forward declaration of the class Core::View */
 #ifndef _CoreView_
   EW_DECLARE_CLASS( CoreView )
@@ -108,6 +114,8 @@
    outlines appear as semitransparent rectangles. This allows you to interact with 
    the outlines during the design time. */
 EW_DEFINE_FIELDS( CoreOutline, CoreRectView )
+  EW_PROPERTY( SlideHandler,    CoreSlideTouchHandler )
+  EW_PROPERTY( ScrollOffset,    XPoint )
 EW_END_OF_FIELDS( CoreOutline )
 
 /* Virtual Method Table (VMT) for the class : 'Core::Outline' */
@@ -159,6 +167,27 @@ void CoreOutline_Draw( CoreOutline _this, GraphicsCanvas aCanvas, XRect aClip, X
 
 /* 'C' function for method : 'Core::Outline.OnSetBounds()' */
 void CoreOutline_OnSetBounds( CoreOutline _this, XRect value );
+
+/* 'C' function for method : 'Core::Outline.onSlideSlot()' */
+void CoreOutline_onSlideSlot( CoreOutline _this, XObject sender );
+
+/* 'C' function for method : 'Core::Outline.onStartSlideSlot()' */
+void CoreOutline_onStartSlideSlot( CoreOutline _this, XObject sender );
+
+/* 'C' function for method : 'Core::Outline.OnSetSlideHandler()' */
+void CoreOutline_OnSetSlideHandler( CoreOutline _this, CoreSlideTouchHandler value );
+
+/* 'C' function for method : 'Core::Outline.OnSetScrollOffset()' */
+void CoreOutline_OnSetScrollOffset( CoreOutline _this, XPoint value );
+
+/* The method GetContentArea() determines a rectangular area occupied by the views 
+   embedded within the outline. The additional parameter aFilter can be used to 
+   limit the operation to special views only, e.g. to visible and touchable views.
+   If there are no views complying the filter condition, the method returns an empty 
+   area.
+   Please note, this method is limited to the views embedded within the outline. 
+   Other sibling views not belonging to the outline are simply ignored. */
+XRect CoreOutline_GetContentArea( CoreOutline _this, XSet aFilter );
 
 #ifdef __cplusplus
   }

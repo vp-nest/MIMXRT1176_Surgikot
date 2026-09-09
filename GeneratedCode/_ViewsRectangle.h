@@ -88,6 +88,7 @@
    within the GUI component itself. Very useful for any kind of scrollable lists, 
    menus, etc. */
 EW_DEFINE_FIELDS( ViewsRectangle, CoreRectView )
+  EW_PROPERTY( ColorBL,         XColor )
   EW_PROPERTY( Color,           XColor )
 EW_END_OF_FIELDS( ViewsRectangle )
 
@@ -138,8 +139,14 @@ EW_END_OF_METHODS( ViewsRectangle )
 void ViewsRectangle_Draw( ViewsRectangle _this, GraphicsCanvas aCanvas, XRect aClip, 
   XPoint aOffset, XInt32 aOpacity, XBool aBlend );
 
+/* 'C' function for method : 'Views::Rectangle.OnSetColorBL()' */
+void ViewsRectangle_OnSetColorBL( ViewsRectangle _this, XColor value );
+
 /* 'C' function for method : 'Views::Rectangle.OnSetColor()' */
 void ViewsRectangle_OnSetColor( ViewsRectangle _this, XColor value );
+
+/* 'C' function for method : 'Views::Rectangle.OnSetVisible()' */
+void ViewsRectangle_OnSetVisible( ViewsRectangle _this, XBool value );
 
 #ifdef __cplusplus
   }

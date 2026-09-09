@@ -123,6 +123,7 @@ EW_DEFINE_FIELDS( ApplicationTextEditor, TemplatesTextEditor )
   EW_VARIABLE( magnifyingView,  ViewsWarpGroup )
   EW_PROPERTY( Font,            ResourcesFont )
   EW_PROPERTY( OnChange,        XSlot )
+  EW_PROPERTY( OnEditStart,     XSlot )
   EW_OBJECT  ( blinkEffect,     EffectsBoolEffect )
   EW_OBJECT  ( CursorKeyHandler, CoreKeyPressHandler )
   EW_OBJECT  ( BackspaceKeyHandler, CoreKeyPressHandler )
@@ -164,11 +165,17 @@ EW_DEFINE_METHODS( ApplicationTextEditor, TemplatesTextEditor )
   EW_METHOD( OnSetFocus,        void )( CoreGroup _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreGroup _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreGroup _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreGroup _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreGroup _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreGroup _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreGroup _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( ApplicationTextEditor _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreGroup _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreGroup _this, CoreView aView, XPoint 
+    aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreGroup _this, CoreView aView, XSet 
+    aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreGroup _this, CoreView aView, XSet 
     aFilter )
   EW_METHOD( RestackTop,        void )( CoreGroup _this, CoreView aView )
@@ -281,6 +288,10 @@ void ApplicationTextEditor_OnSetShowPassword( ApplicationTextEditor _this, XBool
 /* 'C' function for method : 'Application::TextEditor.updatePasswordDisplay()' */
 void ApplicationTextEditor_updatePasswordDisplay( ApplicationTextEditor _this, XObject 
   sender );
+
+/* 'C' function for method : 'Application::TextEditor.OnSetOnEditStart()' */
+void ApplicationTextEditor_OnSetOnEditStart( ApplicationTextEditor _this, XSlot 
+  value );
 
 #ifdef __cplusplus
   }

@@ -416,4 +416,10 @@ EW_RES_WITHOUT_VARIANTS( ResourcesFontLarge )
 /* Table with links to derived variants of the bitmap resource : 'Resources::WhiteBitmapStripe' */
 EW_RES_WITHOUT_VARIANTS( ResourcesWhiteBitmapStripe )
 
+/* Include a file containing the bitmap resource : 'Resources::KeyIconsSmall' */
+#include "_ResourcesKeyIconsSmall.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Resources::KeyIconsSmall' */
+EW_RES_WITHOUT_VARIANTS( ResourcesKeyIconsSmall )
+
 /* Embedded Wizard */

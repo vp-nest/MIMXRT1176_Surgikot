@@ -206,11 +206,17 @@ EW_DEFINE_METHODS( CoreRoot, CoreGroup )
   EW_METHOD( OnSetFocus,        void )( CoreRoot _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreRoot _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreRoot _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreRoot _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreRoot _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreRoot _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreRoot _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( CoreGroup _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreRoot _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreGroup _this, CoreView aView, XPoint 
+    aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreGroup _this, CoreView aView, XSet 
+    aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreGroup _this, CoreView aView, XSet 
     aFilter )
   EW_METHOD( RestackTop,        void )( CoreGroup _this, CoreView aView )
@@ -252,6 +258,30 @@ void CoreRoot_OnSetBuffered( CoreRoot _this, XBool value );
 
 /* 'C' function for method : 'Core::Root.OnSetOpacity()' */
 void CoreRoot_OnSetOpacity( CoreRoot _this, XInt32 value );
+
+/* The method IsCurrentDialog() returns 'true' if 'this' component and all of its 
+   owners do actually act as active dialogs (see the method @IsActiveDialog()) and 
+   there are no further subordinated dialogs existing in context of 'this' component. 
+   In other words, 'this' component is absolutely the top-most dialog of all dialogs 
+   shown actually in the GUI application, so all user interactions are primarily 
+   directed to 'this' dialog.
+   If the component has not been presented, it has been dismissed, other dialog 
+   has been presented in meantime overlying 'this' component, the owner of the component 
+   is not itself an active dialog, or there is other dialog presented in context 
+   of 'this' component, the method returns 'false'. */
+XBool CoreRoot_IsCurrentDialog( CoreRoot _this );
+
+/* The method IsActiveDialog() returns 'true' if 'this' component does actually 
+   act as a dialog (see the method @IsDialog()) and it is the current (top-most) 
+   dialog in context of its owner component. If the parameter aRecursive is 'true', 
+   the owner in context of which 'this' component actually exists and all superior 
+   owners have also to be active dialogs or the owner has to be the application 
+   root component.
+   If the component is not a dialog, or other dialog has been presented in the meantime 
+   overlying 'this' component, the method returns 'false'. Similarly, if the parameter 
+   aRecursive is 'true' and the owner of the component is itself not an active dialog, 
+   the method returns 'false'. */
+XBool CoreRoot_IsActiveDialog( CoreRoot _this, XBool aRecursive );
 
 /* The method DispatchEvent() feeds the component with the event passed in the parameter 
    aEvent and propagates it along the so-called focus path. This focus path leads 

@@ -60,6 +60,11 @@ EW_DECLARE_FONT_RES( ResourcesFontLarge )
 /* Bitmap resource : 'Resources::WhiteBitmapStripe' */
 EW_DECLARE_BITMAP_RES( ResourcesWhiteBitmapStripe )
 
+/* Bitmap resource containing diverse icons you can use in your project. Usually 
+   the icons are used to represent keys within a virtual keyboard. The icons have 
+   the size 24x24 pixel. */
+EW_DECLARE_BITMAP_RES( ResourcesKeyIconsSmall )
+
 #ifdef __cplusplus
   }
 #endif

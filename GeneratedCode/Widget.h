@@ -43,10 +43,14 @@
 #endif
 
 #include "_WidgetAddProfileButton.h"
+#include "_WidgetCustomButton.h"
 #include "_WidgetEnterButton.h"
 #include "_WidgetNumButton.h"
 #include "_WidgetNumPad.h"
 #include "_WidgetProfileListItem.h"
+#include "_WidgetSettingsDiagnosticList.h"
+#include "_WidgetSettingsList.h"
+#include "_WidgetStatusLabel.h"
 
 #ifdef __cplusplus
   }

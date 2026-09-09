@@ -452,6 +452,7 @@ void ViewsRectangle__Init( ViewsRectangle _this, XObject aLink, XHandle aArg )
   _this->_.VMT = EW_CLASS( ViewsRectangle );
 
   /* ... and initialize objects, variables, properties, etc. */
+  _this->ColorBL = _Const0000;
   _this->Color = _Const0000;
 }
 
@@ -500,16 +501,38 @@ void ViewsRectangle__Done( ViewsRectangle _this )
 void ViewsRectangle_Draw( ViewsRectangle _this, GraphicsCanvas aCanvas, XRect aClip, 
   XPoint aOffset, XInt32 aOpacity, XBool aBlend )
 {
-  XColor ctl;
-  XColor ctr;
-  XColor cbl;
-  XColor cbr;
+  XColor ctl = _Const0000;
+  XColor ctr = _Const0000;
+  XColor cbl = _this->ColorBL;
+  XColor cbr = _Const0000;
   XColor c = _this->Color;
 
   aBlend = (XBool)( aBlend && (( _this->Super2.viewState & CoreViewStateAlphaBlended ) 
   == CoreViewStateAlphaBlended ));
   aOpacity = aOpacity + 1;
-  ctl = ctr = cbl = cbr = c;
+
+  if ( !EwCompColor( cbl, _Const0000 ) && !EwCompColor( _Const0000, cbl ))
+    ctl = ctr = cbl = cbr = c;
+  else
+    if ( EwCompColor( c, _Const0000 ))
+    {
+      ctl.Alpha = (XUInt8)(( 255 * ( c.Alpha + 1 )) >> 8 );
+      ctl.Red = (XUInt8)(( ctl.Red * ( c.Red + 1 )) >> 8 );
+      ctl.Green = (XUInt8)(( ctl.Green * ( c.Green + 1 )) >> 8 );
+      ctl.Blue = (XUInt8)(( ctl.Blue * ( c.Blue + 1 )) >> 8 );
+      ctr.Alpha = (XUInt8)(( 255 * ( c.Alpha + 1 )) >> 8 );
+      ctr.Red = (XUInt8)(( ctr.Red * ( c.Red + 1 )) >> 8 );
+      ctr.Green = (XUInt8)(( ctr.Green * ( c.Green + 1 )) >> 8 );
+      ctr.Blue = (XUInt8)(( ctr.Blue * ( c.Blue + 1 )) >> 8 );
+      cbl.Alpha = (XUInt8)(( cbl.Alpha * ( c.Alpha + 1 )) >> 8 );
+      cbl.Red = (XUInt8)(( cbl.Red * ( c.Red + 1 )) >> 8 );
+      cbl.Green = (XUInt8)(( cbl.Green * ( c.Green + 1 )) >> 8 );
+      cbl.Blue = (XUInt8)(( cbl.Blue * ( c.Blue + 1 )) >> 8 );
+      cbr.Alpha = (XUInt8)(( 255 * ( c.Alpha + 1 )) >> 8 );
+      cbr.Red = (XUInt8)(( cbr.Red * ( c.Red + 1 )) >> 8 );
+      cbr.Green = (XUInt8)(( cbr.Green * ( c.Green + 1 )) >> 8 );
+      cbr.Blue = (XUInt8)(( cbr.Blue * ( c.Blue + 1 )) >> 8 );
+    }
 
   if ( aOpacity < 256 )
   {
@@ -523,6 +546,19 @@ void ViewsRectangle_Draw( ViewsRectangle _this, GraphicsCanvas aCanvas, XRect aC
   aOffset ), ctl, ctr, cbr, cbl, aBlend );
 }
 
+/* 'C' function for method : 'Views::Rectangle.OnSetColorBL()' */
+void ViewsRectangle_OnSetColorBL( ViewsRectangle _this, XColor value )
+{
+  if ( !EwCompColor( value, _this->ColorBL ))
+    return;
+
+  _this->ColorBL = value;
+
+  if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
+      == CoreViewStateVisible ))
+    CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
+}
+
 /* 'C' function for method : 'Views::Rectangle.OnSetColor()' */
 void ViewsRectangle_OnSetColor( ViewsRectangle _this, XColor value )
 {
@@ -534,6 +570,15 @@ void ViewsRectangle_OnSetColor( ViewsRectangle _this, XColor value )
   if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
       == CoreViewStateVisible ))
     CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
+}
+
+/* 'C' function for method : 'Views::Rectangle.OnSetVisible()' */
+void ViewsRectangle_OnSetVisible( ViewsRectangle _this, XBool value )
+{
+  if ( value )
+    CoreView__ChangeViewState( _this, CoreViewStateVisible, 0 );
+  else
+    CoreView__ChangeViewState( _this, 0, CoreViewStateVisible );
 }
 
 /* Variants derived from the class : 'Views::Rectangle' */
@@ -669,6 +714,21 @@ void ViewsBorder_OnSetColor( ViewsBorder _this, XColor value )
     CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
 }
 
+/* 'C' function for method : 'Views::Border.OnGetVisible()' */
+XBool ViewsBorder_OnGetVisible( ViewsBorder _this )
+{
+  return (( _this->Super2.viewState & CoreViewStateVisible ) == CoreViewStateVisible );
+}
+
+/* 'C' function for method : 'Views::Border.OnSetVisible()' */
+void ViewsBorder_OnSetVisible( ViewsBorder _this, XBool value )
+{
+  if ( value )
+    CoreView__ChangeViewState( _this, CoreViewStateVisible, 0 );
+  else
+    CoreView__ChangeViewState( _this, 0, CoreViewStateVisible );
+}
+
 /* Variants derived from the class : 'Views::Border' */
 EW_DEFINE_CLASS_VARIANTS( ViewsBorder )
 EW_END_OF_CLASS_VARIANTS( ViewsBorder )
@@ -701,6 +761,7 @@ void ViewsImage__Init( ViewsImage _this, XObject aLink, XHandle aArg )
   _this->_.VMT = EW_CLASS( ViewsImage );
 
   /* ... and initialize objects, variables, properties, etc. */
+  _this->Color = _Const0000;
 }
 
 /* Re-Initializer for the class 'Views::Image' */
@@ -748,13 +809,14 @@ void ViewsImage__Done( ViewsImage _this )
 void ViewsImage_Draw( ViewsImage _this, GraphicsCanvas aCanvas, XRect aClip, XPoint 
   aOffset, XInt32 aOpacity, XBool aBlend )
 {
-  XInt32 frameNr = 0;
+  XInt32 frameNr = _this->FrameNumber;
   XRect area;
   XPoint size;
   XColor ctl;
   XColor ctr;
   XColor cbr;
   XColor cbl;
+  XColor c;
   XInt32 opacity;
 
   if ( _this->animFrameNumber >= 0 )
@@ -770,17 +832,18 @@ void ViewsImage_Draw( ViewsImage _this, GraphicsCanvas aCanvas, XRect aClip, XPo
   if ( EwIsRectEmpty( area ))
     return;
 
+  c = _this->Color;
   opacity = ((( aOpacity + 1 ) * 255 ) >> 8 ) + 1;
   aBlend = (XBool)( aBlend && (( _this->Super2.viewState & CoreViewStateAlphaBlended ) 
   == CoreViewStateAlphaBlended ));
-  ctl = ctr = cbl = cbr = _Const0000;
+  ctl = ctr = cbl = cbr = c;
 
   if ( opacity < 256 )
   {
-    ctl.Alpha = (XUInt8)(( 255 * opacity ) >> 8 );
-    ctr.Alpha = (XUInt8)(( 255 * opacity ) >> 8 );
-    cbr.Alpha = (XUInt8)(( 255 * opacity ) >> 8 );
-    cbl.Alpha = (XUInt8)(( 255 * opacity ) >> 8 );
+    ctl.Alpha = (XUInt8)(( ctl.Alpha * opacity ) >> 8 );
+    ctr.Alpha = (XUInt8)(( ctr.Alpha * opacity ) >> 8 );
+    cbr.Alpha = (XUInt8)(( cbr.Alpha * opacity ) >> 8 );
+    cbl.Alpha = (XUInt8)(( cbl.Alpha * opacity ) >> 8 );
   }
 
   if ( !EwCompPoint( EwGetRectSize( area ), size ))
@@ -824,7 +887,7 @@ void ViewsImage_timerSlot( ViewsImage _this, XObject sender )
     period = _this->Bitmap->NoOfFrames * _this->Bitmap->FrameDelay;
 
   if ((( _this->timer != 0 ) && ( _this->animFrameNumber < 0 )) && ( period > 0 ))
-    _this->startTime = _this->timer->Time;
+    _this->startTime = _this->timer->Time - ( _this->FrameNumber * _this->Bitmap->FrameDelay );
 
   if (( _this->timer != 0 ) && ( period > 0 ))
   {
@@ -865,6 +928,19 @@ void ViewsImage_OnSetAutoSize( ViewsImage _this, XBool value )
     CoreRectView__OnSetBounds( _this, ViewsImage_GetContentArea( _this ));
 }
 
+/* 'C' function for method : 'Views::Image.OnSetColor()' */
+void ViewsImage_OnSetColor( ViewsImage _this, XColor value )
+{
+  if ( !EwCompColor( value, _this->Color ))
+    return;
+
+  _this->Color = value;
+
+  if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
+      == CoreViewStateVisible ))
+    CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
+}
+
 /* 'C' function for method : 'Views::Image.OnSetAnimated()' */
 void ViewsImage_OnSetAnimated( ViewsImage _this, XBool value )
 {
@@ -888,6 +964,25 @@ void ViewsImage_OnSetAnimated( ViewsImage _this, XBool value )
       0 );
     EwPostSignal( EwNewSlot( _this, ViewsImage_timerSlot ), ((XObject)_this ));
   }
+
+  if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
+      == CoreViewStateVisible ))
+    CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
+}
+
+/* 'C' function for method : 'Views::Image.OnSetFrameNumber()' */
+void ViewsImage_OnSetFrameNumber( ViewsImage _this, XInt32 value )
+{
+  if ( value < 0 )
+    value = 0;
+
+  if (( value == _this->FrameNumber ) && ( _this->animFrameNumber == -1 ))
+    return;
+
+  _this->FrameNumber = value;
+
+  if ( _this->timer == 0 )
+    _this->animFrameNumber = -1;
 
   if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
       == CoreViewStateVisible ))
@@ -1483,6 +1578,15 @@ void ViewsText_OnSetColor( ViewsText _this, XColor value )
   if (( _this->Super2.Owner != 0 ) && (( _this->Super2.viewState & CoreViewStateVisible ) 
       == CoreViewStateVisible ))
     CoreGroup__InvalidateArea( _this->Super2.Owner, _this->Super1.Bounds );
+}
+
+/* 'C' function for method : 'Views::Text.OnSetEmbedded()' */
+void ViewsText_OnSetEmbedded( ViewsText _this, XBool value )
+{
+  if ( value )
+    CoreView__ChangeViewState( _this, CoreViewStateEmbedded, 0 );
+  else
+    CoreView__ChangeViewState( _this, 0, CoreViewStateEmbedded );
 }
 
 /* The method IsBaseDirectionRTL() returns 'true' if the text specified in @String 

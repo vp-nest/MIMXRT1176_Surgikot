@@ -100,6 +100,8 @@
 
 /* Deklaration of class : 'Application::SettingsInputField' */
 EW_DEFINE_FIELDS( ApplicationSettingsInputField, CoreGroup )
+  EW_PROPERTY( OnSelected,      XSlot )
+  EW_PROPERTY( OnEditStart,     XSlot )
   EW_OBJECT  ( Rectangle,       ViewsRectangle )
   EW_OBJECT  ( Border,          ViewsBorder )
   EW_OBJECT  ( TextEditor,      ApplicationTextEditor )
@@ -132,11 +134,17 @@ EW_DEFINE_METHODS( ApplicationSettingsInputField, CoreGroup )
   EW_METHOD( OnSetFocus,        void )( CoreGroup _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreGroup _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreGroup _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreGroup _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreGroup _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreGroup _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreGroup _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( CoreGroup _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreGroup _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreGroup _this, CoreView aView, XPoint 
+    aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreGroup _this, CoreView aView, XSet 
+    aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreGroup _this, CoreView aView, XSet 
     aFilter )
   EW_METHOD( RestackTop,        void )( CoreGroup _this, CoreView aView )
@@ -177,6 +185,18 @@ void ApplicationSettingsInputField_OnSetShowPassword( ApplicationSettingsInputFi
 
 /* 'C' function for method : 'Application::SettingsInputField.onEyePressed()' */
 void ApplicationSettingsInputField_onEyePressed( ApplicationSettingsInputField _this, 
+  XObject sender );
+
+/* 'C' function for method : 'Application::SettingsInputField.OnSetOnSelected()' */
+void ApplicationSettingsInputField_OnSetOnSelected( ApplicationSettingsInputField _this, 
+  XSlot value );
+
+/* 'C' function for method : 'Application::SettingsInputField.OnSetOnEditStart()' */
+void ApplicationSettingsInputField_OnSetOnEditStart( ApplicationSettingsInputField _this, 
+  XSlot value );
+
+/* 'C' function for method : 'Application::SettingsInputField.slotTextEditStart()' */
+void ApplicationSettingsInputField_slotTextEditStart( ApplicationSettingsInputField _this, 
   XObject sender );
 
 #ifdef __cplusplus
