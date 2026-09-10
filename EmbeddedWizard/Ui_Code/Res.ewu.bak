@@ -4,7 +4,7 @@ $rect <460,20,660,60>
 $output false
 resource Resources::Bitmap TitilBarImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\title_bar.png;
+  attr bitmapfile FileName = .\res\title_bar.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -16,7 +16,7 @@ $rect <460,70,660,110>
 $output false
 resource Resources::Bitmap ButtomBarImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\buttom_bar.png;
+  attr bitmapfile FileName = .\res\buttom_bar.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -52,7 +52,7 @@ $rect <460,240,660,280>
 $output false
 resource Resources::Bitmap NumBtDisabledImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\num_button_disabled.png;
+  attr bitmapfile FileName = .\res\num_button_disabled.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -64,7 +64,7 @@ $rect <460,340,660,380>
 $output false
 resource Resources::Bitmap SubmitBtNormalImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\submit_button_normal.png;
+  attr bitmapfile FileName = .\res\submit_button_normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -76,7 +76,7 @@ $rect <460,380,660,420>
 $output false
 resource Resources::Bitmap SubmitBtPressedImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\submit_button_pressed.png;
+  attr bitmapfile FileName = .\res\submit_button_pressed.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -88,7 +88,7 @@ $rect <460,420,660,460>
 $output false
 resource Resources::Bitmap SubmitBtDisabledImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\submit_button_disabled.png;
+  attr bitmapfile FileName = .\res\submit_button_disabled.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -100,7 +100,7 @@ $rect <460,480,660,520>
 $output false
 resource Resources::Bitmap PassFilledImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\dot_filled.png;
+  attr bitmapfile FileName = .\res\dot_filled.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -112,7 +112,7 @@ $rect <460,520,660,560>
 $output false
 resource Resources::Bitmap PassPlainImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\dot_plain.png;
+  attr bitmapfile FileName = .\res\dot_plain.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -124,7 +124,7 @@ $rect <460,570,660,610>
 $output false
 resource Resources::Bitmap LockIconImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\lock_icon.png;
+  attr bitmapfile FileName = .\res\lock_icon.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -136,7 +136,7 @@ $rect <810,20,1010,60>
 $output false
 resource Resources::Bitmap AddProfileNormalImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Add_Profile_button_normal.png;
+  attr bitmapfile FileName = .\res\Profile\Add_Profile_button_normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -148,7 +148,7 @@ $rect <810,70,1010,110>
 $output false
 resource Resources::Bitmap AddProfilePressedImg
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Add_Profile_button_pressed.png;
+  attr bitmapfile FileName = .\res\Profile\Add_Profile_button_pressed.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -166,7 +166,7 @@ $rect <810,130,1010,170>
 $output false
 resource Resources::Bitmap ListItemBgNormal
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_BG_Normal.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_BG_Normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -178,7 +178,7 @@ $rect <810,170,1010,210>
 $output false
 resource Resources::Bitmap ListItemBgClicked
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_BG_Clicked.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_BG_Clicked.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -190,7 +190,7 @@ $rect <810,230,1010,270>
 $output false
 resource Resources::Bitmap EditNormal
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Edit_Normal.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Edit_Normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -202,7 +202,7 @@ $rect <810,270,1010,310>
 $output false
 resource Resources::Bitmap EditPressed
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Edit_Pressed.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Edit_Pressed.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -214,7 +214,7 @@ $rect <1040,20,1240,60>
 $output false
 resource Resources::Bitmap RadioBtNormal
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Radio_BT_Normal.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Radio_BT_Normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -226,7 +226,7 @@ $rect <1040,60,1240,100>
 $output false
 resource Resources::Bitmap RadioBtClicked
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Radio_BT_Clicked.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Radio_BT_Clicked.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -238,7 +238,7 @@ $rect <1040,120,1240,160>
 $output false
 resource Resources::Bitmap ButtomStartBtNormal
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Buttom_Bar_Start_BT_Normal.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Start_BT_Normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -250,7 +250,7 @@ $rect <1040,160,1240,200>
 $output false
 resource Resources::Bitmap ButtomStartBtClicked
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Buttom_Bar_Start_BT_Pressed.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Start_BT_Pressed.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -262,7 +262,7 @@ $rect <1040,210,1240,250>
 $output false
 resource Resources::Bitmap ButtomBG
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Buttom_Bar_BG.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_BG.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -274,7 +274,7 @@ $rect <1040,260,1250,300>
 $output false
 resource Resources::Bitmap ButtomSetingsBtNormal
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Buttom_Bar_Setings_BT_Normal.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Setings_BT_Normal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -286,7 +286,7 @@ $rect <1040,300,1260,340>
 $output false
 resource Resources::Bitmap ButtomSetingsBtClicked
 {
-  attr bitmapfile FileName = D:\Projects\surgikot\UI\res\Profile\Profile_Buttom_Bar_Setings_BT_Pressed.png;
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Setings_BT_Pressed.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -494,6 +494,18 @@ resource Resources::Bitmap Settings_Custom_Pressed_Button
   attr bitmapmode Mode = Default;
 }
 
+$rect <1010,730,1210,770>
+$output false
+resource Resources::Bitmap ImgProcedureCompleted
+{
+  attr bitmapfile FileName = .\res\SurgeryCompletedTick.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
 $rect <470,900,670,940>
 $output false
 resource Resources::Bitmap KeyBoardGenKey
@@ -506,11 +518,59 @@ resource Resources::Bitmap KeyBoardGenKey
   attr bitmapmode Mode = Default;
 }
 
-$rect <1010,730,1210,770>
+$rect <470,830,670,870>
 $output false
-resource Resources::Bitmap ImgProcedureCompleted
+resource Resources::Bitmap Settings_Custom_Button1
 {
-  attr bitmapfile FileName = .\res\SurgeryCompletedTick.png;
+  attr bitmapfile FileName = .\res\DefaultSaveButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <980,780,1180,820>
+$output false
+resource Resources::Bitmap Settings_CurvedRect
+{
+  attr bitmapfile FileName = .\res\CurvedRect.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <980,830,1180,870>
+$output false
+resource Resources::Bitmap Settings_Arrow
+{
+  attr bitmapfile FileName = .\res\right-arrow.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <750,830,950,870>
+$output false
+resource Resources::Bitmap Settings_Power_ON
+{
+  attr bitmapfile FileName = .\res\powerOnStatus.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1180,820,1380,860>
+$output false
+resource Resources::Bitmap Settings_Power_off
+{
+  attr bitmapfile FileName = .\res\powerOffStatus.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;

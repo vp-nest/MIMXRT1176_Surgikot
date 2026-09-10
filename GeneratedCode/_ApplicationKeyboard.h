@@ -42,7 +42,7 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-#include "_ApplicationAlphaNumKeyboard1.h"
+#include "_ApplicationAlphaNumKeyboard.h"
 #include "_CoreGroup.h"
 #include "_EffectsInt32Effect.h"
 
@@ -97,7 +97,7 @@
 
 /* Deklaration of class : 'Application::Keyboard' */
 EW_DEFINE_FIELDS( ApplicationKeyboard, CoreGroup )
-  EW_OBJECT  ( AlphaNumKeyboard1, ApplicationAlphaNumKeyboard1 )
+  EW_OBJECT  ( AlphaNumKeyboard1, ApplicationAlphaNumKeyboard )
   EW_OBJECT  ( moveEffect,      EffectsInt32Effect )
   EW_PROPERTY( Offset,          XInt32 )
 EW_END_OF_FIELDS( ApplicationKeyboard )

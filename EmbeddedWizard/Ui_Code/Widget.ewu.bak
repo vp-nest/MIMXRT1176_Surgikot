@@ -2005,37 +2005,6 @@ class SettingsDiagnosticList : Core::Group
   $rect <680,150,880,190>
   var int8 ItemNo;
 
-  $rect <780,229,980,269>
-  property bool ImageVisible = true;
-
-  $rect <780,269,980,309>
-  onset ImageVisible
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure ImageVisible == value )
-      return;
-
-    // Remember the property's new value.
-    pure ImageVisible = value;
-
-    // TO DO:
-
-    this.SettingsImage.Visible = false;
-    this.H1.Bounds =  <17,25,796,53>;
-    this.H2.Bounds = <17,57,796,75>;
-
-
-
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <780,309,980,349>
-  onget ImageVisible
-  {
-    return pure ImageVisible;
-  }
-
   $rect <20,20,160,60>
   object Views::Image Image
   {

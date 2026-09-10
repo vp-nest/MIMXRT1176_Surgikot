@@ -25,7 +25,7 @@
 *******************************************************************************/
 
 #include "ewlocale.h"
-#include "_ApplicationAlphaNumKeyboard1.h"
+#include "_ApplicationAlphaNumKeyboard.h"
 #include "_ApplicationApplication.h"
 #include "_ApplicationDeviceClass.h"
 #include "_ApplicationKeyboard.h"
@@ -4131,7 +4131,7 @@ void ApplicationSettingsChangePassword__Init( ApplicationSettingsChangePassword 
   ViewsText__Init( &_this->Text3, &_this->_.XObject, 0 );
   ApplicationSettingsInputField__Init( &_this->ConNewPass, &_this->_.XObject, 0 );
   ViewsText__Init( &_this->Text4, &_this->_.XObject, 0 );
-  ApplicationAlphaNumKeyboard1__Init( &_this->AlphaNumKeyboard1, &_this->_.XObject, 0 );
+  ApplicationAlphaNumKeyboard__Init( &_this->AlphaNumKeyboard1, &_this->_.XObject, 0 );
   EffectsInt32Effect__Init( &_this->moveEffect, &_this->_.XObject, 0 );
   ApplicationKeyboard__Init( &_this->Keyboard, &_this->_.XObject, 0 );
 
@@ -4290,7 +4290,7 @@ void ApplicationSettingsChangePassword__ReInit( ApplicationSettingsChangePasswor
   ViewsText__ReInit( &_this->Text3 );
   ApplicationSettingsInputField__ReInit( &_this->ConNewPass );
   ViewsText__ReInit( &_this->Text4 );
-  ApplicationAlphaNumKeyboard1__ReInit( &_this->AlphaNumKeyboard1 );
+  ApplicationAlphaNumKeyboard__ReInit( &_this->AlphaNumKeyboard1 );
   EffectsInt32Effect__ReInit( &_this->moveEffect );
   ApplicationKeyboard__ReInit( &_this->Keyboard );
 }
@@ -4321,7 +4321,7 @@ void ApplicationSettingsChangePassword__Done( ApplicationSettingsChangePassword 
   ViewsText__Done( &_this->Text3 );
   ApplicationSettingsInputField__Done( &_this->ConNewPass );
   ViewsText__Done( &_this->Text4 );
-  ApplicationAlphaNumKeyboard1__Done( &_this->AlphaNumKeyboard1 );
+  ApplicationAlphaNumKeyboard__Done( &_this->AlphaNumKeyboard1 );
   EffectsInt32Effect__Done( &_this->moveEffect );
   ApplicationKeyboard__Done( &_this->Keyboard );
 
@@ -5354,14 +5354,14 @@ EW_DEFINE_CLASS( ApplicationProfileSurgeryCompletedScreen, CoreGroup, SettingsIm
   CoreGroup_Add,
 EW_END_OF_CLASS( ApplicationProfileSurgeryCompletedScreen )
 
-/* Initializer for the class 'Application::AlphaNumKeyboard1' */
-void ApplicationAlphaNumKeyboard1__Init( ApplicationAlphaNumKeyboard1 _this, XObject aLink, XHandle aArg )
+/* Initializer for the class 'Application::AlphaNumKeyboard' */
+void ApplicationAlphaNumKeyboard__Init( ApplicationAlphaNumKeyboard _this, XObject aLink, XHandle aArg )
 {
   /* At first initialize the super class ... */
   TemplatesAlphaNumKeyboard__Init( &_this->_.Super, aLink, aArg );
 
   /* Allow the Immediate Garbage Collection to evalute the members of this class. */
-  _this->_.XObject._.GCT = EW_CLASS_GCT( ApplicationAlphaNumKeyboard1 );
+  _this->_.XObject._.GCT = EW_CLASS_GCT( ApplicationAlphaNumKeyboard );
 
   /* ... then construct all embedded objects */
   CoreTimer__Init( &_this->FlashTimer, &_this->_.XObject, 0 );
@@ -5428,7 +5428,7 @@ void ApplicationAlphaNumKeyboard1__Init( ApplicationAlphaNumKeyboard1 _this, XOb
   ViewsImage__Init( &_this->ImageKeyShiftRight, &_this->_.XObject, 0 );
 
   /* Setup the VMT pointer */
-  _this->_.VMT = EW_CLASS( ApplicationAlphaNumKeyboard1 );
+  _this->_.VMT = EW_CLASS( ApplicationAlphaNumKeyboard );
 
   /* ... and initialize objects, variables, properties, etc. */
   CoreRectView__OnSetBounds( _this, _Const0123 );
@@ -5746,10 +5746,10 @@ void ApplicationAlphaNumKeyboard1__Init( ApplicationAlphaNumKeyboard1 _this, XOb
   CoreGroup__Add( _this, ((CoreView)&_this->ImageKeyClear ), 0 );
   CoreGroup__Add( _this, ((CoreView)&_this->ImageKeyEnter ), 0 );
   CoreGroup__Add( _this, ((CoreView)&_this->ImageKeyShiftRight ), 0 );
-  _this->FlashTimer.OnTrigger = EwNewSlot( _this, ApplicationAlphaNumKeyboard1_onFlashTimer );
-  _this->TouchHandler.OnDrag = EwNewSlot( _this, ApplicationAlphaNumKeyboard1_onDragTouch );
-  _this->TouchHandler.OnRelease = EwNewSlot( _this, ApplicationAlphaNumKeyboard1_onReleaseTouch );
-  _this->TouchHandler.OnPress = EwNewSlot( _this, ApplicationAlphaNumKeyboard1_onPressTouch );
+  _this->FlashTimer.OnTrigger = EwNewSlot( _this, ApplicationAlphaNumKeyboard_onFlashTimer );
+  _this->TouchHandler.OnDrag = EwNewSlot( _this, ApplicationAlphaNumKeyboard_onDragTouch );
+  _this->TouchHandler.OnRelease = EwNewSlot( _this, ApplicationAlphaNumKeyboard_onReleaseTouch );
+  _this->TouchHandler.OnPress = EwNewSlot( _this, ApplicationAlphaNumKeyboard_onPressTouch );
   ViewsText_OnSetFont( &_this->TextKey01, EwLoadResource( &ApplicationFontBold28, 
   ResourcesFont ));
   ViewsText_OnSetFont( &_this->TextKey02, EwLoadResource( &ApplicationFontBold28, 
@@ -5858,11 +5858,11 @@ void ApplicationAlphaNumKeyboard1__Init( ApplicationAlphaNumKeyboard1 _this, XOb
   ResourcesBitmap ));
 
   /* Call the user defined constructor */
-  ApplicationAlphaNumKeyboard1_Init( _this, aArg );
+  ApplicationAlphaNumKeyboard_Init( _this, aArg );
 }
 
-/* Re-Initializer for the class 'Application::AlphaNumKeyboard1' */
-void ApplicationAlphaNumKeyboard1__ReInit( ApplicationAlphaNumKeyboard1 _this )
+/* Re-Initializer for the class 'Application::AlphaNumKeyboard' */
+void ApplicationAlphaNumKeyboard__ReInit( ApplicationAlphaNumKeyboard _this )
 {
   /* At first re-initialize the super class ... */
   TemplatesAlphaNumKeyboard__ReInit( &_this->_.Super );
@@ -5932,8 +5932,8 @@ void ApplicationAlphaNumKeyboard1__ReInit( ApplicationAlphaNumKeyboard1 _this )
   ViewsImage__ReInit( &_this->ImageKeyShiftRight );
 }
 
-/* Finalizer method for the class 'Application::AlphaNumKeyboard1' */
-void ApplicationAlphaNumKeyboard1__Done( ApplicationAlphaNumKeyboard1 _this )
+/* Finalizer method for the class 'Application::AlphaNumKeyboard' */
+void ApplicationAlphaNumKeyboard__Done( ApplicationAlphaNumKeyboard _this )
 {
   /* Finalize this class */
   _this->_.Super._.VMT = EW_CLASS( TemplatesAlphaNumKeyboard );
@@ -6009,13 +6009,13 @@ void ApplicationAlphaNumKeyboard1__Done( ApplicationAlphaNumKeyboard1 _this )
 /* The method Init() is invoked automatically after the component has been created. 
    This method can be overridden and filled with logic containing additional initialization 
    statements. */
-void ApplicationAlphaNumKeyboard1_Init( ApplicationAlphaNumKeyboard1 _this, XHandle 
+void ApplicationAlphaNumKeyboard_Init( ApplicationAlphaNumKeyboard _this, XHandle 
   aArg )
 {
   /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
   EW_UNUSED_ARG( aArg );
 
-  ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( &_Const0163 ));
+  ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( &_Const0163 ));
 }
 
 /* The method UpdateViewState() is invoked automatically after the state of the 
@@ -6032,7 +6032,7 @@ void ApplicationAlphaNumKeyboard1_Init( ApplicationAlphaNumKeyboard1 _this, XHan
    state 'on' or 'off' and change accordingly the location of the slider, etc.
    Usually, this method will be invoked automatically by the framework. Optionally 
    you can request its invocation by using the method @InvalidateViewState(). */
-void ApplicationAlphaNumKeyboard1_UpdateViewState( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_UpdateViewState( ApplicationAlphaNumKeyboard _this, 
   XSet aState )
 {
   CoreView isKeyView;
@@ -6088,7 +6088,7 @@ void ApplicationAlphaNumKeyboard1_UpdateViewState( ApplicationAlphaNumKeyboard1 
    the keys accordingly their order.
    The order in which the characters are listed in the string corresponds to the 
    z-order of the 'text' views 'TextKey01' .. 'TextKey47'. */
-void ApplicationAlphaNumKeyboard1_loadLayoutFromString( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_loadLayoutFromString( ApplicationAlphaNumKeyboard _this, 
   XString aLayoutString )
 {
   CoreView view = ((CoreView)&_this->TextKey01 );
@@ -6116,7 +6116,7 @@ void ApplicationAlphaNumKeyboard1_loadLayoutFromString( ApplicationAlphaNumKeybo
 
 /* This internal slot method is called when the recently pressed key should be activated. 
    This is when the user presses on a key and then releases the finger again. */
-void ApplicationAlphaNumKeyboard1_activateKey( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_activateKey( ApplicationAlphaNumKeyboard _this, 
   XObject sender )
 {
   ViewsText textKeyView;
@@ -6152,10 +6152,10 @@ void ApplicationAlphaNumKeyboard1_activateKey( ApplicationAlphaNumKeyboard1 _thi
             ViewsBorder_OnSetVisible( &_this->ActiveKeyCapsLock, 0 );
 
             if ( ViewsBorder_OnGetVisible( &_this->ActiveKeyShiftLeft ))
-              ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( 
+              ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( 
               &_Const0166 ));
             else
-              ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( 
+              ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( 
               &_Const0163 ));
           }
           else
@@ -6167,10 +6167,10 @@ void ApplicationAlphaNumKeyboard1_activateKey( ApplicationAlphaNumKeyboard1 _thi
               ViewsBorder_OnSetVisible( &_this->ActiveKeyShiftRight, 0 );
 
               if ( ViewsBorder_OnGetVisible( &_this->ActiveKeyCapsLock ))
-                ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( 
+                ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( 
                 &_Const0166 ));
               else
-                ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( 
+                ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( 
                 &_Const0163 ));
             }
 
@@ -6179,7 +6179,7 @@ void ApplicationAlphaNumKeyboard1_activateKey( ApplicationAlphaNumKeyboard1 _thi
   {
     ViewsBorder_OnSetVisible( &_this->ActiveKeyShiftLeft, 0 );
     ViewsBorder_OnSetVisible( &_this->ActiveKeyShiftRight, 0 );
-    ApplicationAlphaNumKeyboard1_loadLayoutFromString( _this, EwLoadString( &_Const0163 ));
+    ApplicationAlphaNumKeyboard_loadLayoutFromString( _this, EwLoadString( &_Const0163 ));
   }
 
   if ( charCode != 0x0000 )
@@ -6201,20 +6201,20 @@ void ApplicationAlphaNumKeyboard1_activateKey( ApplicationAlphaNumKeyboard1 _thi
 
 /* This internal slot method is called when the '@FlashTimer' is expired. It ends 
    the short flash feedback effect. */
-void ApplicationAlphaNumKeyboard1_onFlashTimer( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_onFlashTimer( ApplicationAlphaNumKeyboard _this, 
   XObject sender )
 {
   /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
   EW_UNUSED_ARG( sender );
 
   CoreGroup_InvalidateViewState((CoreGroup)_this );
-  EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard1_activateKey ), ((XObject)_this ));
+  EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard_activateKey ), ((XObject)_this ));
 }
 
 /* This internal slot method is called when the user drags the finger while pressing 
    the keyboard. This updates the keyboard to highlight the key at the new touch 
    position. */
-void ApplicationAlphaNumKeyboard1_onDragTouch( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_onDragTouch( ApplicationAlphaNumKeyboard _this, 
   XObject sender )
 {
   /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
@@ -6226,7 +6226,7 @@ void ApplicationAlphaNumKeyboard1_onDragTouch( ApplicationAlphaNumKeyboard1 _thi
 
 /* This internal slot method is called when the user releases the touch screen after 
    touching the keyboard area. This activates the key the user has touched. */
-void ApplicationAlphaNumKeyboard1_onReleaseTouch( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_onReleaseTouch( ApplicationAlphaNumKeyboard _this, 
   XObject sender )
 {
   /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
@@ -6238,13 +6238,13 @@ void ApplicationAlphaNumKeyboard1_onReleaseTouch( ApplicationAlphaNumKeyboard1 _
     return;
 
   if ( _this->TouchHandler.HoldPeriod >= _this->FlashTimer.Begin )
-    EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard1_activateKey ), ((XObject)_this ));
+    EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard_activateKey ), ((XObject)_this ));
   else
     CoreTimer_OnSetEnabled( &_this->FlashTimer, 1 );
 }
 
 /* This internal slot method is called when the user touches the keyboard area. */
-void ApplicationAlphaNumKeyboard1_onPressTouch( ApplicationAlphaNumKeyboard1 _this, 
+void ApplicationAlphaNumKeyboard_onPressTouch( ApplicationAlphaNumKeyboard _this, 
   XObject sender )
 {
   /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
@@ -6254,21 +6254,21 @@ void ApplicationAlphaNumKeyboard1_onPressTouch( ApplicationAlphaNumKeyboard1 _th
 
   if ( _this->FlashTimer.Enabled )
   {
-    EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard1_activateKey ), ((XObject)_this ));
+    EwSignal( EwNewSlot( _this, ApplicationAlphaNumKeyboard_activateKey ), ((XObject)_this ));
     CoreTimer_OnSetEnabled( &_this->FlashTimer, 0 );
   }
 
   _this->recentPosition = _this->TouchHandler.CurrentPos;
 }
 
-/* Variants derived from the class : 'Application::AlphaNumKeyboard1' */
-EW_DEFINE_CLASS_VARIANTS( ApplicationAlphaNumKeyboard1 )
-EW_END_OF_CLASS_VARIANTS( ApplicationAlphaNumKeyboard1 )
+/* Variants derived from the class : 'Application::AlphaNumKeyboard' */
+EW_DEFINE_CLASS_VARIANTS( ApplicationAlphaNumKeyboard )
+EW_END_OF_CLASS_VARIANTS( ApplicationAlphaNumKeyboard )
 
-/* Virtual Method Table (VMT) for the class : 'Application::AlphaNumKeyboard1' */
-EW_DEFINE_CLASS( ApplicationAlphaNumKeyboard1, TemplatesAlphaNumKeyboard, keyView, 
+/* Virtual Method Table (VMT) for the class : 'Application::AlphaNumKeyboard' */
+EW_DEFINE_CLASS( ApplicationAlphaNumKeyboard, TemplatesAlphaNumKeyboard, keyView, 
                  FlashTimer, FlashTimer, FlashTimer, recentPosition, recentPosition, 
-                 "Application::AlphaNumKeyboard1" )
+                 "Application::AlphaNumKeyboard" )
   CoreRectView_initLayoutContext,
   CoreView_GetRoot,
   CoreGroup_Draw,
@@ -6286,7 +6286,7 @@ EW_DEFINE_CLASS( ApplicationAlphaNumKeyboard1, TemplatesAlphaNumKeyboard, keyVie
   CoreGroup_IsActiveDialog,
   CoreGroup_DispatchEvent,
   CoreGroup_BroadcastEvent,
-  ApplicationAlphaNumKeyboard1_UpdateViewState,
+  ApplicationAlphaNumKeyboard_UpdateViewState,
   CoreGroup_InvalidateArea,
   CoreGroup_FindViewAtPosition,
   CoreGroup_FindNextView,
@@ -6294,7 +6294,7 @@ EW_DEFINE_CLASS( ApplicationAlphaNumKeyboard1, TemplatesAlphaNumKeyboard, keyVie
   CoreGroup_RestackTop,
   CoreGroup_Remove,
   CoreGroup_Add,
-EW_END_OF_CLASS( ApplicationAlphaNumKeyboard1 )
+EW_END_OF_CLASS( ApplicationAlphaNumKeyboard )
 
 /* Initializer for the class 'Application::Keyboard' */
 void ApplicationKeyboard__Init( ApplicationKeyboard _this, XObject aLink, XHandle aArg )
@@ -6306,7 +6306,7 @@ void ApplicationKeyboard__Init( ApplicationKeyboard _this, XObject aLink, XHandl
   _this->_.XObject._.GCT = EW_CLASS_GCT( ApplicationKeyboard );
 
   /* ... then construct all embedded objects */
-  ApplicationAlphaNumKeyboard1__Init( &_this->AlphaNumKeyboard1, &_this->_.XObject, 0 );
+  ApplicationAlphaNumKeyboard__Init( &_this->AlphaNumKeyboard1, &_this->_.XObject, 0 );
   EffectsInt32Effect__Init( &_this->moveEffect, &_this->_.XObject, 0 );
 
   /* Setup the VMT pointer */
@@ -6331,7 +6331,7 @@ void ApplicationKeyboard__ReInit( ApplicationKeyboard _this )
   CoreGroup__ReInit( &_this->_.Super );
 
   /* ... then re-construct all embedded objects */
-  ApplicationAlphaNumKeyboard1__ReInit( &_this->AlphaNumKeyboard1 );
+  ApplicationAlphaNumKeyboard__ReInit( &_this->AlphaNumKeyboard1 );
   EffectsInt32Effect__ReInit( &_this->moveEffect );
 }
 
@@ -6342,7 +6342,7 @@ void ApplicationKeyboard__Done( ApplicationKeyboard _this )
   _this->_.Super._.VMT = EW_CLASS( CoreGroup );
 
   /* Finalize all embedded objects */
-  ApplicationAlphaNumKeyboard1__Done( &_this->AlphaNumKeyboard1 );
+  ApplicationAlphaNumKeyboard__Done( &_this->AlphaNumKeyboard1 );
   EffectsInt32Effect__Done( &_this->moveEffect );
 
   /* Don't forget to deinitialize the super class ... */

@@ -42,7 +42,7 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-#include "_ApplicationAlphaNumKeyboard1.h"
+#include "_ApplicationAlphaNumKeyboard.h"
 #include "_ApplicationKeyboard.h"
 #include "_ApplicationSettingsInputField.h"
 #include "_ApplicationTitleBar.h"
@@ -141,7 +141,7 @@ EW_DEFINE_FIELDS( ApplicationSettingsChangePassword, CoreGroup )
   EW_OBJECT  ( Text3,           ViewsText )
   EW_OBJECT  ( ConNewPass,      ApplicationSettingsInputField )
   EW_OBJECT  ( Text4,           ViewsText )
-  EW_OBJECT  ( AlphaNumKeyboard1, ApplicationAlphaNumKeyboard1 )
+  EW_OBJECT  ( AlphaNumKeyboard1, ApplicationAlphaNumKeyboard )
   EW_OBJECT  ( moveEffect,      EffectsInt32Effect )
   EW_OBJECT  ( Keyboard,        ApplicationKeyboard )
 EW_END_OF_FIELDS( ApplicationSettingsChangePassword )

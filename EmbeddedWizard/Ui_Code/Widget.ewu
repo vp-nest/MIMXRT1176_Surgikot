@@ -1608,7 +1608,7 @@ class CustomButton : Core::Group
   property slot OnRelease;
 }
 
-$rect <40,140,240,180>
+$rect <50,130,250,170>
 $output false
 class CustomRadioButton : Core::Group
 {
@@ -1850,7 +1850,7 @@ class CustomRadioButton : Core::Group
   }
 }
 
-$rect <530,-20,730,20>
+$rect <50,178,250,218>
 $output false
 class SettingsDiagnosticList : Core::Group
 {
@@ -2032,7 +2032,7 @@ class SettingsDiagnosticList : Core::Group
   }
 }
 
-$rect <532,90,732,130>
+$rect <310,182,510,222>
 $output false
 class StatusLabel : Core::Group
 {
@@ -2118,4 +2118,10 @@ class StatusLabel : Core::Group
   {
     return pure Status;
   }
+}
+
+// This is an annotation.
+note group Note
+{
+  attr Bounds = <-19,-80,781,290>;
 }

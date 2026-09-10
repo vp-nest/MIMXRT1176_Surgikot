@@ -226,7 +226,7 @@ class TitleBar : Core::Group
   }
 }
 
-$rect <1690,120,1890,160>
+$rect <1680,120,1880,160>
 $output false
 resource Resources::Font FontNormal22
 {
@@ -3372,7 +3372,7 @@ class TextEditor : Templates::TextEditor
   }
 }
 
-$rect <1450,180,1650,220>
+$rect <1440,180,1640,220>
 $output false
 resource Resources::Font FontNormal28
 {
@@ -3388,7 +3388,7 @@ resource Resources::Font FontNormal28
   attr fontrowdistance RowDistance;
 }
 
-$rect <1450,240,1650,280>
+$rect <1440,240,1640,280>
 $output false
 resource Resources::Font FontNormal32
 {
@@ -3404,7 +3404,7 @@ resource Resources::Font FontNormal32
   attr fontrowdistance RowDistance;
 }
 
-$rect <1690,240,1890,280>
+$rect <1680,240,1880,280>
 $output false
 resource Resources::Font FontBold32
 {
@@ -3420,7 +3420,7 @@ resource Resources::Font FontBold32
   attr fontrowdistance RowDistance;
 }
 
-$rect <1690,180,1890,220>
+$rect <1680,180,1880,220>
 $output false
 resource Resources::Font FontBold28
 {
@@ -3436,7 +3436,7 @@ resource Resources::Font FontBold28
   attr fontrowdistance RowDistance;
 }
 
-$rect <1450,120,1650,160>
+$rect <1440,120,1640,160>
 $output false
 resource Resources::Font FontBold22
 {
@@ -3545,7 +3545,7 @@ class ConfirmationDialog : Core::Group
   }
 }
 
-$rect <-169,289,31,329>
+$rect <1091,149,1291,189>
 inline Inline
 {
   //#include "DeviceDriver.h"
@@ -3566,7 +3566,7 @@ inline Inline
 
 }
 
-$rect <-169,249,31,289>
+$rect <1091,109,1291,149>
 $output false
 class DeviceClass : Templates::DeviceClass
 {
@@ -3814,27 +3814,8 @@ class DeviceClass : Templates::DeviceClass
   }
 }
 
-$rect <-170,340,30,380>
+$rect <1090,200,1290,240>
 autoobject Application::DeviceClass Device;
-
-// The class 'Application::DeviceClass' implements the interface between the GUI \
-// application and the device. Within the class you can react to system events sent \
-// by the device, exchange data with the device or send commands to the device. You \
-// are completely free in the design of this interface.
-// 
-// The object 'Device' represents the instance of the device interface. It exists \
-// for your convenience. As an autoobject it is globally available for all GUI components \
-// within your project.
-// 
-// The inline code member allows you to include external header files or add type \
-// definitions needed by the implementation of 'Application::DeviceClass'.
-// 
-// More details inside the members.
-// See also: https://doc.embedded-wizard.de/device-class-and-device-driver
-note legend Note3
-{
-  attr Bounds = <-469,480,31,750>;
-}
 
 $rect <490,160,710,200>
 $output false
@@ -4726,7 +4707,7 @@ class SettingsChangePassword : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::AlphaNumKeyboard1 AlphaNumKeyboard1
+  object Application::AlphaNumKeyboard AlphaNumKeyboard1
   {
     preset Bounds = <84,1788,1360,2198>;
     preset Enabled = false;
@@ -4828,7 +4809,7 @@ class SettingsChangePassword : Core::Group
   }
 }
 
-$rect <490,310,710,350>
+$rect <490,280,710,320>
 $output false
 class SettingsDateTime : Core::Group
 {
@@ -5175,7 +5156,7 @@ class SettingsDateTime : Core::Group
   }
 }
 
-$rect <1450,300,1650,340>
+$rect <1440,300,1640,340>
 $output false
 resource Resources::Font FontNormal33
 {
@@ -5191,7 +5172,7 @@ resource Resources::Font FontNormal33
   attr fontrowdistance RowDistance;
 }
 
-$rect <490,260,720,300>
+$rect <190,240,420,280>
 $output false
 class ProfileSurgeryInProgressScreen : Core::Group
 {
@@ -5459,7 +5440,7 @@ class ProfileSurgeryInProgressScreen : Core::Group
   var Application::Settings Variable;
 }
 
-$rect <490,360,720,400>
+$rect <480,330,710,370>
 $output false
 class ProfileSurgeryCompletedScreen : Core::Group
 {
@@ -5691,24 +5672,10 @@ class ProfileSurgeryCompletedScreen : Core::Group
   }
 }
 
-$rect <200,240,400,280>
-$output false
-class AlphaNumKeyboard : Core::Group
-{
-  $rect <20,20,220,60>
-  inherited property Bounds = <0,0,1748,956>;
-
-  $rect <20,20,160,60>
-  object Templates::NumKeyboard NumKeyboard
-  {
-    preset Bounds = <744,732,744,732>;
-  }
-}
-
 // This component implements a virtual keyboard.
-$rect <-170,380,30,420>
+$rect <1090,250,1290,290>
 $output false
-class AlphaNumKeyboard1 : Templates::AlphaNumKeyboard
+class AlphaNumKeyboard : Templates::AlphaNumKeyboard
 {
   $rect <710,290,910,330>
   inherited method Init()
@@ -6729,20 +6696,7 @@ class AlphaNumKeyboard1 : Templates::AlphaNumKeyboard
   }
 }
 
-// This is a 'virtual keyboard' component template. It is intended to help you to \
-// implement your own specific virtual keyboards. Open the component and do following:
-// 
-// - Change the appearance of the keyboard according to your design.
-// - Add properties to allow the 'keyboard' instances to be configured.
-// - Optionally, modify the default behavior of the keyboard.
-// 
-// More hints inside the component ...
-note legend Note4
-{
-  attr Bounds = <420,640,860,830>;
-}
-
-$rect <-252,-232,-52,-192>
+$rect <1090,330,1290,370>
 $output false
 class Keyboard : Core::Group
 {
@@ -6750,7 +6704,7 @@ class Keyboard : Core::Group
   inherited property Bounds = <0,0,1276,698>;
 
   $rect <20,20,160,60>
-  object Application::AlphaNumKeyboard1 AlphaNumKeyboard1
+  object Application::AlphaNumKeyboard AlphaNumKeyboard1
   {
     preset Bounds = <10,264,1263,668>;
   }
@@ -6933,7 +6887,7 @@ class Keyboard : Core::Group
   var bool open = false;
 }
 
-$rect <1680,300,1880,340>
+$rect <1670,300,1870,340>
 $output false
 resource Resources::Font FontBold24
 {
@@ -7827,7 +7781,7 @@ class SettingsMotorTest : Core::Group
   }
 }
 
-$rect <490,430,710,470>
+$rect <480,390,700,430>
 $output false
 class SettingsBuzzerTest : Core::Group
 {
@@ -8046,7 +8000,7 @@ class SettingsBuzzerTest : Core::Group
   }
 }
 
-$rect <490,490,710,530>
+$rect <480,440,700,480>
 $output false
 class SettingsDisplayTest : Core::Group
 {
@@ -8289,7 +8243,7 @@ class SettingsDisplayTest : Core::Group
   }
 }
 
-$rect <220,490,440,530>
+$rect <210,480,430,520>
 $output false
 class SettingsLEDTest : Core::Group
 {

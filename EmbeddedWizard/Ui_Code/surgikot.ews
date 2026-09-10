@@ -1,13 +1,8 @@
 $version 1.0
 
-attr active = Widget::SettingsDiagnosticList;
+attr active = Res;
 attr callStackMonitor_Show = false;
-attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
-attr codeInspector = Widget::SettingsDiagnosticList.OnSetOnPressEdit;
-attr codeSelEnd = <0,0>;
-attr codeSelStart = <0,0>;
-attr connectInspectors = false;
+attr connectInspectors = true;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = false;
@@ -35,7 +30,6 @@ view Project
 {
   attr aspectRatio = 1.0;
   attr enableGrid = true;
-  attr enableWireMode = false;
   attr grid = 10;
   attr scrollTo = <-23,-13>;
   attr zoom = 1.0;
@@ -44,30 +38,25 @@ view Project
 view unit Application
 {
   attr aspectRatio = 1.0;
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Inline;
-  attr codeSelEnd = <88,4>;
-  attr codeSelStart = <88,4>;
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <-195,351>;
-  attr zoom = 1.0;
+  attr scrollTo = <-234,-147>;
+  attr zoom = 0.25;
 }
 
 view unit Widget
 {
   attr enableWireMode = false;
-  attr scrollTo = <-71,-199>;
-  attr zoom = 1.0;
+  attr scrollTo = <452,-133>;
+  attr zoom = 0.5;
 }
 
 view unit Res
 {
   attr enableWireMode = false;
-  attr scrollTo = <462,476>;
-  attr zoom = 1.0;
+  attr scrollTo = <-212,-112>;
+  attr zoom = 0.25;
 }
 
 view class Application::Application
@@ -78,19 +67,13 @@ view class Application::Application
 
 view class Application::LogInScreen
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = SlotOnEnter;
-  attr codeSelEnd = <91,3>;
-  attr codeSelStart = <91,3>;
   attr enableWireMode = false;
-  attr scrollTo = <-158,-36>;
+  attr scrollTo = <-158,108>;
   attr zoom = 0.5;
 }
 
 view class Application::ProfileScreen
 {
-  attr enableWireMode = false;
   attr scrollTo = <-50,-13>;
   attr zoom = 0.5;
 }
@@ -103,27 +86,25 @@ view class Application::ProfileButtomBar
 
 view class Application::Settings
 {
-  attr enableWireMode = false;
   attr scrollTo = <344,367>;
   attr zoom = 0.75;
 }
 
 view class Views::Text
 {
-  attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
 view class Application::SpinButton
 {
-  attr enableWireMode = false;
   attr scrollTo = <-141,-140>;
   attr zoom = 0.75;
 }
 
 view class Widget::NumPad
 {
+  attr enableWireMode = false;
   attr scrollTo = <-266,-40>;
   attr zoom = 0.75;
 }
@@ -178,12 +159,6 @@ view class Application::ButtomBar
 
 view class Widget::AddProfileButton
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnSetValueString;
-  attr codeSelEnd = <16,8>;
-  attr codeSelStart = <16,8>;
-  attr enableWireMode = false;
   attr scrollTo = <-277,-103>;
   attr zoom = 1.0;
 }
@@ -196,12 +171,6 @@ view class Application::ConfirmationDialog
 
 view class Application::DeviceClass
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = CheckPrint;
-  attr codeSelEnd = <10,5>;
-  attr codeSelStart = <10,5>;
-  attr enableWireMode = false;
   attr scrollTo = <601,898>;
   attr zoom = 1.25;
 }
@@ -220,19 +189,12 @@ view class Widget::ProfileListItem
 
 view class Widget::SettingsList
 {
-  attr enableWireMode = false;
   attr scrollTo = <219,-66>;
   attr zoom = 0.75;
 }
 
 view class Application::SettingsScreen
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = SwitchScreen;
-  attr codeSelEnd = <68,7>;
-  attr codeSelStart = <68,7>;
-  attr enableWireMode = false;
   attr scrollTo = <500,150>;
   attr zoom = 0.75;
 }
@@ -257,19 +219,12 @@ view class Application::SettingsSystemLogs
 
 view class Application::SettingsChangePassword
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = slotKeyboardClose;
-  attr codeSelEnd = <71,8>;
-  attr codeSelStart = <71,8>;
-  attr enableWireMode = false;
   attr scrollTo = <-303,-123>;
   attr zoom = 0.25;
 }
 
 view class Application::SettingsDateTime
 {
-  attr enableWireMode = false;
   attr scrollTo = <-162,-28>;
   attr zoom = 0.5;
 }
@@ -282,44 +237,24 @@ view class Widget::CustomRadioButton
 
 view class Application::ProfileSurgeryInProgressScreen
 {
-  attr enableWireMode = false;
   attr scrollTo = <-196,-74>;
   attr zoom = 0.5;
 }
 
 view class Application::ProfileSurgeryCompletedScreen
 {
-  attr enableWireMode = false;
   attr scrollTo = <-193,-119>;
   attr zoom = 0.25;
 }
 
 view class Application::AlphaNumKeyboard
 {
-  attr scrollTo = <329,2185>;
-  attr zoom = 1.75;
-}
-
-view class Application::AlphaNumKeyboard1
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = activateKey;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
   attr scrollTo = <-165,-42>;
   attr zoom = 0.75;
 }
 
 view class Application::Keyboard
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Close;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
   attr scrollTo = <-78,-73>;
   attr zoom = 0.5;
 }
@@ -332,30 +267,18 @@ view class Widget::EnterButton
 
 view class Views::Rectangle
 {
-  attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
 }
 
 view class Application::SettingsDiagnostic
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = SwitchScreen;
-  attr codeSelEnd = <2,53>;
-  attr codeSelStart = <2,53>;
-  attr enableWireMode = false;
   attr scrollTo = <-125,-55>;
   attr zoom = 0.5;
 }
 
 view class Widget::SettingsDiagnosticList
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnSetOnPressEdit;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
   attr scrollTo = <-103,-96>;
   attr zoom = 0.75;
@@ -363,45 +286,37 @@ view class Widget::SettingsDiagnosticList
 
 view class Application::SettingsMotorTest
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = onBack;
-  attr codeSelEnd = <44,3>;
-  attr codeSelStart = <44,3>;
-  attr enableWireMode = false;
   attr scrollTo = <-88,-47>;
   attr zoom = 0.5;
 }
 
 view class Widget::StatusLabel
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnSetStatus;
-  attr codeSelEnd = <1,25>;
-  attr codeSelStart = <1,25>;
-  attr enableWireMode = false;
   attr scrollTo = <-492,-71>;
   attr zoom = 1.75;
 }
 
 view class Application::SettingsBuzzerTest
 {
-  attr enableWireMode = false;
   attr scrollTo = <-160,-93>;
   attr zoom = 0.5;
 }
 
 view class Application::SettingsDisplayTest
 {
-  attr enableWireMode = false;
   attr scrollTo = <-216,-7>;
   attr zoom = 0.5;
 }
 
 view class Application::SettingsLEDTest
 {
-  attr enableWireMode = false;
   attr scrollTo = <-7,-15>;
   attr zoom = 0.5;
+}
+
+view class Resources::Bitmap
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
 }

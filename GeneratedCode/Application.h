@@ -42,7 +42,7 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-#include "_ApplicationAlphaNumKeyboard1.h"
+#include "_ApplicationAlphaNumKeyboard.h"
 #include "_ApplicationApplication.h"
 #include "_ApplicationDeviceClass.h"
 #include "_ApplicationKeyboard.h"
