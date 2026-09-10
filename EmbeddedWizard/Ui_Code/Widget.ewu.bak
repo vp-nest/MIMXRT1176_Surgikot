@@ -1,0 +1,2121 @@
+﻿$version 11.00
+
+$rect <50,30,250,70>
+$output false
+class NumButton : Core::Group
+{
+  $rect <10,230,210,270>
+  inherited property Bounds = <0,0,119,86>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <-6,2,119,86>;
+    preset Bitmap = Res::NumBtNormalImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text label
+  {
+    preset Bounds = <-6,5,113,82>;
+    preset String = "Text";
+    preset Font = Application::FontBold24;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,5>;
+    preset Point3 = <117,5>;
+    preset Point2 = <117,82>;
+    preset Point1 = <0,82>;
+    preset OnEnter;
+    preset OnRelease = SlotOnRelease;
+    preset OnPress = SlotOnPress;
+  }
+
+  $rect <240,190,440,230>
+  slot SlotOnPress
+  {
+    this.Image.Bitmap = Res::NumBtPressedImg;
+    postsignal OnPress;
+  }
+
+  $rect <270,100,470,140>
+  slot SlotOnRelease
+  {
+    this.Image.Bitmap = Res::NumBtNormalImg;
+    postsignal OnRelease;
+  }
+
+  $rect <420,0,620,40>
+  property slot OnPress;
+
+  $rect <420,40,620,80>
+  property slot OnRelease;
+}
+
+$rect <50,-20,250,20>
+$output false
+class NumPad : Core::Group
+{
+  $rect <929,79,1129,119>
+  inherited method Init()
+  {
+    this.NumButton1.label.String = "1";
+    this.NumButton2.label.String = "2";
+    this.NumButton3.label.String = "3";
+    this.NumButton4.label.String = "4";
+    this.NumButton5.label.String = "5";
+    this.NumButton6.label.String = "6";
+    this.NumButton7.label.String = "7";
+    this.NumButton8.label.String = "8";
+    this.NumButton9.label.String = "9";
+    this.NumButton10.label.String = "Clear";
+    this.NumButton11.label.String = "0";
+  }
+
+  $rect <929,29,1129,69>
+  inherited property Bounds = <0,0,533,440>;
+
+  $rect <660,209,860,249>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <509,549,709,589>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton1
+  {
+    preset Bounds = <61,71,180,163>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton2
+  {
+    preset Bounds = <182,71,300,163>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton3
+  {
+    preset Bounds = <304,71,423,170>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton4
+  {
+    preset Bounds = <63,159,182,244>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton5
+  {
+    preset Bounds = <183,159,302,244>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton6
+  {
+    preset Bounds = <304,159,423,244>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton7
+  {
+    preset Bounds = <64,248,183,333>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton8
+  {
+    preset Bounds = <184,248,303,335>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton9
+  {
+    preset Bounds = <304,248,423,341>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton10
+  {
+    preset Bounds = <65,335,184,420>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::NumButton NumButton11
+  {
+    preset Bounds = <186,335,305,422>;
+    preset OnRelease = SlotOnClick;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::EnterButton EnterButton
+  {
+    preset Bounds = <304,338,418,440>;
+    preset OnRelease = SlotOnEnter;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image ImgPin1
+  {
+    preset Bounds = <157,7,189,39>;
+    preset AutoSize = true;
+    preset Bitmap = Res::PassPlainImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image ImgPin2
+  {
+    preset Bounds = <206,7,238,39>;
+    preset AutoSize = true;
+    preset Bitmap = Res::PassPlainImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image ImgPin3
+  {
+    preset Bounds = <253,7,285,39>;
+    preset AutoSize = true;
+    preset Bitmap = Res::PassPlainImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image ImgPin4
+  {
+    preset Bounds = <301,7,333,39>;
+    preset AutoSize = true;
+    preset Bitmap = Res::PassPlainImg;
+  }
+
+  $rect <939,229,1139,269>
+  slot SlotOnClick
+  {
+    if(sender == NumButton10)
+    {
+        Number = "";              
+    }
+    else
+    {
+        var Widget::NumButton currentBT = (Widget::NumButton)sender;
+        if(Number.length >= 4)
+            Number = "";
+        Number = Number + currentBT.label.String;
+        trace(Number);
+    }
+  }
+
+  $rect <939,299,1139,339>
+  property string Number;
+
+  $rect <939,339,1139,379>
+  onset Number
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Number == value )
+      return;
+
+    // Remember the property's new value.
+    pure Number = value;
+
+    UpdatePinImg(Number.length);
+  }
+
+  $rect <939,399,1139,439>
+  method void UpdatePinImg( arg int32 pinLength )
+  {
+    var int8 i = 0;
+    var int8 maxPin = 4;
+    for(; i < pinLength; i++)
+    {
+        (PinImgArray[i]).Bitmap = Res::PassFilledImg;
+    }
+    for(; i < maxPin; i++)
+    {
+        PinImgArray[i].Bitmap = Res::PassPlainImg;
+    }
+  }
+
+  $rect <939,439,1139,479>
+  array Views::Image PinImgArray[ 4 ] =
+  (
+    Default[0] = ImgPin1;
+    Default[1] = ImgPin2;
+    Default[2] = ImgPin3;
+    Default[3] = ImgPin4;
+  );
+
+  $rect <939,179,1139,219>
+  slot SlotOnEnter
+  {
+    postsignal OnEnterKey;
+  }
+
+  $rect <650,140,850,180>
+  property slot OnEnterKey;
+}
+
+$rect <50,80,250,120>
+$output false
+class EnterButton : Core::Group
+{
+  $rect <10,230,210,270>
+  inherited property Bounds = <0,0,114,85>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,114,85>;
+    preset Bitmap = Res::SubmitBtNormalImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text label
+  {
+    preset Bounds = <0,0,114,81>;
+    preset String = "Enter";
+    preset Font = Resources::FontMedium;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <114,0>;
+    preset Point2 = <114,81>;
+    preset Point1 = <0,81>;
+    preset OnEnter;
+    preset OnRelease = slotOnRelease;
+    preset OnPress = slotOnPress;
+  }
+
+  $rect <180,0,380,40>
+  slot slotOnPress
+  {
+    this.Image.Bitmap = Res::SubmitBtPressedImg;
+    postsignal OnPress;
+  }
+
+  $rect <180,40,380,80>
+  slot slotOnRelease
+  {
+    this.Image.Bitmap = Res::SubmitBtNormalImg;
+    postsignal OnRelease;
+  }
+
+  $rect <420,0,620,40>
+  property slot OnPress;
+
+  $rect <420,40,620,80>
+  property slot OnRelease;
+}
+
+$rect <310,-20,510,20>
+$output false
+class AddProfileButton : Core::Group
+{
+  $rect <10,230,210,270>
+  inherited property Bounds = <0,0,138,48>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,138,48>;
+    preset AutoSize = true;
+    preset Bitmap = Res::AddProfileNormalImg;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text label
+  {
+    preset Bounds = <0,0,138,48>;
+    preset String = "Add New";
+    preset Font = Application::FontBold24;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <138,0>;
+    preset Point2 = <138,48>;
+    preset Point1 = <0,48>;
+    preset OnEnter;
+    preset OnRelease = slotOnRelease;
+    preset OnPress = slotOnPress;
+  }
+
+  $rect <370,0,570,40>
+  slot slotOnPress
+  {
+    this.Image.Bitmap = Res::AddProfilePressedImg;
+    postsignal OnPress;
+  }
+
+  $rect <370,40,570,80>
+  slot slotOnRelease
+  {
+    this.Image.Bitmap = Res::AddProfileNormalImg;
+    postsignal OnRelease;
+  }
+
+  $rect <610,0,810,40>
+  property slot OnPress;
+
+  $rect <610,40,810,80>
+  property slot OnRelease;
+
+  $rect <160,90,360,130>
+  property string ValueString;
+
+  $rect <160,130,360,170>
+  onset ValueString
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure ValueString == value )
+      return;
+
+    // Remember the property's new value.
+    pure ValueString = value;
+
+    // TO DO:
+
+    this.label.String = value;
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <160,170,360,210>
+  onget ValueString
+  {
+    return pure ValueString;
+  }
+}
+
+$rect <310,30,510,70>
+$output false
+class ProfileListItem : Core::Group
+{
+  $rect <0,150,200,190>
+  inherited property Bounds = <0,0,1149,107>;
+
+  $rect <0,240,200,280>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <0,200,200,240>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,1149,107>;
+    preset Color = #1A2442FF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Border Border
+  {
+    preset Bounds = <0,0,1149,107>;
+    preset Color = #3A5FA0FF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image RadioImg
+  {
+    preset Bounds = <26,39,58,71>;
+    preset Bitmap = Res::RadioBtNormal;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text H1
+  {
+    preset Layout = Core::Layout[AlignToLeft, AlignToTop];
+    preset Bounds = <83,20,777,56>;
+    preset AutoSize = false;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Lapareral";
+    preset Font = Application::FontBold28;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text H2
+  {
+    preset Bounds = <83,56,411,84>;
+    preset AutoSize = true;
+    preset Alignment = Views::TextAlignment[AlignVertCenter];
+    preset String = "Cut 35W . Coag 28W . Max grasp 6.5N";
+    preset Font = Application::FontNormal22;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image EditImg
+  {
+    preset Bounds = <1073,36,1113,76>;
+    preset Bitmap = Res::EditNormal;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler RadioTouchHandler
+  {
+    preset Point4 = <17,31>;
+    preset Point3 = <67,31>;
+    preset Point2 = <67,80>;
+    preset Point1 = <17,80>;
+    preset OnRelease = SlotRadioBTRelease;
+    preset OnPress;
+    preset RetargetCondition = Core::RetargetReason[];
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler EditTouchHandler
+  {
+    preset Point4 = <1073,35>;
+    preset Point3 = <1113,35>;
+    preset Point2 = <1113,75>;
+    preset Point1 = <1073,75>;
+    preset OnRelease = SlotEditRelease;
+    preset OnPress = SlotEditPress;
+  }
+
+  $rect <260,150,460,190>
+  slot SlotRadioBTRelease
+  {
+    trace "RADIO RELEASE";
+
+    trace OnSelectRadioBT;
+
+    if ( OnSelectRadioBT != null )
+    {
+      trace "SIGNAL OnSelectRadioBT";
+      signal OnSelectRadioBT;
+    }
+    else
+    {
+      trace "OnSelectRadioBT IS NULL";
+    }
+  }
+
+  $rect <470,150,670,190>
+  property slot OnSelectRadioBT;
+
+  $rect <470,190,670,230>
+  onset OnSelectRadioBT
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnSelectRadioBT == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnSelectRadioBT = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <260,290,460,330>
+  slot SlotEditRelease
+  {
+    EditImg.Bitmap = Res::EditNormal;
+    postsignal OnPressEdit;
+  }
+
+  $rect <470,290,670,330>
+  property slot OnPressEdit;
+
+  $rect <470,330,670,370>
+  onset OnPressEdit
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnPressEdit == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnPressEdit = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <260,250,460,290>
+  slot SlotEditPress
+  {
+    EditImg.Bitmap = Res::EditPressed;
+  }
+
+  $rect <680,150,880,190>
+  var int8 ItemNo;
+
+  $reorder Rectangle 4
+  $reorder Border 3
+}
+
+$rect <310,80,510,120>
+$output false
+class SettingsList : Core::Group
+{
+  $rect <0,150,200,190>
+  inherited property Bounds = <0,0,1149,107>;
+
+  $rect <0,240,200,280>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <0,200,200,240>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,1149,107>;
+    preset Color = #1A2442FF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image SettingsImage
+  {
+    preset Bounds = <18,8,113,97>;
+    preset Bitmap = Res::Settings_Diagnostic;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text H1
+  {
+    preset Layout = Core::Layout[AlignToLeft, AlignToTop];
+    preset Bounds = <137,13,796,62>;
+    preset AutoSize = false;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Lapareral";
+    preset Font = Application::FontBold28;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text H2
+  {
+    preset Bounds = <137,61,549,91>;
+    preset AutoSize = true;
+    preset Alignment = Views::TextAlignment[AlignVertCenter];
+    preset String = "Cut 35W . Coag 28W . Max grasp 6.5N";
+    preset Font = Application::FontNormal22;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <470,290,670,330>
+  property slot OnPressEdit;
+
+  $rect <470,330,670,370>
+  onset OnPressEdit
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnPressEdit == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnPressEdit = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <680,150,880,190>
+  var int8 ItemNo;
+
+  $rect <20,20,160,60>
+  object Views::Border Border
+  {
+    preset Bounds = <0,0,1149,107>;
+    preset Color = #3A5FA0FF;
+  }
+
+  $rect <780,229,980,269>
+  property bool ImageVisible = true;
+
+  $rect <780,269,980,309>
+  onset ImageVisible
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure ImageVisible == value )
+      return;
+
+    // Remember the property's new value.
+    pure ImageVisible = value;
+
+    // TO DO:
+
+    this.SettingsImage.Visible = false;
+    this.H1.Bounds =  <17,25,796,53>;
+    this.H2.Bounds = <17,57,796,75>;
+
+
+
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <780,309,980,349>
+  onget ImageVisible
+  {
+    return pure ImageVisible;
+  }
+
+  $reorder Rectangle 8
+}
+
+$rect <310,130,510,170>
+$output false
+class CustomButton : Core::Group
+{
+  $rect <10,230,210,270>
+  inherited property Bounds = <0,0,1153,81>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <4,4,1153,66>;
+    preset AutoSize = true;
+    preset Bitmap = Res::Settings_Custom_Button;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text label
+  {
+    preset Bounds = <320,10,830,58>;
+    preset String = "Add New";
+    preset Font = Application::FontBold28;
+    preset Color = #1B1B1BFF;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <1153,4>;
+    preset Point2 = <1151,65>;
+    preset Point1 = <0,61>;
+    preset OnEnter;
+    preset OnRelease = slotOnRelease;
+    preset OnPress = slotOnPress;
+  }
+
+  $rect <450,210,650,250>
+  slot slotOnPress
+  {
+    this.Image.Bitmap = Res::Settings_Custom_Pressed_Button;
+    postsignal OnPress;
+  }
+
+  $rect <450,250,650,290>
+  slot slotOnRelease
+  {
+    this.Image.Bitmap = Res::Settings_Custom_Button;
+    postsignal OnRelease;
+  }
+
+  $rect <700,210,900,250>
+  property slot OnPress;
+
+  $rect <700,250,900,290>
+  property slot OnRelease;
+}
+
+$rect <40,140,240,180>
+$output false
+class CustomRadioButton : Core::Group
+{
+  $rect <10,230,210,270>
+  inherited property Bounds = <0,0,138,48>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,48,48>;
+    preset AutoSize = true;
+    preset Bitmap = Res::RadioBtNormal;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text label
+  {
+    preset Bounds = <48,0,138,48>;
+    preset String = "Add New";
+    preset Font = Resources::FontMedium;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <48,0>;
+    preset Point2 = <48,48>;
+    preset Point1 = <0,48>;
+    preset OnEnter;
+    preset OnRelease = slotOnRelease;
+    preset OnPress = slotOnPress;
+  }
+
+  $rect <370,0,570,40>
+  slot slotOnPress
+  {
+    postsignal OnPress;
+  }
+
+  $rect <370,40,570,80>
+  slot slotOnRelease
+  {
+    if ( !Selected )
+      Selected = true;
+
+    if ( OnRelease != null )
+      postsignal OnRelease;
+  }
+
+  $rect <610,0,810,40>
+  property slot OnPress;
+
+  $rect <610,40,810,80>
+  property slot OnRelease;
+
+  $rect <370,100,570,140>
+  property bool Selected = false;
+
+  $rect <370,140,570,180>
+  onset Selected
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Selected == value )
+      return;
+
+    // Remember the property's new value.
+    pure Selected = value;
+
+    // TO DO: \
+    if ( value )
+      this.Image.Bitmap = Res::RadioBtClicked;
+    else
+      this.Image.Bitmap = Res::RadioBtNormal;
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <370,180,570,220>
+  onget Selected
+  {
+    return pure Selected;
+  }
+
+  $rect <580,100,780,140>
+  property string Label;
+
+  $rect <580,140,780,180>
+  onset Label
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Label == value )
+      return;
+
+    // Remember the property's new value.
+    pure Label = value;
+
+    label.String = value;
+
+    notifyobservers ^label;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <580,180,780,220>
+  onget Label
+  {
+    return pure Label;
+  }
+}
+
+$rect <530,-20,730,20>
+$output false
+class SettingsDiagnosticList : Core::Group
+{
+  $rect <0,150,200,190>
+  inherited property Bounds = <0,0,1308,120>;
+
+  $rect <0,240,200,280>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <0,200,200,240>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <470,290,670,330>
+  property slot OnPressEdit;
+
+  $rect <470,330,670,370>
+  onset OnPressEdit
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnPressEdit == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnPressEdit = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <680,150,880,190>
+  var int8 ItemNo;
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,1184,116>;
+    preset Bitmap = Res::Settings_CurvedRect;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text H1
+  {
+    preset Layout = Core::Layout[AlignToLeft, AlignToTop];
+    preset Bounds = <62,34,721,83>;
+    preset AutoSize = false;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Lapareral";
+    preset Font = Application::FontBold28;
+    preset Color = #FFFFFFFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <1101,33,1151,83>;
+    preset Bitmap = Res::Settings_Arrow;
+  }
+}
+
+$rect <532,90,732,130>
+$output false
+class StatusLabel : Core::Group
+{
+  $rect <670,20,870,60>
+  inherited property Bounds = <0,0,216,73>;
+
+  // To do:
+  // 
+  // - Adjust the visible size of your application (the thick blue border). It should \
+  // correspond to the size of your target display.
+  // 
+  // - The simplest way to compose the appearance of the application is to use the \
+  // 'Views' and 'Widget Sets' from the Gallery.
+  // 
+  // - To react to touch or keyboard events use the templates from the Gallery folder \
+  // 'Event Handlers'.
+  // 
+  // - To perform transitions (animations) use the templates from the Gallery folder \
+  // 'Effects'.
+  // 
+  // - To store values use the 'Variable', 'Array' and 'Property' templates available \
+  // in the Gallery folder 'Chora'.
+  // 
+  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
+  // in the Gallery folder 'Chora'.
+  note legend Note1
+  {
+    attr Bounds = <10,510,790,740>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <21,8,165,52>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <21,8,165,52>;
+    preset String = "Text";
+    preset Font = Application::FontBold28;
+  }
+
+  $rect <369,60,569,100>
+  property int32 Status;
+
+  $rect <369,100,569,140>
+  onset Status
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Status == value )
+      return;
+
+    // Remember the property's new value.
+    pure Status = value;
+
+    // TO DO:
+    if ( Status == 1 )
+    {
+      Text.String      = "Pass";
+      Rectangle.Color  = #124B36FF;
+      Text.Color       = #4DFF7AFF;
+    }
+    else if ( Status == 2 )
+    {
+      Text.String      = "Failed";
+      Rectangle.Color  = #5A2024FF;
+      Text.Color       = #FF6B72FF;
+    }
+    else
+    {
+      Text.String      = "Not tested";
+      Rectangle.Color  = #2B3760FF;
+      Text.Color       = #A8B4D0FF;
+    }
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <369,140,569,180>
+  onget Status
+  {
+    return pure Status;
+  }
+}

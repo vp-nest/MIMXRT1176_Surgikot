@@ -1,0 +1,579 @@
+﻿$version 11.00
+
+$rect <570,19,770,59>
+$output false
+resource Resources::Bitmap TitilBarImg
+{
+  attr bitmapfile FileName = .\res\title_bar.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,69,770,109>
+$output false
+resource Resources::Bitmap ButtomBarImg
+{
+  attr bitmapfile FileName = .\res\buttom_bar.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,118,770,158>
+$output false
+resource Resources::Bitmap NumBtNormalImg
+{
+  attr bitmapfile FileName = .\res\num_button_normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,165,770,205>
+$output false
+resource Resources::Bitmap NumBtPressedImg
+{
+  attr bitmapfile FileName = .\res\num_button_pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,210,770,250>
+$output false
+resource Resources::Bitmap NumBtDisabledImg
+{
+  attr bitmapfile FileName = .\res\num_button_disabled.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <360,19,560,59>
+$output false
+resource Resources::Bitmap SubmitBtNormalImg
+{
+  attr bitmapfile FileName = .\res\submit_button_normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <360,59,560,99>
+$output false
+resource Resources::Bitmap SubmitBtPressedImg
+{
+  attr bitmapfile FileName = .\res\submit_button_pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <360,99,560,139>
+$output false
+resource Resources::Bitmap SubmitBtDisabledImg
+{
+  attr bitmapfile FileName = .\res\submit_button_disabled.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <579,259,779,299>
+$output false
+resource Resources::Bitmap PassFilledImg
+{
+  attr bitmapfile FileName = .\res\dot_filled.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <579,302,779,342>
+$output false
+resource Resources::Bitmap PassPlainImg
+{
+  attr bitmapfile FileName = .\res\dot_plain.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <360,350,560,390>
+$output false
+resource Resources::Bitmap LockIconImg
+{
+  attr bitmapfile FileName = .\res\lock_icon.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,20,1010,60>
+$output false
+resource Resources::Bitmap AddProfileNormalImg
+{
+  attr bitmapfile FileName = .\res\Profile\Add_Profile_button_normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,70,1010,110>
+$output false
+resource Resources::Bitmap AddProfilePressedImg
+{
+  attr bitmapfile FileName = .\res\Profile\Add_Profile_button_pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+// Resources
+note group Note
+{
+  attr Bounds = <339,-19,1520,619>;
+}
+
+$rect <810,120,1010,160>
+$output false
+resource Resources::Bitmap ListItemBgNormal
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_BG_Normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,170,1010,210>
+$output false
+resource Resources::Bitmap ListItemBgClicked
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_BG_Clicked.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,230,1010,270>
+$output false
+resource Resources::Bitmap EditNormal
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Edit_Normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,270,1010,310>
+$output false
+resource Resources::Bitmap EditPressed
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Edit_Pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,20,1240,60>
+$output false
+resource Resources::Bitmap RadioBtNormal
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Radio_BT_Normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,70,1240,110>
+$output false
+resource Resources::Bitmap RadioBtClicked
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Radio_BT_Clicked.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,120,1240,160>
+$output false
+resource Resources::Bitmap ButtomStartBtNormal
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Start_BT_Normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,160,1240,200>
+$output false
+resource Resources::Bitmap ButtomStartBtClicked
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Start_BT_Pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,210,1240,250>
+$output false
+resource Resources::Bitmap ButtomBG
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_BG.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,260,1250,300>
+$output false
+resource Resources::Bitmap ButtomSetingsBtNormal
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Setings_BT_Normal.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,310,1260,350>
+$output false
+resource Resources::Bitmap ButtomSetingsBtClicked
+{
+  attr bitmapfile FileName = .\res\Profile\Profile_Buttom_Bar_Setings_BT_Pressed.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1250,20,1450,60>
+$output false
+resource Resources::Bitmap SpinButtonBG
+{
+  attr bitmapfile FileName = .\res\spinbuttonBkg.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1260,70,1460,110>
+$output false
+resource Resources::Bitmap SpinButtonNg
+{
+  attr bitmapfile FileName = .\res\negativeSpinButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1260,120,1460,160>
+$output false
+resource Resources::Bitmap SpinButtonPositive
+{
+  attr bitmapfile FileName = .\res\Rectangle 60.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <2570,0,2770,40>
+$output false
+resource Resources::Font SanPro32
+{
+  attr fontname FontName = Source Sans Pro;
+  attr fontheight Height = 32;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = false;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <2579,-51,2779,-11>
+$output false
+resource Resources::Font SanPro32Bold
+{
+  attr fontname FontName = Source Sans Pro;
+  attr fontheight Height = 32;
+  attr fontheightmode HeightMode = Popular;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = true;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <360,150,560,190>
+$output false
+resource Resources::Bitmap DefaultBckArrow
+{
+  attr bitmapfile FileName = .\res\BackButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <368,238,568,278>
+$output false
+resource Resources::Bitmap EyeOpen
+{
+  attr bitmapfile FileName = .\res\visible.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <368,198,568,238>
+$output false
+resource Resources::Bitmap EyeClosed
+{
+  attr bitmapfile FileName = .\res\hide.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <368,288,568,328>
+$output false
+resource Resources::Bitmap BatteryIcon
+{
+  attr bitmapfile FileName = .\res\Battery.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <800,320,1000,360>
+$output false
+resource Resources::Bitmap PowerOffIcon
+{
+  attr bitmapfile FileName = .\res\powerOFF.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,350,770,390>
+$output false
+resource Resources::Bitmap Settings_Diagnostic
+{
+  attr bitmapfile FileName = .\res\Settings_Diagnostics.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <579,400,779,440>
+$output false
+resource Resources::Bitmap Settings_Password
+{
+  attr bitmapfile FileName = .\res\Settings_Password.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <360,400,560,440>
+$output false
+resource Resources::Bitmap Settings_Date
+{
+  attr bitmapfile FileName = .\res\datetime.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,371,1010,411>
+$output false
+resource Resources::Bitmap Settings_Logs
+{
+  attr bitmapfile FileName = .\res\Settings_Log.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,358,1240,398>
+$output false
+resource Resources::Bitmap Settings_Custom_Button
+{
+  attr bitmapfile FileName = .\res\DefaultSaveButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,419,1010,459>
+$output false
+resource Resources::Bitmap Settings_Custom_Pressed_Button
+{
+  attr bitmapfile FileName = .\res\PressedSaveButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,470,1010,510>
+$output false
+resource Resources::Bitmap ImgProcedureCompleted
+{
+  attr bitmapfile FileName = .\res\SurgeryCompletedTick.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <570,518,770,558>
+$output false
+resource Resources::Bitmap KeyBoardGenKey
+{
+  attr bitmapfile FileName = .\res\GenKey.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <358,461,558,501>
+$output false
+resource Resources::Bitmap Settings_Custom_Button1
+{
+  attr bitmapfile FileName = .\res\DefaultSaveButton.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1040,410,1240,450>
+$output false
+resource Resources::Bitmap Settings_CurvedRect
+{
+  attr bitmapfile FileName = .\res\CurvedRect.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1050,461,1250,501>
+$output false
+resource Resources::Bitmap Settings_Arrow
+{
+  attr bitmapfile FileName = .\res\right-arrow.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <579,461,779,501>
+$output false
+resource Resources::Bitmap Settings_Power_ON
+{
+  attr bitmapfile FileName = .\res\powerOnStatus.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <358,518,556,558>
+$output false
+resource Resources::Bitmap Settings_Power_off
+{
+  attr bitmapfile FileName = .\res\powerOffStatus.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}

@@ -1,0 +1,322 @@
+$version 1.0
+
+attr active = Res;
+attr callStackMonitor_Show = false;
+attr connectInspectors = true;
+attr debug_TrackUpdates = false;
+attr extractDoc_ClassOverview = true;
+attr extractDoc_DeleteOldFiles = false;
+attr extractDoc_Destination = ./HtmlDoc;
+attr extractDoc_IgnoreAccessors = true;
+attr extractDoc_IgnoreMembers = true;
+attr extractDoc_Navigation = true;
+attr extractDoc_Profiles = false;
+attr extractDoc_Title = Documentation;
+attr extractDoc_Variants = false;
+attr generateClut_ReservedColors = 0;
+attr heapMonitor_Show = false;
+attr language = Default;
+attr profile = iMX_RT;
+attr profilerMonitor_Show = false;
+attr search_CaseSensitive = false;
+attr search_History = native,SlotSelectRadioBT,ScreenManager,screenManager,OnPressSetings,SlotOnEnter,SelectedItem;
+attr search_IgnoreDescription = false;
+attr search_IgnoreMosaic = false;
+attr search_LimitToComposer = false;
+attr search_WholeWords = false;
+attr search_WildCards = false;
+
+view Project
+{
+  attr aspectRatio = 1.0;
+  attr enableGrid = true;
+  attr grid = 10;
+  attr scrollTo = <-23,-13>;
+  attr zoom = 1.0;
+}
+
+view unit Application
+{
+  attr aspectRatio = 1.0;
+  attr enableGrid = true;
+  attr enableWireMode = false;
+  attr grid = 10;
+  attr scrollTo = <-234,-147>;
+  attr zoom = 0.25;
+}
+
+view unit Widget
+{
+  attr enableWireMode = false;
+  attr scrollTo = <452,-133>;
+  attr zoom = 0.5;
+}
+
+view unit Res
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-212,-112>;
+  attr zoom = 0.25;
+}
+
+view class Application::Application
+{
+  attr scrollTo = <-7,-19>;
+  attr zoom = 0.5;
+}
+
+view class Application::LogInScreen
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-158,108>;
+  attr zoom = 0.5;
+}
+
+view class Application::ProfileScreen
+{
+  attr scrollTo = <-50,-13>;
+  attr zoom = 0.5;
+}
+
+view class Application::ProfileButtomBar
+{
+  attr scrollTo = <7,-14>;
+  attr zoom = 1.25;
+}
+
+view class Application::Settings
+{
+  attr scrollTo = <344,367>;
+  attr zoom = 0.75;
+}
+
+view class Views::Text
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SpinButton
+{
+  attr scrollTo = <-141,-140>;
+  attr zoom = 0.75;
+}
+
+view class Widget::NumPad
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-266,-40>;
+  attr zoom = 0.75;
+}
+
+view class Widget::NumButton
+{
+  attr scrollTo = <-26,-7>;
+  attr zoom = 1.0;
+}
+
+view class Core::SimpleTouchHandler
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SettingsNewSurgicalProfile
+{
+  attr scrollTo = <-224,9>;
+  attr zoom = 0.5;
+}
+
+view class Application::SettingsInputField
+{
+  attr scrollTo = <172,172>;
+  attr zoom = 1.0;
+}
+
+view class Application::TitleBar
+{
+  attr scrollTo = <711,-50>;
+  attr zoom = 1.25;
+}
+
+view class Application::TextEditor
+{
+  attr scrollTo = <73,-84>;
+  attr zoom = 0.5;
+}
+
+view class Core::KeyPressHandler
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::ButtomBar
+{
+  attr scrollTo = <-7,-71>;
+  attr zoom = 1.0;
+}
+
+view class Widget::AddProfileButton
+{
+  attr scrollTo = <-277,-103>;
+  attr zoom = 1.0;
+}
+
+view class Application::ConfirmationDialog
+{
+  attr scrollTo = <-406,-113>;
+  attr zoom = 0.75;
+}
+
+view class Application::DeviceClass
+{
+  attr scrollTo = <601,898>;
+  attr zoom = 1.25;
+}
+
+view class Core::VerticalList
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Widget::ProfileListItem
+{
+  attr scrollTo = <-68,-93>;
+  attr zoom = 0.75;
+}
+
+view class Widget::SettingsList
+{
+  attr scrollTo = <219,-66>;
+  attr zoom = 0.75;
+}
+
+view class Application::SettingsScreen
+{
+  attr scrollTo = <500,150>;
+  attr zoom = 0.75;
+}
+
+view class Widget::CustomButton
+{
+  attr scrollTo = <-139,-7>;
+  attr zoom = 0.5;
+}
+
+view class Views::Image
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SettingsSystemLogs
+{
+  attr scrollTo = <-72,112>;
+  attr zoom = 0.75;
+}
+
+view class Application::SettingsChangePassword
+{
+  attr scrollTo = <-303,-123>;
+  attr zoom = 0.25;
+}
+
+view class Application::SettingsDateTime
+{
+  attr scrollTo = <-162,-28>;
+  attr zoom = 0.5;
+}
+
+view class Widget::CustomRadioButton
+{
+  attr scrollTo = <-80,-82>;
+  attr zoom = 0.75;
+}
+
+view class Application::ProfileSurgeryInProgressScreen
+{
+  attr scrollTo = <-196,-74>;
+  attr zoom = 0.5;
+}
+
+view class Application::ProfileSurgeryCompletedScreen
+{
+  attr scrollTo = <-193,-119>;
+  attr zoom = 0.25;
+}
+
+view class Application::AlphaNumKeyboard
+{
+  attr scrollTo = <-165,-42>;
+  attr zoom = 0.75;
+}
+
+view class Application::Keyboard
+{
+  attr scrollTo = <-78,-73>;
+  attr zoom = 0.5;
+}
+
+view class Widget::EnterButton
+{
+  attr scrollTo = <-255,-7>;
+  attr zoom = 1.25;
+}
+
+view class Views::Rectangle
+{
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Application::SettingsDiagnostic
+{
+  attr scrollTo = <-125,-55>;
+  attr zoom = 0.5;
+}
+
+view class Widget::SettingsDiagnosticList
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-103,-96>;
+  attr zoom = 0.75;
+}
+
+view class Application::SettingsMotorTest
+{
+  attr scrollTo = <-88,-47>;
+  attr zoom = 0.5;
+}
+
+view class Widget::StatusLabel
+{
+  attr scrollTo = <-492,-71>;
+  attr zoom = 1.75;
+}
+
+view class Application::SettingsBuzzerTest
+{
+  attr scrollTo = <-160,-93>;
+  attr zoom = 0.5;
+}
+
+view class Application::SettingsDisplayTest
+{
+  attr scrollTo = <-216,-7>;
+  attr zoom = 0.5;
+}
+
+view class Application::SettingsLEDTest
+{
+  attr scrollTo = <-7,-15>;
+  attr zoom = 0.5;
+}
+
+view class Resources::Bitmap
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}

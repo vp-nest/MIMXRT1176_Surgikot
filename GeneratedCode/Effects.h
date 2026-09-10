@@ -43,12 +43,50 @@
 #endif
 
 #include "_EffectsBoolEffect.h"
+#include "_EffectsEffect.h"
 #include "_EffectsEffectTimerClass.h"
 #include "_EffectsFader.h"
 #include "_EffectsFaderTask.h"
+#include "_EffectsInt32Effect.h"
 #include "_EffectsShowHideTransition.h"
+#include "_EffectsTimingList.h"
 #include "_EffectsTransition.h"
 #include "_EffectsVisibilityFader.h"
+
+/* The definition Effects::Timing determines the available timing functions for 
+   animation effects. Except the 'Custom' item, all items of this definition represent 
+   build-in timing functions. These can be simply selected in the effect property 
+   Timing. */
+typedef enum
+{
+  EffectsTimingLinear                   = 0,
+  EffectsTimingPower_In                 = 1,
+  EffectsTimingPower_Out                = 2,
+  EffectsTimingPower_InOut              = 3,
+  EffectsTimingExp_In                   = 4,
+  EffectsTimingExp_Out                  = 5,
+  EffectsTimingExp_InOut                = 6,
+  EffectsTimingSine_In                  = 7,
+  EffectsTimingSine_Out                 = 8,
+  EffectsTimingSine_InOut               = 9,
+  EffectsTimingCircle_In                = 10,
+  EffectsTimingCircle_Out               = 11,
+  EffectsTimingCircle_InOut             = 12,
+  EffectsTimingBack_In                  = 13,
+  EffectsTimingBack_Out                 = 14,
+  EffectsTimingBack_InOut               = 15,
+  EffectsTimingElastic_In               = 16,
+  EffectsTimingElastic_Out              = 17,
+  EffectsTimingElastic_InOut            = 18,
+  EffectsTimingBounce_In                = 19,
+  EffectsTimingBounce_Out               = 20,
+  EffectsTimingBounce_InOut             = 21,
+  EffectsTimingEaseIn_FastOut           = 22,
+  EffectsTimingFastIn_EaseOut           = 23,
+  EffectsTimingEaseIn_EaseOut           = 24,
+  EffectsTimingFastIn_FastOut           = 25,
+  EffectsTimingCustom                   = 26
+} EffectsTiming;
 
 /* The global autoobject Effects::EffectTimer triggers all actually active animation 
    effects. In this way all effects will run simultanously. Per default the timer 

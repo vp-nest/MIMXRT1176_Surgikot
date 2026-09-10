@@ -42,14 +42,28 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
+#include "_ApplicationAlphaNumKeyboard.h"
 #include "_ApplicationApplication.h"
-#include "_ApplicationButtomBar.h"
+#include "_ApplicationDeviceClass.h"
+#include "_ApplicationKeyboard.h"
 #include "_ApplicationLogInScreen.h"
 #include "_ApplicationProfileButtomBar.h"
 #include "_ApplicationProfileScreen.h"
-#include "_ApplicationScreenManager.h"
+#include "_ApplicationProfileSurgeryCompletedScreen.h"
+#include "_ApplicationProfileSurgeryInProgressScreen.h"
+#include "_ApplicationSettings.h"
+#include "_ApplicationSettingsBuzzerTest.h"
+#include "_ApplicationSettingsChangePassword.h"
+#include "_ApplicationSettingsDateTime.h"
+#include "_ApplicationSettingsDiagnostic.h"
+#include "_ApplicationSettingsDisplayTest.h"
 #include "_ApplicationSettingsInputField.h"
+#include "_ApplicationSettingsLEDTest.h"
+#include "_ApplicationSettingsMotorTest.h"
 #include "_ApplicationSettingsNewSurgicalProfile.h"
+#include "_ApplicationSettingsScreen.h"
+#include "_ApplicationSettingsSystemLogs.h"
+#include "_ApplicationSpinButton.h"
 #include "_ApplicationTextEditor.h"
 #include "_ApplicationTitleBar.h"
 
@@ -62,8 +76,23 @@ EW_DECLARE_FONT_RES( ApplicationFontNormal28 )
 /* Font resource : 'Application::FontBold32' */
 EW_DECLARE_FONT_RES( ApplicationFontBold32 )
 
-/* User defined auto object: 'Application::Navigation' */
-EW_DECLARE_AUTOOBJECT( ApplicationNavigation, ApplicationScreenManager )
+/* Font resource : 'Application::FontBold28' */
+EW_DECLARE_FONT_RES( ApplicationFontBold28 )
+
+/* Font resource : 'Application::FontBold22' */
+EW_DECLARE_FONT_RES( ApplicationFontBold22 )
+
+/* Font resource : 'Application::FontNormal33' */
+EW_DECLARE_FONT_RES( ApplicationFontNormal33 )
+
+/* Font resource : 'Application::FontBold24' */
+EW_DECLARE_FONT_RES( ApplicationFontBold24 )
+
+/* User defined auto object: 'Application::GlobalSettings' */
+EW_DECLARE_AUTOOBJECT( ApplicationGlobalSettings, ApplicationSettings )
+
+/* User defined auto object: 'Application::Device' */
+EW_DECLARE_AUTOOBJECT( ApplicationDevice, ApplicationDeviceClass )
 
 #ifdef __cplusplus
   }

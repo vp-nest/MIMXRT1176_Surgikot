@@ -188,11 +188,17 @@ EW_DEFINE_METHODS( CoreVerticalList, CoreGroup )
   EW_METHOD( OnSetFocus,        void )( CoreGroup _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreGroup _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreGroup _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreGroup _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreGroup _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreVerticalList _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreGroup _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( CoreVerticalList _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreGroup _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreVerticalList _this, CoreView aView, 
+    XPoint aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreVerticalList _this, CoreView aView, 
+    XSet aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreVerticalList _this, CoreView aView, 
     XSet aFilter )
   EW_METHOD( RestackTop,        void )( CoreVerticalList _this, CoreView aView )
@@ -229,6 +235,32 @@ XObject CoreVerticalList_DispatchEvent( CoreVerticalList _this, CoreEvent aEvent
    Usually, this method will be invoked automatically by the framework. Optionally 
    you can request its invocation by using the method @InvalidateViewState(). */
 void CoreVerticalList_UpdateViewState( CoreVerticalList _this, XSet aState );
+
+/* The method FindViewAtPosition() searches at the given position aPosition within 
+   the component for a view.
+   The search operation starts with the view lying behind the view specified in 
+   the parameter aView - aView itself will be excluded from the search operation. 
+   This allows you to enumerate all affected views, view by view from the front 
+   to the background. If the parameter aView == null, the search operations will 
+   start with the top most view.
+   Beside the position, the additional parameter aFilter can be used to limit the 
+   search operation to special views only, e.g. to visible and touchable views.
+   If there is no other view at the given position lying behind the start view aView, 
+   the method returns 'null'. */
+CoreView CoreVerticalList_FindViewAtPosition( CoreVerticalList _this, CoreView aView, 
+  XPoint aPosition, XSet aFilter );
+
+/* The method FindNextView() searches for the view lying in front of the view specified 
+   in the parameter aView - aView itself will be excluded from the search operation. 
+   This allows you to enumerate all affected views, view by view from the background 
+   to the front. If the parameter aView == null, the search operations will start 
+   with the view lying in the background of the component.
+   The additional parameter aFilter can be used to limit the search operation to 
+   special views only, e.g. to visible and touchable views.
+   If there is no other view lying above the start view aView, the method returns 
+   'null'. */
+CoreView CoreVerticalList_FindNextView( CoreVerticalList _this, CoreView aView, 
+  XSet aFilter );
 
 /* The method FindSiblingView() searches for a sibling view of the view specified 
    in the parameter aView - aView itself will be excluded from the search operation.
@@ -319,6 +351,12 @@ void CoreVerticalList_OnSetNoOfItems( CoreVerticalList _this, XInt32 value );
 
 /* 'C' function for method : 'Core::VerticalList.OnSetItemClass()' */
 void CoreVerticalList_OnSetItemClass( CoreVerticalList _this, XClass value );
+
+/* The method GetItemAtPosition() tries to determine an item at the given position 
+   aPosition. This position is valid in the coordinate space of the view's @Owner. 
+   If an item could be found, the method returns its index. The first item has the 
+   index 0, the second 1, and so far. If no item is found, the method returns -1. */
+XInt32 CoreVerticalList_GetItemAtPosition( CoreVerticalList _this, XPoint aPos );
 
 /* The method GetItemsArea() determines a rectangular area within the list view 
    occupied by one or more items. The index of the item to start the calculation 

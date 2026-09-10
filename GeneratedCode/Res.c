@@ -27,12 +27,6 @@
 #include "ewlocale.h"
 #include "Res.h"
 
-/* Include a file containing the bitmap resource : 'Res::ButtomBarImg' */
-#include "_ResButtomBarImg.h"
-
-/* Table with links to derived variants of the bitmap resource : 'Res::ButtomBarImg' */
-EW_RES_WITHOUT_VARIANTS( ResButtomBarImg )
-
 /* Include a file containing the bitmap resource : 'Res::NumBtNormalImg' */
 #include "_ResNumBtNormalImg.h"
 
@@ -86,12 +80,6 @@ EW_RES_WITHOUT_VARIANTS( ResAddProfileNormalImg )
 
 /* Table with links to derived variants of the bitmap resource : 'Res::AddProfilePressedImg' */
 EW_RES_WITHOUT_VARIANTS( ResAddProfilePressedImg )
-
-/* Include a file containing the bitmap resource : 'Res::ListItemBgNormal' */
-#include "_ResListItemBgNormal.h"
-
-/* Table with links to derived variants of the bitmap resource : 'Res::ListItemBgNormal' */
-EW_RES_WITHOUT_VARIANTS( ResListItemBgNormal )
 
 /* Include a file containing the bitmap resource : 'Res::EditNormal' */
 #include "_ResEditNormal.h"
@@ -170,5 +158,71 @@ EW_RES_WITHOUT_VARIANTS( ResEyeClosed )
 
 /* Table with links to derived variants of the bitmap resource : 'Res::BatteryIcon' */
 EW_RES_WITHOUT_VARIANTS( ResBatteryIcon )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Diagnostic' */
+#include "_ResSettings_Diagnostic.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Diagnostic' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Diagnostic )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Password' */
+#include "_ResSettings_Password.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Password' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Password )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Date' */
+#include "_ResSettings_Date.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Date' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Date )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Logs' */
+#include "_ResSettings_Logs.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Logs' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Logs )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Custom_Button' */
+#include "_ResSettings_Custom_Button.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Custom_Button' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Custom_Button )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Custom_Pressed_Button' */
+#include "_ResSettings_Custom_Pressed_Button.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Custom_Pressed_Button' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Custom_Pressed_Button )
+
+/* Include a file containing the bitmap resource : 'Res::ImgProcedureCompleted' */
+#include "_ResImgProcedureCompleted.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::ImgProcedureCompleted' */
+EW_RES_WITHOUT_VARIANTS( ResImgProcedureCompleted )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_CurvedRect' */
+#include "_ResSettings_CurvedRect.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_CurvedRect' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_CurvedRect )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Arrow' */
+#include "_ResSettings_Arrow.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Arrow' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Arrow )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Power_ON' */
+#include "_ResSettings_Power_ON.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Power_ON' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Power_ON )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Power_off' */
+#include "_ResSettings_Power_off.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Power_off' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Power_off )
 
 /* Embedded Wizard */

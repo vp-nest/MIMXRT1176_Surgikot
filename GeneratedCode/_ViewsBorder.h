@@ -145,6 +145,12 @@ void ViewsBorder_OnSetWidth( ViewsBorder _this, XInt32 value );
 /* 'C' function for method : 'Views::Border.OnSetColor()' */
 void ViewsBorder_OnSetColor( ViewsBorder _this, XColor value );
 
+/* 'C' function for method : 'Views::Border.OnGetVisible()' */
+XBool ViewsBorder_OnGetVisible( ViewsBorder _this );
+
+/* 'C' function for method : 'Views::Border.OnSetVisible()' */
+void ViewsBorder_OnSetVisible( ViewsBorder _this, XBool value );
+
 #ifdef __cplusplus
   }
 #endif

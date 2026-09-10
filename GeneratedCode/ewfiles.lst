@@ -4,6 +4,6 @@ module Graphics                 file "Graphics.c";
 module Resources                file "Resources.c";
 module Views                    file "Views.c";
 module Application              file "Application.c";
+module Templates                file "Templates.c";
 module Widget                   file "Widget.c";
 module Res                      file "Res.c";
-module Templates                file "Templates.c";

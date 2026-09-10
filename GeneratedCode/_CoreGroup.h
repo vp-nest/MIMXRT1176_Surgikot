@@ -238,11 +238,17 @@ EW_DEFINE_METHODS( CoreGroup, CoreRectView )
   EW_METHOD( OnSetFocus,        void )( CoreGroup _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreGroup _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreGroup _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreGroup _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreGroup _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreGroup _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreGroup _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( CoreGroup _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreGroup _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreGroup _this, CoreView aView, XPoint 
+    aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreGroup _this, CoreView aView, XSet 
+    aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreGroup _this, CoreView aView, XSet 
     aFilter )
   EW_METHOD( RestackTop,        void )( CoreGroup _this, CoreView aView )
@@ -348,6 +354,9 @@ void CoreGroup_OnSetOpacity( CoreGroup _this, XInt32 value );
 /* Wrapper function for the virtual method : 'Core::Group.OnSetOpacity()' */
 void CoreGroup__OnSetOpacity( void* _this, XInt32 value );
 
+/* 'C' function for method : 'Core::Group.OnSetEmbedded()' */
+void CoreGroup_OnSetEmbedded( CoreGroup _this, XBool value );
+
 /* 'C' function for method : 'Core::Group.OnSetVisible()' */
 void CoreGroup_OnSetVisible( CoreGroup _this, XBool value );
 
@@ -424,6 +433,36 @@ XPoint CoreGroup__GetMinimalSize( void* _this );
 
 /* The following define announces the presence of the method Core::Group.GetMinimalSize(). */
 #define _CoreGroup__GetMinimalSize_
+
+/* The method IsCurrentDialog() returns 'true' if 'this' component and all of its 
+   owners do actually act as active dialogs (see the method @IsActiveDialog()) and 
+   there are no further subordinated dialogs existing in context of 'this' component. 
+   In other words, 'this' component is absolutely the top-most dialog of all dialogs 
+   shown actually in the GUI application, so all user interactions are primarily 
+   directed to 'this' dialog.
+   If the component has not been presented, it has been dismissed, other dialog 
+   has been presented in meantime overlying 'this' component, the owner of the component 
+   is not itself an active dialog, or there is other dialog presented in context 
+   of 'this' component, the method returns 'false'. */
+XBool CoreGroup_IsCurrentDialog( CoreGroup _this );
+
+/* Wrapper function for the virtual method : 'Core::Group.IsCurrentDialog()' */
+XBool CoreGroup__IsCurrentDialog( void* _this );
+
+/* The method IsActiveDialog() returns 'true' if 'this' component does actually 
+   act as a dialog (see the method @IsDialog()) and it is the current (top-most) 
+   dialog in context of its owner component. If the parameter aRecursive is 'true', 
+   the owner in context of which 'this' component actually exists and all superior 
+   owners have also to be active dialogs or the owner has to be the application 
+   root component.
+   If the component is not a dialog, or other dialog has been presented in the meantime 
+   overlying 'this' component, the method returns 'false'. Similarly, if the parameter 
+   aRecursive is 'true' and the owner of the component is itself not an active dialog, 
+   the method returns 'false'. */
+XBool CoreGroup_IsActiveDialog( CoreGroup _this, XBool aRecursive );
+
+/* Wrapper function for the virtual method : 'Core::Group.IsActiveDialog()' */
+XBool CoreGroup__IsActiveDialog( void* _this, XBool aRecursive );
 
 /* The method SwitchToDialog() schedules an operation to show in context of 'this' 
    component another component passed in the parameter aDialogGroup. The operation 
@@ -659,6 +698,38 @@ void CoreGroup_InvalidateArea( CoreGroup _this, XRect aArea );
 
 /* Wrapper function for the virtual method : 'Core::Group.InvalidateArea()' */
 void CoreGroup__InvalidateArea( void* _this, XRect aArea );
+
+/* The method FindViewAtPosition() searches at the given position aPosition within 
+   the component for a view.
+   The search operation starts with the view lying behind the view specified in 
+   the parameter aView - aView itself will be excluded from the search operation. 
+   This allows you to enumerate all affected views, view by view from the front 
+   to the background. If the parameter aView == null, the search operations will 
+   start with the top most view.
+   Beside the position, the additional parameter aFilter can be used to limit the 
+   search operation to special views only, e.g. to visible and touchable views.
+   If there is no other view at the given position lying behind the start view aView, 
+   the method returns 'null'. */
+CoreView CoreGroup_FindViewAtPosition( CoreGroup _this, CoreView aView, XPoint aPosition, 
+  XSet aFilter );
+
+/* Wrapper function for the virtual method : 'Core::Group.FindViewAtPosition()' */
+CoreView CoreGroup__FindViewAtPosition( void* _this, CoreView aView, XPoint aPosition, 
+  XSet aFilter );
+
+/* The method FindNextView() searches for the view lying in front of the view specified 
+   in the parameter aView - aView itself will be excluded from the search operation. 
+   This allows you to enumerate all affected views, view by view from the background 
+   to the front. If the parameter aView == null, the search operations will start 
+   with the view lying in the background of the component.
+   The additional parameter aFilter can be used to limit the search operation to 
+   special views only, e.g. to visible and touchable views.
+   If there is no other view lying above the start view aView, the method returns 
+   'null'. */
+CoreView CoreGroup_FindNextView( CoreGroup _this, CoreView aView, XSet aFilter );
+
+/* Wrapper function for the virtual method : 'Core::Group.FindNextView()' */
+CoreView CoreGroup__FindNextView( void* _this, CoreView aView, XSet aFilter );
 
 /* The method FindSiblingView() searches for a sibling view of the view specified 
    in the parameter aView - aView itself will be excluded from the search operation.

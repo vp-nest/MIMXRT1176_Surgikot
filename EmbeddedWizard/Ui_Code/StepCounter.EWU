@@ -1,0 +1,181 @@
+﻿// Embedded Wizard 11.x - reusable StepCounter component
+// 220 x 62 px
+//
+// Usage:
+//   Add the unit "StepCounter" to your project.
+//   Instantiate StepCounter::StepCounter.
+//   Configure Value / Minimum / Maximum / Step.
+//
+// The component uses Resources::DefaultFont by default.
+// You can replace the Font property with your project font.
+
+$version 11.00
+
+unit StepCounter
+{
+  class StepCounter : Core::Group
+  {
+    property int32 Value = 50;
+    property int32 Minimum = 0;
+    property int32 Maximum = 999;
+    property int32 Step = 1;
+    property Resources::Font Font = Resources::DefaultFont;
+    property slot OnValueChanged = null;
+
+    object Views::Rectangle Background
+    {
+      preset Bounds = <0,0,220,62>;
+      preset Color = #172341FF;
+      preset Radius = 12;
+    }
+
+    object Views::Rectangle LeftButton
+    {
+      preset Bounds = <1,1,66,61>;
+      preset Color = #26365EFF;
+      preset RadiusTL = 11;
+      preset RadiusBL = 11;
+    }
+
+    object Views::Rectangle CenterArea
+    {
+      preset Bounds = <66,1,154,61>;
+      preset Color = #101B38FF;
+    }
+
+    object Views::Rectangle RightButton
+    {
+      preset Bounds = <154,1,219,61>;
+      preset Color = #26365EFF;
+      preset RadiusTR = 11;
+      preset RadiusBR = 11;
+    }
+
+    object Views::Border Border
+    {
+      preset Bounds = <0,0,220,62>;
+      preset Color = #2D8CFFFF;
+      preset Width = 1;
+      preset Radius = 12;
+    }
+
+    object Views::Rectangle SeparatorLeft
+    {
+      preset Bounds = <65,1,66,61>;
+      preset Color = #1D2C4DFF;
+    }
+
+    object Views::Rectangle SeparatorRight
+    {
+      preset Bounds = <154,1,155,61>;
+      preset Color = #1D2C4DFF;
+    }
+
+    object Views::Text MinusText
+    {
+      preset Bounds = <1,1,66,61>;
+      preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+      preset String = "-";
+      preset Font = Resources::DefaultFont;
+      preset Color = #FFFFFFFF;
+    }
+
+    object Views::Text ValueText
+    {
+      preset Bounds = <66,1,154,61>;
+      preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+      preset String = "50";
+      preset Font = Resources::DefaultFont;
+      preset Color = #FFFFFFFF;
+    }
+
+    object Views::Text PlusText
+    {
+      preset Bounds = <154,1,219,61>;
+      preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+      preset String = "+";
+      preset Font = Resources::DefaultFont;
+      preset Color = #FFFFFFFF;
+    }
+
+    object Core::SimpleTouchHandler MinusTouch
+    {
+      preset Point4 = <66,61>;
+      preset Point3 = <1,61>;
+      preset Point2 = <1,1>;
+      preset Point1 = <66,1>;
+      preset OnPress = onMinusPress;
+    }
+
+    object Core::SimpleTouchHandler PlusTouch
+    {
+      preset Point4 = <219,61>;
+      preset Point3 = <154,61>;
+      preset Point2 = <154,1>;
+      preset Point1 = <219,1>;
+      preset OnPress = onPlusPress;
+    }
+
+    slot onMinusPress
+    {
+      if ( Value > Minimum )
+      {
+        Value = Value - Step;
+      }
+    }
+
+    slot onPlusPress
+    {
+      if ( Value < Maximum )
+      {
+        Value = Value + Step;
+      }
+    }
+
+    onset Value
+    {
+      if ( value < Minimum ) value = Minimum;
+      if ( value > Maximum ) value = Maximum;
+
+      if ( pure Value == value ) return;
+
+      pure Value = value;
+      ValueText.String = string( value );
+      postsignal OnValueChanged;
+    }
+
+    onset Minimum
+    {
+      if ( pure Minimum == value ) return;
+      pure Minimum = value;
+
+      if ( Value < Minimum )
+        Value = Minimum;
+    }
+
+    onset Maximum
+    {
+      if ( pure Maximum == value ) return;
+      pure Maximum = value;
+
+      if ( Value > Maximum )
+        Value = Maximum;
+    }
+
+    onset Step
+    {
+      if ( value < 1 ) value = 1;
+      pure Step = value;
+    }
+
+    onset Font
+    {
+      if ( pure Font == value ) return;
+
+      pure Font = value;
+      MinusText.Font = value;
+      ValueText.Font = value;
+      PlusText.Font = value;
+    }
+  }
+}

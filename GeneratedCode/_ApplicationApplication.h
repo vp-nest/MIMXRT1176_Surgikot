@@ -124,11 +124,17 @@ EW_DEFINE_METHODS( ApplicationApplication, CoreRoot )
   EW_METHOD( OnSetFocus,        void )( CoreRoot _this, CoreView value )
   EW_METHOD( OnSetBuffered,     void )( CoreRoot _this, XBool value )
   EW_METHOD( OnSetOpacity,      void )( CoreRoot _this, XInt32 value )
+  EW_METHOD( IsCurrentDialog,   XBool )( CoreRoot _this )
+  EW_METHOD( IsActiveDialog,    XBool )( CoreRoot _this, XBool aRecursive )
   EW_METHOD( DispatchEvent,     XObject )( CoreRoot _this, CoreEvent aEvent )
   EW_METHOD( BroadcastEvent,    XObject )( CoreRoot _this, CoreEvent aEvent, XSet 
     aFilter )
   EW_METHOD( UpdateViewState,   void )( CoreGroup _this, XSet aState )
   EW_METHOD( InvalidateArea,    void )( CoreRoot _this, XRect aArea )
+  EW_METHOD( FindViewAtPosition, CoreView )( CoreGroup _this, CoreView aView, XPoint 
+    aPosition, XSet aFilter )
+  EW_METHOD( FindNextView,      CoreView )( CoreGroup _this, CoreView aView, XSet 
+    aFilter )
   EW_METHOD( FindSiblingView,   CoreView )( CoreGroup _this, CoreView aView, XSet 
     aFilter )
   EW_METHOD( RestackTop,        void )( CoreGroup _this, CoreView aView )

@@ -42,6 +42,8 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
+#include "_TemplatesAlphaNumKeyboard.h"
+#include "_TemplatesDeviceClass.h"
 #include "_TemplatesTextEditor.h"
 
 #ifdef __cplusplus

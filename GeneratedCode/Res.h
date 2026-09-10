@@ -42,9 +42,6 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-/* Bitmap resource : 'Res::ButtomBarImg' */
-EW_DECLARE_BITMAP_RES( ResButtomBarImg )
-
 /* Bitmap resource : 'Res::NumBtNormalImg' */
 EW_DECLARE_BITMAP_RES( ResNumBtNormalImg )
 
@@ -71,9 +68,6 @@ EW_DECLARE_BITMAP_RES( ResAddProfileNormalImg )
 
 /* Bitmap resource : 'Res::AddProfilePressedImg' */
 EW_DECLARE_BITMAP_RES( ResAddProfilePressedImg )
-
-/* Bitmap resource : 'Res::ListItemBgNormal' */
-EW_DECLARE_BITMAP_RES( ResListItemBgNormal )
 
 /* Bitmap resource : 'Res::EditNormal' */
 EW_DECLARE_BITMAP_RES( ResEditNormal )
@@ -113,6 +107,39 @@ EW_DECLARE_BITMAP_RES( ResEyeClosed )
 
 /* Bitmap resource : 'Res::BatteryIcon' */
 EW_DECLARE_BITMAP_RES( ResBatteryIcon )
+
+/* Bitmap resource : 'Res::Settings_Diagnostic' */
+EW_DECLARE_BITMAP_RES( ResSettings_Diagnostic )
+
+/* Bitmap resource : 'Res::Settings_Password' */
+EW_DECLARE_BITMAP_RES( ResSettings_Password )
+
+/* Bitmap resource : 'Res::Settings_Date' */
+EW_DECLARE_BITMAP_RES( ResSettings_Date )
+
+/* Bitmap resource : 'Res::Settings_Logs' */
+EW_DECLARE_BITMAP_RES( ResSettings_Logs )
+
+/* Bitmap resource : 'Res::Settings_Custom_Button' */
+EW_DECLARE_BITMAP_RES( ResSettings_Custom_Button )
+
+/* Bitmap resource : 'Res::Settings_Custom_Pressed_Button' */
+EW_DECLARE_BITMAP_RES( ResSettings_Custom_Pressed_Button )
+
+/* Bitmap resource : 'Res::ImgProcedureCompleted' */
+EW_DECLARE_BITMAP_RES( ResImgProcedureCompleted )
+
+/* Bitmap resource : 'Res::Settings_CurvedRect' */
+EW_DECLARE_BITMAP_RES( ResSettings_CurvedRect )
+
+/* Bitmap resource : 'Res::Settings_Arrow' */
+EW_DECLARE_BITMAP_RES( ResSettings_Arrow )
+
+/* Bitmap resource : 'Res::Settings_Power_ON' */
+EW_DECLARE_BITMAP_RES( ResSettings_Power_ON )
+
+/* Bitmap resource : 'Res::Settings_Power_off' */
+EW_DECLARE_BITMAP_RES( ResSettings_Power_off )
 
 #ifdef __cplusplus
   }
