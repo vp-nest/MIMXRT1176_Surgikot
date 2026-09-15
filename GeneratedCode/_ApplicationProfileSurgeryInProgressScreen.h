@@ -173,7 +173,7 @@ void ApplicationProfileSurgeryInProgressScreen_Init( ApplicationProfileSurgeryIn
 
 /* This slot method is executed when the associated property observer 'PropertyObserver' 
    is notified. */
-void ApplicationProfileSurgeryInProgressScreen_onEvent( ApplicationProfileSurgeryInProgressScreen _this, 
+void ApplicationProfileSurgeryInProgressScreen_SlotSurgeryComplete( ApplicationProfileSurgeryInProgressScreen _this, 
   XObject sender );
 
 /* 'C' function for method : 'Application::ProfileSurgeryInProgressScreen.slotTimer()' */

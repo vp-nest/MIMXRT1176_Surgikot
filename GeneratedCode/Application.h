@@ -44,6 +44,7 @@
 
 #include "_ApplicationAlphaNumKeyboard.h"
 #include "_ApplicationApplication.h"
+#include "_ApplicationConfigItem.h"
 #include "_ApplicationDeviceClass.h"
 #include "_ApplicationKeyboard.h"
 #include "_ApplicationLogInScreen.h"
@@ -57,6 +58,7 @@
 #include "_ApplicationSettingsDateTime.h"
 #include "_ApplicationSettingsDiagnostic.h"
 #include "_ApplicationSettingsDisplayTest.h"
+#include "_ApplicationSettingsEditSurgicalProfile.h"
 #include "_ApplicationSettingsInputField.h"
 #include "_ApplicationSettingsLEDTest.h"
 #include "_ApplicationSettingsMotorTest.h"

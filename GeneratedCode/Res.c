@@ -225,4 +225,16 @@ EW_RES_WITHOUT_VARIANTS( ResSettings_Power_ON )
 /* Table with links to derived variants of the bitmap resource : 'Res::Settings_Power_off' */
 EW_RES_WITHOUT_VARIANTS( ResSettings_Power_off )
 
+/* Include a file containing the bitmap resource : 'Res::Settings_DropDown_Arrow' */
+#include "_ResSettings_DropDown_Arrow.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_DropDown_Arrow' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_DropDown_Arrow )
+
+/* Include a file containing the bitmap resource : 'Res::Settings_Up_Arrow' */
+#include "_ResSettings_Up_Arrow.h"
+
+/* Table with links to derived variants of the bitmap resource : 'Res::Settings_Up_Arrow' */
+EW_RES_WITHOUT_VARIANTS( ResSettings_Up_Arrow )
+
 /* Embedded Wizard */

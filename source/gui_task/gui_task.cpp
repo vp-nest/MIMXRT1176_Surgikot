@@ -1,96 +1,262 @@
 #include "gui_task.hpp"
+
 #include <cstring>
+
+#include "FreeRTOS.h"
+#include "task.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include "fsl_debug_console.h"
+
 #include "ewmain.h"
 #include "ewrte.h"
 #include "ew_bsp_system.h"
 #include "ew_bsp_console.h"
 
+/*
+ * Generated Embedded Wizard Application API
+ */
+#include "Application.h"
 
 #ifdef __cplusplus
 }
 #endif
 
 
+/*----------------------------------------------------------
+ * Surgery backend test data
+ *---------------------------------------------------------*/
+
+static TickType_t surgeryStartTick = 0;
+static bool surgeryStarted = false;
+static bool surgeryCompleteEvent = false;
+
+
+/*----------------------------------------------------------
+ * Called from Embedded Wizard when START is pressed
+ *---------------------------------------------------------*/
+
+extern "C" void Gui_StartSurgery(void)
+{
+    surgeryStartTick = xTaskGetTickCount();
+
+    surgeryStarted = true;
+    surgeryCompleteEvent = false;
+
+    PRINTF("Surgery Started\r\n");
+}
+
+
+/*----------------------------------------------------------
+ * Backend surgery timing
+ *---------------------------------------------------------*/
+
+static void CheckSurgeryStatus(void)
+{
+    if (!surgeryStarted)
+    {
+        return;
+    }
+
+    TickType_t elapsed =
+        xTaskGetTickCount() - surgeryStartTick;
+
+
+    /*
+     * Test:
+     * Complete surgery after 1 minute.
+     */
+    if (elapsed >= pdMS_TO_TICKS(60000))
+    {
+        surgeryStarted = false;
+        surgeryCompleteEvent = true;
+
+        PRINTF("Backend: Surgery Complete\r\n");
+    }
+}
+
+extern "C" void MockSaveConfig(const char* configJson)
+{
+    if (configJson == nullptr)
+        return;
+
+    PRINTF("\r\n========== CONFIG JSON ==========\r\n");
+    PRINTF("%s\r\n", configJson);
+    PRINTF("=================================\r\n");
+}
+
+
+/*----------------------------------------------------------
+ * Backend -> Embedded Wizard
+ *---------------------------------------------------------*/
+
+static void ProcessSurgeryEvent(void)
+{
+    /*
+     * No event pending.
+     */
+    if (!surgeryCompleteEvent)
+    {
+        return;
+    }
+
+
+    /*
+     * Consume event once.
+     */
+    surgeryCompleteEvent = false;
+
+    PRINTF("Sending Surgery Complete event to UI\r\n");
+
+
+    /*
+     * Get Embedded Wizard Device autoobject.
+     */
+    ApplicationDeviceClass device =
+        EwGetAutoObject(
+            &ApplicationDevice,
+            ApplicationDeviceClass
+        );
+
+
+    /*
+     * Set:
+     *
+     * Application::Device.SurgeryCompleted = true;
+     */
+    ApplicationDeviceClass_OnSetSurgeryCompleted(
+        device,
+        1
+    );
+}
+
+
+/*----------------------------------------------------------
+ * GUI task initialization
+ *---------------------------------------------------------*/
+
 void GuiTask::init()
 {
-    // lv_init();
-	// BOARD_InitDisplay(); BOARD_InitTouch();
-    // Build the screen(s) and widgets here, e.g.:
-    //   lv_obj_t* upgradeBtn = lv_btn_create(scr);
-    //   lv_obj_add_event_cb(upgradeBtn, [](lv_event_t* e){
-    //       static_cast<GuiTask*>(lv_event_get_user_data(e))->onUpgradeButtonPressed();
-    //   }, LV_EVENT_CLICKED, this);
-    //   (same pattern for the "Export logs" button -> onExportLogsButtonPressed)
-    /* initialize system */
-	EwBspSystemInit();
+    EwBspSystemInit();
 
-    /* initialize console interface for debug messages */
-    // EwBspConsoleInit();
-	PRINTF("Create UI thread...\r\n");
+    PRINTF("Create UI thread...\r\n");
 }
+
+
+/*----------------------------------------------------------
+ * GUI task
+ *---------------------------------------------------------*/
 
 void GuiTask::run()
 {
     AppStatusEvent evt;
 
-    if ( EwInit() == 0 )
+
+    /*
+     * Initialize Embedded Wizard.
+     */
+    if (EwInit() == 0)
+    {
         return;
-
-	EwPrintSystemInfo();
-
-	/* process the Embedded Wizard main loop */
-	while(EwProcess());
-
-#if 0
-    for (;;) {
-        // Short timeout so the LVGL tick handler still gets pumped even
-        // when no status events are pending.
-        if (g_guiEventQueue.receive(evt, os::Duration::milliseconds(10))) {
-            handleStatusEvent(evt);
-        }
-        // lv_timer_handler();   // process LVGL redraw + input, non-blocking
     }
-#endif
-    /* de-initialize Embedded Wizard application */
+
+
+    EwPrintSystemInfo();
+
+
+    /*
+     * Embedded Wizard main loop.
+     */
+    while (EwProcess())
+    {
+        /*
+         * Check backend timing.
+         */
+        CheckSurgeryStatus();
+
+
+        /*
+         * Process backend -> UI event.
+         */
+        ProcessSurgeryEvent();
+    }
+
+
+    /*
+     * Shutdown Embedded Wizard.
+     */
     EwDone();
 }
 
+
+/*----------------------------------------------------------
+ * Existing application event handler
+ *---------------------------------------------------------*/
+
 void GuiTask::handleStatusEvent(const AppStatusEvent& evt)
 {
-    switch (evt.source) {
+    switch (evt.source)
+    {
         case AppEventSource::UPGRADE_TASK:
-            // e.g. update an upgrade progress bar / modal dialog:
-            //   updateUpgradeDialog(evt.status, evt.percent, evt.errorCode);
+        {
             break;
+        }
+
+
         case AppEventSource::LOGGER_TASK:
-            // e.g. update the "exporting logs..." dialog
-            //   updateExportDialog(evt.status, evt.percent, evt.errorCode);
+        {
             break;
+        }
+
+
         case AppEventSource::UART_TASK:
-            // e.g. flip a peer-link connected/disconnected icon
+        {
             break;
+        }
     }
 }
+
+
+/*----------------------------------------------------------
+ * Existing Upgrade button
+ *---------------------------------------------------------*/
 
 void GuiTask::onUpgradeButtonPressed()
 {
     UpgradeMsg msg{};
+
     msg.cmd = UpgradeCmd::START_FROM_USB;
-    std::strncpy(msg.filename, "/usb/firmware.bin", sizeof(msg.filename) - 1);
-    // Short timeout, not forever(): GUI must never block on a full
-    // worker queue, it should just drop/toast an error instead.
-    g_upgradeQueue.send(msg, os::Duration::milliseconds(50));
+
+    std::strncpy(
+        msg.filename,
+        "/usb/firmware.bin",
+        sizeof(msg.filename) - 1
+    );
+
+
+    g_upgradeQueue.send(
+        msg,
+        os::Duration::milliseconds(50)
+    );
 }
+
+
+/*----------------------------------------------------------
+ * Existing Export Logs button
+ *---------------------------------------------------------*/
 
 void GuiTask::onExportLogsButtonPressed()
 {
     LogEventMsg msg{};
+
     msg.cmd = LoggerCmd::EXPORT_TO_USB;
-    g_loggerQueue.send(msg, os::Duration::milliseconds(50));
+
+
+    g_loggerQueue.send(
+        msg,
+        os::Duration::milliseconds(50)
+    );
 }

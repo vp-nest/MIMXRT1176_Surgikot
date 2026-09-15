@@ -1,0 +1,43 @@
+﻿$version 11.00
+
+// Profiles
+note group Note
+{
+  attr Bounds = <-1040,160,-450,700>;
+}
+
+$rect <-1010,230,-810,270>
+$output false
+const string PROFILE_1 = "Profile1";
+
+$rect <-1010,280,-810,320>
+$output false
+const string PROFILE_2 = "Profile2";
+
+$rect <-1010,330,-810,370>
+$output false
+const string PROFILE_3 = "Profile3";
+
+$rect <-1010,380,-810,420>
+$output false
+const string PROFILE_4 = "Profile4";
+
+$rect <-760,230,-560,270>
+$output false
+const string TYPE = "Type";
+
+$rect <-760,280,-560,320>
+$output false
+const string CURR_ENERGY = "Curr_Energy";
+
+$rect <-760,330,-560,370>
+$output false
+const string COAG_ENERGY = "Coag_Energy";
+
+$rect <-760,380,-560,420>
+$output false
+const string MAX_GRASP_FORCE = "Max_Grasp_Force";
+
+$rect <-760,430,-560,470>
+$output false
+const string MOTION_SPEED_LIMIT = "Motion_Speed_Limit";

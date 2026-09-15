@@ -577,3 +577,27 @@ resource Resources::Bitmap Settings_Power_off
   attr bitmapdithering Dithering = Auto;
   attr bitmapmode Mode = Default;
 }
+
+$rect <1050,510,1250,550>
+$output false
+resource Resources::Bitmap Settings_DropDown_Arrow
+{
+  attr bitmapfile FileName = .\res\down.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <810,520,1010,560>
+$output false
+resource Resources::Bitmap Settings_Up_Arrow
+{
+  attr bitmapfile FileName = .\res\caret-arrow-up.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}

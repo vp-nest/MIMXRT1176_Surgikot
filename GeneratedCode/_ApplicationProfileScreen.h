@@ -184,6 +184,10 @@ void ApplicationProfileScreen_Slot1( ApplicationProfileScreen _this, XObject sen
 void ApplicationProfileScreen_onAddNewProfile( ApplicationProfileScreen _this, XObject 
   sender );
 
+/* 'C' function for method : 'Application::ProfileScreen.SlotSelectEditBT()' */
+void ApplicationProfileScreen_SlotSelectEditBT( ApplicationProfileScreen _this, 
+  XObject sender );
+
 #ifdef __cplusplus
   }
 #endif

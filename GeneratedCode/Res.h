@@ -141,6 +141,12 @@ EW_DECLARE_BITMAP_RES( ResSettings_Power_ON )
 /* Bitmap resource : 'Res::Settings_Power_off' */
 EW_DECLARE_BITMAP_RES( ResSettings_Power_off )
 
+/* Bitmap resource : 'Res::Settings_DropDown_Arrow' */
+EW_DECLARE_BITMAP_RES( ResSettings_DropDown_Arrow )
+
+/* Bitmap resource : 'Res::Settings_Up_Arrow' */
+EW_DECLARE_BITMAP_RES( ResSettings_Up_Arrow )
+
 #ifdef __cplusplus
   }
 #endif

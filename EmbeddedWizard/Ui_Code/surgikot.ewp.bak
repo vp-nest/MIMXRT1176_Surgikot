@@ -175,7 +175,7 @@ profile iMX_RT : NXP.iMX_RT_VGLite.RGBA8888
   attr CleanOutputDirectories = false;
   attr OutputFileNameExtension = c;
   attr Verbose = false;
-  attr OutputDirectory = D:\Projects\IMXRT1170-EVK-VGLite\Application\GeneratedCode;
+  attr OutputDirectory = D:\Projects\Code_Surgikot\MIMXRT1176_Surgikot\GeneratedCode;
 
   $rect <10,10,154,50>
   macro Author = "Dipl. Ing. Paul Banach and Dipl. Ing. Manfred Schweyer, Copyright (C) TARA Systems GmbH";
@@ -184,4 +184,10 @@ profile iMX_RT : NXP.iMX_RT_VGLite.RGBA8888
   // will be enabled and instantiated.
   $rect <10,90,240,130>
   macro Trace = false;
+}
+
+$rect <530,-40,730,0>
+unit Constants
+{
+  attr Directory = .\;
 }

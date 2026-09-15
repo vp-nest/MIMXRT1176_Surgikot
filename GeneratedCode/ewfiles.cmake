@@ -9,4 +9,5 @@ set(EMWIFILES
 	"Application.c" 
 	"Templates.c" 
 	"Widget.c" 
-	"Res.c")
+	"Res.c" 
+	"Constants.c")

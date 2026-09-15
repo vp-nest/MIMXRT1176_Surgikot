@@ -1158,6 +1158,7 @@ class ProfileListItem : Core::Group
   {
     EditImg.Bitmap = Res::EditNormal;
     postsignal OnPressEdit;
+
   }
 
   $rect <470,290,670,330>
@@ -2124,4 +2125,525 @@ class StatusLabel : Core::Group
 note group Note
 {
   attr Bounds = <-19,-80,781,290>;
+}
+
+$rect <529,-9,729,31>
+$output false
+class DropDownItem : Core::Group
+{
+  $rect <410,-80,610,-40>
+  inherited property Bounds = <0,0,318,354>;
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <5,5,309,77>;
+    preset Color = #1A2442FF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <5,5,309,77>;
+    preset String = "Text";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <414,-2,614,38>
+  property int32 ItemNo;
+
+  $rect <414,38,614,78>
+  onset ItemNo
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure ItemNo == value )
+      return;
+
+    // Remember the property's new value.
+    pure ItemNo = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <410,150,610,190>
+  property string ItemText;
+
+  $rect <410,190,610,230>
+  onset ItemText
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure ItemText == value )
+      return;
+
+    // Remember the property's new value.
+    pure ItemText = value;
+    Text.String = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <420,240,620,280>
+  slot SlotSelect
+  {
+    //signal OnSelect;
+  }
+
+  $rect <34,-85,234,-45>
+  var point PressPos;
+
+  $rect <-180,-80,20,-40>
+  var point ReleasePos;
+
+  $rect <-210,140,-10,180>
+  slot Slot
+  {
+    sender; /* the method is called from the sender object */
+  }
+}
+
+$rect <549,49,749,89>
+$output false
+class DropDown : Core::Group
+{
+  $rect <-230,150,-30,190>
+  inherited method Init()
+  {
+    IsOpen = false;
+
+    VerticalList.Visible = false;
+    ListBg.Visible = false;
+    ListTouchHandler.Enabled = false;
+    VerticalList.NoOfItems = MaxValue - MinValue + 1;
+    if ( SelectedText == "" )
+      Text.String = Placeholder;
+    else
+      Text.String = SelectedText;
+  }
+
+  $rect <410,-80,610,-40>
+  inherited property Bounds = <0,0,318,471>;
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <5,5,309,77>;
+    preset Color = #1A2442FF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <5,5,309,77>;
+    preset String = "Text";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <239,16,289,66>;
+    preset Bitmap = Res::Settings_DropDown_Arrow;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <5,5>;
+    preset Point3 = <309,5>;
+    preset Point2 = <309,77>;
+    preset Point1 = <5,77>;
+    preset OnRelease = SlotToggle;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SlideTouchHandler SlideTouchHandler
+  {
+    preset Bounds = <8,80,306,458>;
+    preset SlideHorz = false;
+    preset RetargetDelay = 100;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle ListBg
+  {
+    preset Bounds = <5,77,309,458>;
+    preset Color = #1A2442FF;
+    preset Visible = false;
+  }
+
+  $rect <20,20,160,60>
+  object Core::VerticalList VerticalList
+  {
+    preset Bounds = <8,80,307,460>;
+    preset Visible = false;
+    preset OnLoadItem = OnLoadItem;
+    preset SlideHandler = SlideTouchHandler;
+    preset ItemHeight = 80;
+    preset NoOfItems = 10;
+    preset ItemClass = Widget::DropDownItem;
+  }
+
+  // This method is called by 'VerticalList' every time the list loads or updates \
+  // an item.
+  $rect <370,-30,520,10>
+  slot OnLoadItem
+  {
+    var int32 itemNo = VerticalList.Item;
+
+    var Widget::DropDownItem itemView =
+      (Widget::DropDownItem)VerticalList.View;
+
+    if ( itemView == null )
+      return;
+
+    var int32 value = MinValue + itemNo;
+
+    itemView.ItemNo = itemNo;
+
+    if ( IsMonth )
+    {
+      switch ( value )
+      {
+        case 1  : itemView.ItemText = "Jan";
+        case 2  : itemView.ItemText = "Feb";
+        case 3  : itemView.ItemText = "Mar";
+        case 4  : itemView.ItemText = "Apr";
+        case 5  : itemView.ItemText = "May";
+        case 6  : itemView.ItemText = "Jun";
+        case 7  : itemView.ItemText = "Jul";
+        case 8  : itemView.ItemText = "Aug";
+        case 9  : itemView.ItemText = "Sep";
+        case 10 : itemView.ItemText = "Oct";
+        case 11 : itemView.ItemText = "Nov";
+        case 12 : itemView.ItemText = "Dec";
+        default : itemView.ItemText = "";
+      }
+    }
+    else if ( TwoDigit )
+    {
+      itemView.ItemText = string( value, 2, 10 );
+    }
+    else
+    {
+      itemView.ItemText = string( value );
+    }
+
+    itemView.Bounds.size =
+      point(
+        VerticalList.Bounds.w,
+        VerticalList.ItemHeight
+      );
+  }
+
+  $rect <380,20,580,60>
+  property int32 MinValue = 0;
+
+  $rect <380,60,580,100>
+  onset MinValue
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure MinValue == value )
+      return;
+
+    // Remember the property's new value.
+    pure MinValue = value;
+
+    // TO DO:
+    this.VerticalList.NoOfItems = this.MaxValue - this.MinValue+1;
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <380,110,580,150>
+  property int32 MaxValue = 23;
+
+  $rect <380,150,580,190>
+  onset MaxValue
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure MaxValue == value )
+      return;
+
+    // Remember the property's new value.
+    pure MaxValue = value;
+
+    // TO DO:
+    // 
+    this.VerticalList.NoOfItems = this.MaxValue - this.MinValue +1;
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <380,200,580,240>
+  property int32 SelectedValue;
+
+  $rect <380,240,580,280>
+  onset SelectedValue
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure SelectedValue == value )
+      return;
+
+    // Remember the property's new value.
+    pure SelectedValue = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <380,290,580,330>
+  property string SelectedText;
+
+  $rect <380,330,580,370>
+  onset SelectedText
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure SelectedText == value )
+      return;
+
+    // Remember the property's new value.
+    pure SelectedText = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <380,380,580,420>
+  property bool IsOpen;
+
+  $rect <380,420,580,460>
+  onset IsOpen
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure IsOpen == value )
+      return;
+
+    // Remember the property's new value.
+    pure IsOpen = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <600,380,800,420>
+  property slot OnChange;
+
+  $rect <600,420,800,460>
+  onset OnChange
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure OnChange == value )
+      return;
+
+    // Remember the property's new value.
+    pure OnChange = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <380,470,580,510>
+  slot SlotToggle
+  {
+    IsOpen = !IsOpen;
+
+    VerticalList.Visible = IsOpen;
+    ListBg.Visible = IsOpen;
+    ListTouchHandler.Enabled = IsOpen;
+    if ( IsOpen )
+      this.Image.Bitmap = Res::Settings_Up_Arrow;
+    else
+      this.Image.Bitmap = Res::Settings_DropDown_Arrow;
+  }
+
+  $rect <610,470,810,510>
+  property bool TwoDigit = true;
+
+  $rect <610,510,810,550>
+  onset TwoDigit
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure TwoDigit == value )
+      return;
+
+    // Remember the property's new value.
+    pure TwoDigit = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <600,180,800,220>
+  slot SlotItemSelected
+  {
+    var Widget::DropDownItem item =(Widget::DropDownItem)sender;
+    if(this.ListTouchHandler.AutoDeflected)
+      return;
+
+    if ( item == null )
+      return;
+
+    SelectedValue = MinValue + item.ItemNo;
+
+    if ( IsMonth )
+    {
+      SelectedText = item.ItemText;
+    }
+    else if ( TwoDigit )
+    {
+      SelectedText = string( SelectedValue, 2, 10 );
+    }
+    else
+    {
+      SelectedText = string( SelectedValue );
+    }
+
+    Text.String = SelectedText;
+    IsOpen = false;
+
+    VerticalList.Visible = false;
+    ListBg.Visible = false;
+
+
+
+    signal OnChange;
+    postsignal SlotCloseDropDown;
+
+
+  }
+
+  $rect <576,25,776,65>
+  property string Placeholder;
+
+  $rect <576,65,776,105>
+  onset Placeholder
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Placeholder == value )
+      return;
+
+    // Remember the property's new value.
+    pure Placeholder = value;
+
+    // TO DO:
+    if ( SelectedText == "" )
+    Text.String = Placeholder;
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <-160,-134,40,-94>
+  slot SlotCloseDropDown
+  {
+    IsOpen = false;
+
+    VerticalList.Visible = false;
+    ListBg.Visible = false;
+
+    ListTouchHandler.Enabled = false;
+
+    this.Image.Bitmap = Res::Settings_DropDown_Arrow;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler ListTouchHandler
+  {
+    preset Point4 = <8,80>;
+    preset Point3 = <306,80>;
+    preset Point2 = <306,458>;
+    preset Point1 = <8,458>;
+    preset OnRelease = SlotListTouch;
+    preset RetargetCondition = Core::RetargetReason[WipeDown, WipeUp];
+  }
+
+  $rect <-305,508,-105,548>
+  slot SlotListTouch
+  {
+    var int32 itemNo = VerticalList.GetItemAtPosition( ListTouchHandler.CurrentPos );
+
+    trace itemNo;
+
+    if ( this.ListTouchHandler.AutoDeflected )
+      return;
+
+    if ( itemNo < 0 )
+      return;
+
+    VerticalList.SelectedItem = itemNo;
+
+    // IMPORTANT
+    SelectedValue = MinValue + itemNo;
+
+    if ( IsMonth )
+    {
+      switch ( SelectedValue )
+      {
+        case 1  : SelectedText = "Jan";
+        case 2  : SelectedText = "Feb";
+        case 3  : SelectedText = "Mar";
+        case 4  : SelectedText = "Apr";
+        case 5  : SelectedText = "May";
+        case 6  : SelectedText = "Jun";
+        case 7  : SelectedText = "Jul";
+        case 8  : SelectedText = "Aug";
+        case 9  : SelectedText = "Sep";
+        case 10 : SelectedText = "Oct";
+        case 11 : SelectedText = "Nov";
+        case 12 : SelectedText = "Dec";
+        default : SelectedText = "";
+      }
+    }
+    else if ( TwoDigit )
+    {
+      SelectedText = string( SelectedValue, 2, 10 );
+    }
+    else
+    {
+      SelectedText = string( SelectedValue );
+    }
+
+    Text.String = SelectedText;
+
+    IsOpen = false;
+    this.Image.Bitmap = Res::Settings_DropDown_Arrow;
+
+    VerticalList.Visible = false;
+    ListBg.Visible = false;
+
+    signal OnChange;
+    postsignal SlotCloseDropDown;
+  }
+
+  $rect <600,230,800,270>
+  property bool IsMonth;
+
+  $rect <600,270,800,310>
+  onset IsMonth
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure IsMonth == value )
+      return;
+
+    // Remember the property's new value.
+    pure IsMonth = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <20,20,160,60>
+  object Views::Border Border
+  {
+    preset Bounds = <5,5,309,77>;
+    preset Color = #3A5FA0FF;
+  }
 }

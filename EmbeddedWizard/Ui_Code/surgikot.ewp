@@ -185,3 +185,9 @@ profile iMX_RT : NXP.iMX_RT_VGLite.RGBA8888
   $rect <10,90,240,130>
   macro Trace = false;
 }
+
+$rect <290,240,490,280>
+unit Constants
+{
+  attr Directory = .\;
+}

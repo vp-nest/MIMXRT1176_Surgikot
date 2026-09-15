@@ -101,6 +101,7 @@
 /* Deklaration of class : 'Widget::ProfileListItem' */
 EW_DEFINE_FIELDS( WidgetProfileListItem, CoreGroup )
   EW_PROPERTY( OnSelectRadioBT, XSlot )
+  EW_PROPERTY( OnPressEdit,     XSlot )
   EW_OBJECT  ( Rectangle,       ViewsRectangle )
   EW_OBJECT  ( Border,          ViewsBorder )
   EW_OBJECT  ( RadioImg,        ViewsImage )
@@ -162,6 +163,10 @@ void WidgetProfileListItem_OnSetOnSelectRadioBT( WidgetProfileListItem _this, XS
 /* 'C' function for method : 'Widget::ProfileListItem.SlotEditRelease()' */
 void WidgetProfileListItem_SlotEditRelease( WidgetProfileListItem _this, XObject 
   sender );
+
+/* 'C' function for method : 'Widget::ProfileListItem.OnSetOnPressEdit()' */
+void WidgetProfileListItem_OnSetOnPressEdit( WidgetProfileListItem _this, XSlot 
+  value );
 
 /* 'C' function for method : 'Widget::ProfileListItem.SlotEditPress()' */
 void WidgetProfileListItem_SlotEditPress( WidgetProfileListItem _this, XObject sender );

@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef Widget_H
-#define Widget_H
+#ifndef Constants_H
+#define Constants_H
 
 #ifdef __cplusplus
   extern "C"
@@ -42,22 +42,46 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-#include "_WidgetAddProfileButton.h"
-#include "_WidgetCustomButton.h"
-#include "_WidgetDropDown.h"
-#include "_WidgetDropDownItem.h"
-#include "_WidgetEnterButton.h"
-#include "_WidgetNumButton.h"
-#include "_WidgetNumPad.h"
-#include "_WidgetProfileListItem.h"
-#include "_WidgetSettingsDiagnosticList.h"
-#include "_WidgetSettingsList.h"
-#include "_WidgetStatusLabel.h"
+/* User defined constant: 'Constants::PROFILE_1' */
+extern const XStringRes ConstantsPROFILE_1;
+
+/* User defined constant: 'Constants::PROFILE_2' */
+extern const XStringRes ConstantsPROFILE_2;
+
+/* User defined constant: 'Constants::PROFILE_3' */
+extern const XStringRes ConstantsPROFILE_3;
+
+/* User defined constant: 'Constants::PROFILE_4' */
+extern const XStringRes ConstantsPROFILE_4;
+
+/* User defined constant: 'Constants::TYPE' */
+extern const XStringRes ConstantsTYPE;
+
+/* User defined constant: 'Constants::CURR_ENERGY' */
+extern const XStringRes ConstantsCURR_ENERGY;
+
+/* User defined constant: 'Constants::COAG_ENERGY' */
+extern const XStringRes ConstantsCOAG_ENERGY;
+
+/* User defined constant: 'Constants::MAX_GRASP_FORCE' */
+extern const XStringRes ConstantsMAX_GRASP_FORCE;
+
+/* User defined constant: 'Constants::MOTION_SPEED_LIMIT' */
+extern const XStringRes ConstantsMOTION_SPEED_LIMIT;
+
+/* User defined constant: 'Constants::LEVEL1' */
+extern const XStringRes ConstantsLEVEL1;
+
+/* User defined constant: 'Constants::LEVEL2' */
+extern const XStringRes ConstantsLEVEL2;
+
+/* User defined constant: 'Constants::LEVEL3' */
+extern const XStringRes ConstantsLEVEL3;
 
 #ifdef __cplusplus
   }
 #endif
 
-#endif /* Widget_H */
+#endif /* Constants_H */
 
 /* Embedded Wizard */

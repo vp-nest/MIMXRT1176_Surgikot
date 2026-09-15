@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef _ApplicationSpinButton_H
-#define _ApplicationSpinButton_H
+#ifndef _WidgetDropDownItem_H
+#define _WidgetDropDownItem_H
 
 #ifdef __cplusplus
   extern "C"
@@ -43,16 +43,8 @@
 #endif
 
 #include "_CoreGroup.h"
-#include "_CoreSimpleTouchHandler.h"
-#include "_ViewsBorder.h"
 #include "_ViewsRectangle.h"
 #include "_ViewsText.h"
-
-/* Forward declaration of the class Application::SpinButton */
-#ifndef _ApplicationSpinButton_
-  EW_DECLARE_CLASS( ApplicationSpinButton )
-#define _ApplicationSpinButton_
-#endif
 
 /* Forward declaration of the class Core::DialogContext */
 #ifndef _CoreDialogContext_
@@ -96,25 +88,23 @@
 #define _GraphicsCanvas_
 #endif
 
+/* Forward declaration of the class Widget::DropDownItem */
+#ifndef _WidgetDropDownItem_
+  EW_DECLARE_CLASS( WidgetDropDownItem )
+#define _WidgetDropDownItem_
+#endif
 
-/* Deklaration of class : 'Application::SpinButton' */
-EW_DEFINE_FIELDS( ApplicationSpinButton, CoreGroup )
-  EW_OBJECT  ( rctBaseBtn,      ViewsRectangle )
-  EW_OBJECT  ( Border,          ViewsBorder )
-  EW_OBJECT  ( rctNegBtn,       ViewsRectangle )
-  EW_OBJECT  ( rctPosBtn,       ViewsRectangle )
-  EW_OBJECT  ( txt,             ViewsText )
-  EW_OBJECT  ( txt1,            ViewsText )
-  EW_OBJECT  ( stPostive,       CoreSimpleTouchHandler )
-  EW_OBJECT  ( stNegative,      CoreSimpleTouchHandler )
-  EW_OBJECT  ( txtValue,        ViewsText )
-  EW_PROPERTY( Value,           XInt32 )
-  EW_PROPERTY( ValueMin,        XInt32 )
-  EW_PROPERTY( ValueMax,        XInt32 )
-EW_END_OF_FIELDS( ApplicationSpinButton )
 
-/* Virtual Method Table (VMT) for the class : 'Application::SpinButton' */
-EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
+/* Deklaration of class : 'Widget::DropDownItem' */
+EW_DEFINE_FIELDS( WidgetDropDownItem, CoreGroup )
+  EW_OBJECT  ( Rectangle,       ViewsRectangle )
+  EW_OBJECT  ( Text,            ViewsText )
+  EW_PROPERTY( ItemText,        XString )
+  EW_PROPERTY( ItemNo,          XInt32 )
+EW_END_OF_FIELDS( WidgetDropDownItem )
+
+/* Virtual Method Table (VMT) for the class : 'Widget::DropDownItem' */
+EW_DEFINE_METHODS( WidgetDropDownItem, CoreGroup )
   EW_METHOD( initLayoutContext, void )( CoreRectView _this, XRect aBounds, CoreOutline 
     aOutline )
   EW_METHOD( GetRoot,           CoreRoot )( CoreView _this )
@@ -150,38 +140,18 @@ EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
   EW_METHOD( Remove,            void )( CoreGroup _this, CoreView aView )
   EW_METHOD( Add,               void )( CoreGroup _this, CoreView aView, XInt32 
     aOrder )
-EW_END_OF_METHODS( ApplicationSpinButton )
+EW_END_OF_METHODS( WidgetDropDownItem )
 
-/* The method Init() is invoked automatically after the component has been created. 
-   This method can be overridden and filled with logic containing additional initialization 
-   statements. */
-void ApplicationSpinButton_Init( ApplicationSpinButton _this, XHandle aArg );
+/* 'C' function for method : 'Widget::DropDownItem.OnSetItemNo()' */
+void WidgetDropDownItem_OnSetItemNo( WidgetDropDownItem _this, XInt32 value );
 
-/* 'C' function for method : 'Application::SpinButton.OnRelease()' */
-void ApplicationSpinButton_OnRelease( ApplicationSpinButton _this, XObject sender );
-
-/* 'C' function for method : 'Application::SpinButton.OnPress()' */
-void ApplicationSpinButton_OnPress( ApplicationSpinButton _this, XObject sender );
-
-/* 'C' function for method : 'Application::SpinButton.OnGetValueType()' */
-XInt32 ApplicationSpinButton_OnGetValueType( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.UpdateValueText()' */
-void ApplicationSpinButton_UpdateValueText( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValue()' */
-void ApplicationSpinButton_OnSetValue( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMin()' */
-void ApplicationSpinButton_OnSetValueMin( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMax()' */
-void ApplicationSpinButton_OnSetValueMax( ApplicationSpinButton _this, XInt32 value );
+/* 'C' function for method : 'Widget::DropDownItem.OnSetItemText()' */
+void WidgetDropDownItem_OnSetItemText( WidgetDropDownItem _this, XString value );
 
 #ifdef __cplusplus
   }
 #endif
 
-#endif /* _ApplicationSpinButton_H */
+#endif /* _WidgetDropDownItem_H */
 
 /* Embedded Wizard */

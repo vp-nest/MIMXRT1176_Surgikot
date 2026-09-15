@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef _ApplicationSpinButton_H
-#define _ApplicationSpinButton_H
+#ifndef _WidgetDropDown_H
+#define _WidgetDropDown_H
 
 #ifdef __cplusplus
   extern "C"
@@ -44,15 +44,12 @@
 
 #include "_CoreGroup.h"
 #include "_CoreSimpleTouchHandler.h"
+#include "_CoreSlideTouchHandler.h"
+#include "_CoreVerticalList.h"
 #include "_ViewsBorder.h"
+#include "_ViewsImage.h"
 #include "_ViewsRectangle.h"
 #include "_ViewsText.h"
-
-/* Forward declaration of the class Application::SpinButton */
-#ifndef _ApplicationSpinButton_
-  EW_DECLARE_CLASS( ApplicationSpinButton )
-#define _ApplicationSpinButton_
-#endif
 
 /* Forward declaration of the class Core::DialogContext */
 #ifndef _CoreDialogContext_
@@ -96,25 +93,36 @@
 #define _GraphicsCanvas_
 #endif
 
+/* Forward declaration of the class Widget::DropDown */
+#ifndef _WidgetDropDown_
+  EW_DECLARE_CLASS( WidgetDropDown )
+#define _WidgetDropDown_
+#endif
 
-/* Deklaration of class : 'Application::SpinButton' */
-EW_DEFINE_FIELDS( ApplicationSpinButton, CoreGroup )
-  EW_OBJECT  ( rctBaseBtn,      ViewsRectangle )
+
+/* Deklaration of class : 'Widget::DropDown' */
+EW_DEFINE_FIELDS( WidgetDropDown, CoreGroup )
+  EW_OBJECT  ( Rectangle,       ViewsRectangle )
+  EW_OBJECT  ( Text,            ViewsText )
+  EW_OBJECT  ( Image,           ViewsImage )
+  EW_OBJECT  ( SimpleTouchHandler, CoreSimpleTouchHandler )
+  EW_OBJECT  ( SlideTouchHandler, CoreSlideTouchHandler )
+  EW_OBJECT  ( ListBg,          ViewsRectangle )
+  EW_OBJECT  ( VerticalList,    CoreVerticalList )
+  EW_OBJECT  ( ListTouchHandler, CoreSimpleTouchHandler )
   EW_OBJECT  ( Border,          ViewsBorder )
-  EW_OBJECT  ( rctNegBtn,       ViewsRectangle )
-  EW_OBJECT  ( rctPosBtn,       ViewsRectangle )
-  EW_OBJECT  ( txt,             ViewsText )
-  EW_OBJECT  ( txt1,            ViewsText )
-  EW_OBJECT  ( stPostive,       CoreSimpleTouchHandler )
-  EW_OBJECT  ( stNegative,      CoreSimpleTouchHandler )
-  EW_OBJECT  ( txtValue,        ViewsText )
-  EW_PROPERTY( Value,           XInt32 )
-  EW_PROPERTY( ValueMin,        XInt32 )
-  EW_PROPERTY( ValueMax,        XInt32 )
-EW_END_OF_FIELDS( ApplicationSpinButton )
+  EW_PROPERTY( SelectedText,    XString )
+  EW_PROPERTY( Placeholder,     XString )
+  EW_PROPERTY( MinValue,        XInt32 )
+  EW_PROPERTY( MaxValue,        XInt32 )
+  EW_PROPERTY( SelectedValue,   XInt32 )
+  EW_PROPERTY( IsMonth,         XBool )
+  EW_PROPERTY( TwoDigit,        XBool )
+  EW_PROPERTY( IsOpen,          XBool )
+EW_END_OF_FIELDS( WidgetDropDown )
 
-/* Virtual Method Table (VMT) for the class : 'Application::SpinButton' */
-EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
+/* Virtual Method Table (VMT) for the class : 'Widget::DropDown' */
+EW_DEFINE_METHODS( WidgetDropDown, CoreGroup )
   EW_METHOD( initLayoutContext, void )( CoreRectView _this, XRect aBounds, CoreOutline 
     aOutline )
   EW_METHOD( GetRoot,           CoreRoot )( CoreView _this )
@@ -150,38 +158,54 @@ EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
   EW_METHOD( Remove,            void )( CoreGroup _this, CoreView aView )
   EW_METHOD( Add,               void )( CoreGroup _this, CoreView aView, XInt32 
     aOrder )
-EW_END_OF_METHODS( ApplicationSpinButton )
+EW_END_OF_METHODS( WidgetDropDown )
 
 /* The method Init() is invoked automatically after the component has been created. 
    This method can be overridden and filled with logic containing additional initialization 
    statements. */
-void ApplicationSpinButton_Init( ApplicationSpinButton _this, XHandle aArg );
+void WidgetDropDown_Init( WidgetDropDown _this, XHandle aArg );
 
-/* 'C' function for method : 'Application::SpinButton.OnRelease()' */
-void ApplicationSpinButton_OnRelease( ApplicationSpinButton _this, XObject sender );
+/* This method is called by 'VerticalList' every time the list loads or updates 
+   an item. */
+void WidgetDropDown_OnLoadItem( WidgetDropDown _this, XObject sender );
 
-/* 'C' function for method : 'Application::SpinButton.OnPress()' */
-void ApplicationSpinButton_OnPress( ApplicationSpinButton _this, XObject sender );
+/* 'C' function for method : 'Widget::DropDown.OnSetMinValue()' */
+void WidgetDropDown_OnSetMinValue( WidgetDropDown _this, XInt32 value );
 
-/* 'C' function for method : 'Application::SpinButton.OnGetValueType()' */
-XInt32 ApplicationSpinButton_OnGetValueType( ApplicationSpinButton _this );
+/* 'C' function for method : 'Widget::DropDown.OnSetMaxValue()' */
+void WidgetDropDown_OnSetMaxValue( WidgetDropDown _this, XInt32 value );
 
-/* 'C' function for method : 'Application::SpinButton.UpdateValueText()' */
-void ApplicationSpinButton_UpdateValueText( ApplicationSpinButton _this );
+/* 'C' function for method : 'Widget::DropDown.OnSetSelectedValue()' */
+void WidgetDropDown_OnSetSelectedValue( WidgetDropDown _this, XInt32 value );
 
-/* 'C' function for method : 'Application::SpinButton.OnSetValue()' */
-void ApplicationSpinButton_OnSetValue( ApplicationSpinButton _this, XInt32 value );
+/* 'C' function for method : 'Widget::DropDown.OnSetSelectedText()' */
+void WidgetDropDown_OnSetSelectedText( WidgetDropDown _this, XString value );
 
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMin()' */
-void ApplicationSpinButton_OnSetValueMin( ApplicationSpinButton _this, XInt32 value );
+/* 'C' function for method : 'Widget::DropDown.OnSetIsOpen()' */
+void WidgetDropDown_OnSetIsOpen( WidgetDropDown _this, XBool value );
 
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMax()' */
-void ApplicationSpinButton_OnSetValueMax( ApplicationSpinButton _this, XInt32 value );
+/* 'C' function for method : 'Widget::DropDown.SlotToggle()' */
+void WidgetDropDown_SlotToggle( WidgetDropDown _this, XObject sender );
+
+/* 'C' function for method : 'Widget::DropDown.OnSetTwoDigit()' */
+void WidgetDropDown_OnSetTwoDigit( WidgetDropDown _this, XBool value );
+
+/* 'C' function for method : 'Widget::DropDown.OnSetPlaceholder()' */
+void WidgetDropDown_OnSetPlaceholder( WidgetDropDown _this, XString value );
+
+/* 'C' function for method : 'Widget::DropDown.SlotCloseDropDown()' */
+void WidgetDropDown_SlotCloseDropDown( WidgetDropDown _this, XObject sender );
+
+/* 'C' function for method : 'Widget::DropDown.SlotListTouch()' */
+void WidgetDropDown_SlotListTouch( WidgetDropDown _this, XObject sender );
+
+/* 'C' function for method : 'Widget::DropDown.OnSetIsMonth()' */
+void WidgetDropDown_OnSetIsMonth( WidgetDropDown _this, XBool value );
 
 #ifdef __cplusplus
   }
 #endif
 
-#endif /* _ApplicationSpinButton_H */
+#endif /* _WidgetDropDown_H */
 
 /* Embedded Wizard */

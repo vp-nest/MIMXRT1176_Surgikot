@@ -54,6 +54,7 @@
 /* Deklaration of class : 'Application::DeviceClass' */
 EW_DEFINE_FIELDS( ApplicationDeviceClass, TemplatesDeviceClass )
   EW_PROPERTY( DemoValue,       XInt32 )
+  EW_PROPERTY( SurgeryCompleted, XBool )
 EW_END_OF_FIELDS( ApplicationDeviceClass )
 
 /* Virtual Method Table (VMT) for the class : 'Application::DeviceClass' */
@@ -83,6 +84,13 @@ void ApplicationDeviceClass__UpdateProperty( void* _this, XInt32 aNewValue );
 
 /* The following define announces the presence of the method Application::DeviceClass.UpdateProperty(). */
 #define _ApplicationDeviceClass__UpdateProperty_
+
+/* 'C' function for method : 'Application::DeviceClass.OnSetSurgeryCompleted()' */
+void ApplicationDeviceClass_OnSetSurgeryCompleted( ApplicationDeviceClass _this, 
+  XBool value );
+
+/* Default onget method for the property 'SurgeryCompleted' */
+XBool ApplicationDeviceClass_OnGetSurgeryCompleted( ApplicationDeviceClass _this );
 
 #ifdef __cplusplus
   }

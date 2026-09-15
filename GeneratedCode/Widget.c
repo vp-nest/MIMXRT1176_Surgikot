@@ -26,6 +26,8 @@
 
 #include "ewlocale.h"
 #include "_CoreSimpleTouchHandler.h"
+#include "_CoreSlideTouchHandler.h"
+#include "_CoreVerticalList.h"
 #include "_CoreView.h"
 #include "_ResourcesBitmap.h"
 #include "_ResourcesFont.h"
@@ -35,6 +37,8 @@
 #include "_ViewsText.h"
 #include "_WidgetAddProfileButton.h"
 #include "_WidgetCustomButton.h"
+#include "_WidgetDropDown.h"
+#include "_WidgetDropDownItem.h"
 #include "_WidgetEnterButton.h"
 #include "_WidgetNumButton.h"
 #include "_WidgetNumPad.h"
@@ -52,7 +56,7 @@
 /* Compressed strings for the language 'Default'. */
 EW_CONST_STRING_PRAGMA static const unsigned int _StringsDefault0[] =
 {
-  0x000001BA, /* ratio 59.73 % */
+  0x0000024A, /* ratio 56.66 % */
   0xB8000F00, 0x800A8452, 0x00F00032, 0x21A003A0, 0x62458181, 0x90F00434, 0x15898CA0,
   0x08C0CC8B, 0x82470691, 0xB1163E35, 0x4886F221, 0x4C73221C, 0x08710044, 0x01073600,
   0x47200184, 0x10958C24, 0xB370008B, 0x86CD6630, 0x0106200A, 0x00288640, 0xC49C0010,
@@ -62,7 +66,9 @@ EW_CONST_STRING_PRAGMA static const unsigned int _StringsDefault0[] =
   0x89C94403, 0x0C2D248F, 0xC5D22A00, 0x8423253C, 0x4F4C7089, 0xA68B33C2, 0x08569001,
   0x350D8300, 0x400D0440, 0xA698CBF4, 0xBA36A219, 0xB26BF5BA, 0x55232589, 0xF1B3A55A,
   0x42090286, 0x6F57AA89, 0x8D1004C3, 0xDA4D5D44, 0x1006C368, 0x8865A695, 0xBD422194,
-  0x6C4FADDE, 0x00001018, 0x00000000
+  0x3003ADDE, 0x54495100, 0x13C90D9E, 0xCC508E94, 0xE645F544, 0x5E39FCCE, 0xF0FA5EE8,
+  0xF3C803E5, 0x9DD77CBE, 0x9E6411FD, 0x47D55957, 0xAD5E50D0, 0x3165DE95, 0x4120B54D,
+  0x6016E58B, 0x6001DA11, 0x958784C7, 0x0186D136, 0x00000001, 0x00000000
 };
 
 /* Constant values used in this 'C' module only. */
@@ -162,6 +168,33 @@ static const XColor _Const005C = { 0xFF, 0x6B, 0x72, 0xFF };
 static const XStringRes _Const005D = { _StringsDefault0, 0x00D0 };
 static const XColor _Const005E = { 0x2B, 0x37, 0x60, 0xFF };
 static const XColor _Const005F = { 0xA8, 0xB4, 0xD0, 0xFF };
+static const XRect _Const0060 = {{ 0, 0 }, { 318, 354 }};
+static const XRect _Const0061 = {{ 5, 5 }, { 309, 77 }};
+static const XRect _Const0062 = {{ 0, 0 }, { 318, 471 }};
+static const XRect _Const0063 = {{ 239, 16 }, { 289, 66 }};
+static const XPoint _Const0064 = { 5, 5 };
+static const XPoint _Const0065 = { 309, 5 };
+static const XPoint _Const0066 = { 309, 77 };
+static const XPoint _Const0067 = { 5, 77 };
+static const XRect _Const0068 = {{ 8, 80 }, { 306, 458 }};
+static const XRect _Const0069 = {{ 5, 77 }, { 309, 458 }};
+static const XRect _Const006A = {{ 8, 80 }, { 307, 460 }};
+static const XPoint _Const006B = { 8, 80 };
+static const XPoint _Const006C = { 306, 80 };
+static const XPoint _Const006D = { 306, 458 };
+static const XPoint _Const006E = { 8, 458 };
+static const XStringRes _Const006F = { _StringsDefault0, 0x00DD };
+static const XStringRes _Const0070 = { _StringsDefault0, 0x00E3 };
+static const XStringRes _Const0071 = { _StringsDefault0, 0x00E9 };
+static const XStringRes _Const0072 = { _StringsDefault0, 0x00EF };
+static const XStringRes _Const0073 = { _StringsDefault0, 0x00F5 };
+static const XStringRes _Const0074 = { _StringsDefault0, 0x00FB };
+static const XStringRes _Const0075 = { _StringsDefault0, 0x0101 };
+static const XStringRes _Const0076 = { _StringsDefault0, 0x0107 };
+static const XStringRes _Const0077 = { _StringsDefault0, 0x010D };
+static const XStringRes _Const0078 = { _StringsDefault0, 0x0113 };
+static const XStringRes _Const0079 = { _StringsDefault0, 0x0119 };
+static const XStringRes _Const007A = { _StringsDefault0, 0x011F };
 
 #ifndef EW_DONT_CHECK_INDEX
   /* This function is used to check the indices when accessing an array.
@@ -943,6 +976,17 @@ void WidgetProfileListItem_SlotEditRelease( WidgetProfileListItem _this, XObject
   EW_UNUSED_ARG( sender );
 
   ViewsImage_OnSetBitmap( &_this->EditImg, EwLoadResource( &ResEditNormal, ResourcesBitmap ));
+  EwPostSignal( _this->OnPressEdit, ((XObject)_this ));
+}
+
+/* 'C' function for method : 'Widget::ProfileListItem.OnSetOnPressEdit()' */
+void WidgetProfileListItem_OnSetOnPressEdit( WidgetProfileListItem _this, XSlot 
+  value )
+{
+  if ( !EwCompSlot( _this->OnPressEdit, value ))
+    return;
+
+  _this->OnPressEdit = value;
 }
 
 /* 'C' function for method : 'Widget::ProfileListItem.SlotEditPress()' */
@@ -1197,6 +1241,7 @@ void WidgetCustomButton_slotOnRelease( WidgetCustomButton _this, XObject sender 
 
   ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_Custom_Button, 
   ResourcesBitmap ));
+  EwPostSignal( _this->OnRelease, ((XObject)_this ));
 }
 
 /* Variants derived from the class : 'Widget::CustomButton' */
@@ -1204,8 +1249,8 @@ EW_DEFINE_CLASS_VARIANTS( WidgetCustomButton )
 EW_END_OF_CLASS_VARIANTS( WidgetCustomButton )
 
 /* Virtual Method Table (VMT) for the class : 'Widget::CustomButton' */
-EW_DEFINE_CLASS( WidgetCustomButton, CoreGroup, Image, Image, Image, Image, _.VMT, 
-                 _.VMT, "Widget::CustomButton" )
+EW_DEFINE_CLASS( WidgetCustomButton, CoreGroup, OnRelease, OnRelease, Image, Image, 
+                 _.VMT, _.VMT, "Widget::CustomButton" )
   CoreRectView_initLayoutContext,
   CoreView_GetRoot,
   CoreGroup_Draw,
@@ -1443,5 +1488,566 @@ EW_DEFINE_CLASS( WidgetStatusLabel, CoreGroup, Rectangle, Rectangle, Rectangle,
   CoreGroup_Remove,
   CoreGroup_Add,
 EW_END_OF_CLASS( WidgetStatusLabel )
+
+/* Initializer for the class 'Widget::DropDownItem' */
+void WidgetDropDownItem__Init( WidgetDropDownItem _this, XObject aLink, XHandle aArg )
+{
+  /* At first initialize the super class ... */
+  CoreGroup__Init( &_this->_.Super, aLink, aArg );
+
+  /* Allow the Immediate Garbage Collection to evalute the members of this class. */
+  _this->_.XObject._.GCT = EW_CLASS_GCT( WidgetDropDownItem );
+
+  /* ... then construct all embedded objects */
+  ViewsRectangle__Init( &_this->Rectangle, &_this->_.XObject, 0 );
+  ViewsText__Init( &_this->Text, &_this->_.XObject, 0 );
+
+  /* Setup the VMT pointer */
+  _this->_.VMT = EW_CLASS( WidgetDropDownItem );
+
+  /* ... and initialize objects, variables, properties, etc. */
+  CoreRectView__OnSetBounds( _this, _Const0060 );
+  CoreRectView__OnSetBounds( &_this->Rectangle, _Const0061 );
+  ViewsRectangle_OnSetColor( &_this->Rectangle, _Const0032 );
+  CoreRectView__OnSetBounds( &_this->Text, _Const0061 );
+  ViewsText_OnSetString( &_this->Text, EwLoadString( &_Const0003 ));
+  CoreGroup__Add( _this, ((CoreView)&_this->Rectangle ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->Text ), 0 );
+  ViewsText_OnSetFont( &_this->Text, EwLoadResource( &ApplicationFontNormal28, ResourcesFont ));
+}
+
+/* Re-Initializer for the class 'Widget::DropDownItem' */
+void WidgetDropDownItem__ReInit( WidgetDropDownItem _this )
+{
+  /* At first re-initialize the super class ... */
+  CoreGroup__ReInit( &_this->_.Super );
+
+  /* ... then re-construct all embedded objects */
+  ViewsRectangle__ReInit( &_this->Rectangle );
+  ViewsText__ReInit( &_this->Text );
+}
+
+/* Finalizer method for the class 'Widget::DropDownItem' */
+void WidgetDropDownItem__Done( WidgetDropDownItem _this )
+{
+  /* Finalize this class */
+  _this->_.Super._.VMT = EW_CLASS( CoreGroup );
+
+  /* Finalize all embedded objects */
+  ViewsRectangle__Done( &_this->Rectangle );
+  ViewsText__Done( &_this->Text );
+
+  /* Don't forget to deinitialize the super class ... */
+  CoreGroup__Done( &_this->_.Super );
+}
+
+/* 'C' function for method : 'Widget::DropDownItem.OnSetItemNo()' */
+void WidgetDropDownItem_OnSetItemNo( WidgetDropDownItem _this, XInt32 value )
+{
+  if ( _this->ItemNo == value )
+    return;
+
+  _this->ItemNo = value;
+}
+
+/* 'C' function for method : 'Widget::DropDownItem.OnSetItemText()' */
+void WidgetDropDownItem_OnSetItemText( WidgetDropDownItem _this, XString value )
+{
+  if ( !EwCompString( _this->ItemText, value ))
+    return;
+
+  _this->ItemText = EwShareString( value );
+  ViewsText_OnSetString( &_this->Text, value );
+}
+
+/* Variants derived from the class : 'Widget::DropDownItem' */
+EW_DEFINE_CLASS_VARIANTS( WidgetDropDownItem )
+EW_END_OF_CLASS_VARIANTS( WidgetDropDownItem )
+
+/* Virtual Method Table (VMT) for the class : 'Widget::DropDownItem' */
+EW_DEFINE_CLASS( WidgetDropDownItem, CoreGroup, Rectangle, Rectangle, Rectangle, 
+                 Rectangle, ItemText, ItemNo, "Widget::DropDownItem" )
+  CoreRectView_initLayoutContext,
+  CoreView_GetRoot,
+  CoreGroup_Draw,
+  CoreView_HandleEvent,
+  CoreGroup_CursorHitTest,
+  CoreRectView_ArrangeView,
+  CoreRectView_MoveView,
+  CoreRectView_GetExtent,
+  CoreGroup_ChangeViewState,
+  CoreGroup_OnSetBounds,
+  CoreGroup_OnSetFocus,
+  CoreGroup_OnSetBuffered,
+  CoreGroup_OnSetOpacity,
+  CoreGroup_IsCurrentDialog,
+  CoreGroup_IsActiveDialog,
+  CoreGroup_DispatchEvent,
+  CoreGroup_BroadcastEvent,
+  CoreGroup_UpdateViewState,
+  CoreGroup_InvalidateArea,
+  CoreGroup_FindViewAtPosition,
+  CoreGroup_FindNextView,
+  CoreGroup_FindSiblingView,
+  CoreGroup_RestackTop,
+  CoreGroup_Remove,
+  CoreGroup_Add,
+EW_END_OF_CLASS( WidgetDropDownItem )
+
+/* Initializer for the class 'Widget::DropDown' */
+void WidgetDropDown__Init( WidgetDropDown _this, XObject aLink, XHandle aArg )
+{
+  /* At first initialize the super class ... */
+  CoreGroup__Init( &_this->_.Super, aLink, aArg );
+
+  /* Allow the Immediate Garbage Collection to evalute the members of this class. */
+  _this->_.XObject._.GCT = EW_CLASS_GCT( WidgetDropDown );
+
+  /* ... then construct all embedded objects */
+  ViewsRectangle__Init( &_this->Rectangle, &_this->_.XObject, 0 );
+  ViewsText__Init( &_this->Text, &_this->_.XObject, 0 );
+  ViewsImage__Init( &_this->Image, &_this->_.XObject, 0 );
+  CoreSimpleTouchHandler__Init( &_this->SimpleTouchHandler, &_this->_.XObject, 0 );
+  CoreSlideTouchHandler__Init( &_this->SlideTouchHandler, &_this->_.XObject, 0 );
+  ViewsRectangle__Init( &_this->ListBg, &_this->_.XObject, 0 );
+  CoreVerticalList__Init( &_this->VerticalList, &_this->_.XObject, 0 );
+  CoreSimpleTouchHandler__Init( &_this->ListTouchHandler, &_this->_.XObject, 0 );
+  ViewsBorder__Init( &_this->Border, &_this->_.XObject, 0 );
+
+  /* Setup the VMT pointer */
+  _this->_.VMT = EW_CLASS( WidgetDropDown );
+
+  /* ... and initialize objects, variables, properties, etc. */
+  CoreRectView__OnSetBounds( _this, _Const0062 );
+  CoreRectView__OnSetBounds( &_this->Rectangle, _Const0061 );
+  ViewsRectangle_OnSetColor( &_this->Rectangle, _Const0032 );
+  CoreRectView__OnSetBounds( &_this->Text, _Const0061 );
+  ViewsText_OnSetString( &_this->Text, EwLoadString( &_Const0003 ));
+  CoreRectView__OnSetBounds( &_this->Image, _Const0063 );
+  CoreQuadView__OnSetPoint4( &_this->SimpleTouchHandler, _Const0064 );
+  CoreQuadView__OnSetPoint3( &_this->SimpleTouchHandler, _Const0065 );
+  CoreQuadView__OnSetPoint2( &_this->SimpleTouchHandler, _Const0066 );
+  CoreQuadView__OnSetPoint1( &_this->SimpleTouchHandler, _Const0067 );
+  CoreRectView__OnSetBounds( &_this->SlideTouchHandler, _Const0068 );
+  _this->SlideTouchHandler.SlideHorz = 0;
+  CoreSlideTouchHandler_OnSetRetargetDelay( &_this->SlideTouchHandler, 100 );
+  CoreRectView__OnSetBounds( &_this->ListBg, _Const0069 );
+  ViewsRectangle_OnSetColor( &_this->ListBg, _Const0032 );
+  ViewsRectangle_OnSetVisible( &_this->ListBg, 0 );
+  CoreRectView__OnSetBounds( &_this->VerticalList, _Const006A );
+  CoreGroup_OnSetVisible((CoreGroup)&_this->VerticalList, 0 );
+  CoreVerticalList_OnSetItemHeight( &_this->VerticalList, 80 );
+  CoreVerticalList_OnSetNoOfItems( &_this->VerticalList, 10 );
+  CoreVerticalList_OnSetItemClass( &_this->VerticalList, EW_CLASS( WidgetDropDownItem ));
+  _this->MaxValue = 23;
+  _this->TwoDigit = 1;
+  CoreQuadView__OnSetPoint4( &_this->ListTouchHandler, _Const006B );
+  CoreQuadView__OnSetPoint3( &_this->ListTouchHandler, _Const006C );
+  CoreQuadView__OnSetPoint2( &_this->ListTouchHandler, _Const006D );
+  CoreQuadView__OnSetPoint1( &_this->ListTouchHandler, _Const006E );
+  _this->ListTouchHandler.RetargetCondition = CoreRetargetReasonWipeDown | CoreRetargetReasonWipeUp;
+  CoreRectView__OnSetBounds( &_this->Border, _Const0061 );
+  ViewsBorder_OnSetColor( &_this->Border, _Const0033 );
+  CoreGroup__Add( _this, ((CoreView)&_this->Rectangle ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->Text ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->Image ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->SimpleTouchHandler ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->SlideTouchHandler ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->ListBg ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->VerticalList ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->ListTouchHandler ), 0 );
+  CoreGroup__Add( _this, ((CoreView)&_this->Border ), 0 );
+  ViewsText_OnSetFont( &_this->Text, EwLoadResource( &ApplicationFontNormal28, ResourcesFont ));
+  ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_DropDown_Arrow, 
+  ResourcesBitmap ));
+  _this->SimpleTouchHandler.OnRelease = EwNewSlot( _this, WidgetDropDown_SlotToggle );
+  _this->VerticalList.OnLoadItem = EwNewSlot( _this, WidgetDropDown_OnLoadItem );
+  CoreVerticalList_OnSetSlideHandler( &_this->VerticalList, &_this->SlideTouchHandler );
+  _this->ListTouchHandler.OnRelease = EwNewSlot( _this, WidgetDropDown_SlotListTouch );
+
+  /* Call the user defined constructor */
+  WidgetDropDown_Init( _this, aArg );
+}
+
+/* Re-Initializer for the class 'Widget::DropDown' */
+void WidgetDropDown__ReInit( WidgetDropDown _this )
+{
+  /* At first re-initialize the super class ... */
+  CoreGroup__ReInit( &_this->_.Super );
+
+  /* ... then re-construct all embedded objects */
+  ViewsRectangle__ReInit( &_this->Rectangle );
+  ViewsText__ReInit( &_this->Text );
+  ViewsImage__ReInit( &_this->Image );
+  CoreSimpleTouchHandler__ReInit( &_this->SimpleTouchHandler );
+  CoreSlideTouchHandler__ReInit( &_this->SlideTouchHandler );
+  ViewsRectangle__ReInit( &_this->ListBg );
+  CoreVerticalList__ReInit( &_this->VerticalList );
+  CoreSimpleTouchHandler__ReInit( &_this->ListTouchHandler );
+  ViewsBorder__ReInit( &_this->Border );
+}
+
+/* Finalizer method for the class 'Widget::DropDown' */
+void WidgetDropDown__Done( WidgetDropDown _this )
+{
+  /* Finalize this class */
+  _this->_.Super._.VMT = EW_CLASS( CoreGroup );
+
+  /* Finalize all embedded objects */
+  ViewsRectangle__Done( &_this->Rectangle );
+  ViewsText__Done( &_this->Text );
+  ViewsImage__Done( &_this->Image );
+  CoreSimpleTouchHandler__Done( &_this->SimpleTouchHandler );
+  CoreSlideTouchHandler__Done( &_this->SlideTouchHandler );
+  ViewsRectangle__Done( &_this->ListBg );
+  CoreVerticalList__Done( &_this->VerticalList );
+  CoreSimpleTouchHandler__Done( &_this->ListTouchHandler );
+  ViewsBorder__Done( &_this->Border );
+
+  /* Don't forget to deinitialize the super class ... */
+  CoreGroup__Done( &_this->_.Super );
+}
+
+/* The method Init() is invoked automatically after the component has been created. 
+   This method can be overridden and filled with logic containing additional initialization 
+   statements. */
+void WidgetDropDown_Init( WidgetDropDown _this, XHandle aArg )
+{
+  /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
+  EW_UNUSED_ARG( aArg );
+
+  WidgetDropDown_OnSetIsOpen( _this, 0 );
+  CoreGroup_OnSetVisible((CoreGroup)&_this->VerticalList, 0 );
+  ViewsRectangle_OnSetVisible( &_this->ListBg, 0 );
+  CoreSimpleTouchHandler_OnSetEnabled( &_this->ListTouchHandler, 0 );
+  CoreVerticalList_OnSetNoOfItems( &_this->VerticalList, ( _this->MaxValue - _this->MinValue ) 
+  + 1 );
+
+  if ( !EwCompString( _this->SelectedText, 0 ))
+    ViewsText_OnSetString( &_this->Text, _this->Placeholder );
+  else
+    ViewsText_OnSetString( &_this->Text, _this->SelectedText );
+}
+
+/* This method is called by 'VerticalList' every time the list loads or updates 
+   an item. */
+void WidgetDropDown_OnLoadItem( WidgetDropDown _this, XObject sender )
+{
+  XInt32 itemNo;
+  WidgetDropDownItem itemView;
+  XInt32 value;
+
+  /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
+  EW_UNUSED_ARG( sender );
+
+  itemNo = _this->VerticalList.Item;
+  itemView = EwCastObject( _this->VerticalList.View, WidgetDropDownItem );
+
+  if ( itemView == 0 )
+    return;
+
+  value = _this->MinValue + itemNo;
+  WidgetDropDownItem_OnSetItemNo( itemView, itemNo );
+
+  if ( _this->IsMonth )
+    switch ( value )
+    {
+      case 1 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const006F ));
+      break;
+
+      case 2 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0070 ));
+      break;
+
+      case 3 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0071 ));
+      break;
+
+      case 4 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0072 ));
+      break;
+
+      case 5 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0073 ));
+      break;
+
+      case 6 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0074 ));
+      break;
+
+      case 7 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0075 ));
+      break;
+
+      case 8 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0076 ));
+      break;
+
+      case 9 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0077 ));
+      break;
+
+      case 10 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0078 ));
+      break;
+
+      case 11 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const0079 ));
+      break;
+
+      case 12 :
+        WidgetDropDownItem_OnSetItemText( itemView, EwLoadString( &_Const007A ));
+      break;
+
+      default : 
+        WidgetDropDownItem_OnSetItemText( itemView, 0 );
+    }
+  else
+    if ( _this->TwoDigit )
+      WidgetDropDownItem_OnSetItemText( itemView, EwNewStringInt( value, 2, 10 ));
+    else
+      WidgetDropDownItem_OnSetItemText( itemView, EwNewStringInt( value, 0, 10 ));
+
+  CoreRectView__OnSetBounds( itemView, EwSetRectSize( itemView->Super2.Bounds, EwNewPoint( 
+  EwGetRectW( _this->VerticalList.Super2.Bounds ), _this->VerticalList.ItemHeight )));
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetMinValue()' */
+void WidgetDropDown_OnSetMinValue( WidgetDropDown _this, XInt32 value )
+{
+  if ( _this->MinValue == value )
+    return;
+
+  _this->MinValue = value;
+  CoreVerticalList_OnSetNoOfItems( &_this->VerticalList, ( _this->MaxValue - _this->MinValue ) 
+  + 1 );
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetMaxValue()' */
+void WidgetDropDown_OnSetMaxValue( WidgetDropDown _this, XInt32 value )
+{
+  if ( _this->MaxValue == value )
+    return;
+
+  _this->MaxValue = value;
+  CoreVerticalList_OnSetNoOfItems( &_this->VerticalList, ( _this->MaxValue - _this->MinValue ) 
+  + 1 );
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetSelectedValue()' */
+void WidgetDropDown_OnSetSelectedValue( WidgetDropDown _this, XInt32 value )
+{
+  if ( _this->SelectedValue == value )
+    return;
+
+  _this->SelectedValue = value;
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetSelectedText()' */
+void WidgetDropDown_OnSetSelectedText( WidgetDropDown _this, XString value )
+{
+  if ( !EwCompString( _this->SelectedText, value ))
+    return;
+
+  _this->SelectedText = EwShareString( value );
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetIsOpen()' */
+void WidgetDropDown_OnSetIsOpen( WidgetDropDown _this, XBool value )
+{
+  if ( _this->IsOpen == value )
+    return;
+
+  _this->IsOpen = value;
+}
+
+/* 'C' function for method : 'Widget::DropDown.SlotToggle()' */
+void WidgetDropDown_SlotToggle( WidgetDropDown _this, XObject sender )
+{
+  /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
+  EW_UNUSED_ARG( sender );
+
+  WidgetDropDown_OnSetIsOpen( _this, (XBool)!_this->IsOpen );
+  CoreGroup_OnSetVisible((CoreGroup)&_this->VerticalList, _this->IsOpen );
+  ViewsRectangle_OnSetVisible( &_this->ListBg, _this->IsOpen );
+  CoreSimpleTouchHandler_OnSetEnabled( &_this->ListTouchHandler, _this->IsOpen );
+
+  if ( _this->IsOpen )
+    ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_Up_Arrow, 
+    ResourcesBitmap ));
+  else
+    ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_DropDown_Arrow, 
+    ResourcesBitmap ));
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetTwoDigit()' */
+void WidgetDropDown_OnSetTwoDigit( WidgetDropDown _this, XBool value )
+{
+  if ( _this->TwoDigit == value )
+    return;
+
+  _this->TwoDigit = value;
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetPlaceholder()' */
+void WidgetDropDown_OnSetPlaceholder( WidgetDropDown _this, XString value )
+{
+  if ( !EwCompString( _this->Placeholder, value ))
+    return;
+
+  _this->Placeholder = EwShareString( value );
+
+  if ( !EwCompString( _this->SelectedText, 0 ))
+    ViewsText_OnSetString( &_this->Text, _this->Placeholder );
+}
+
+/* 'C' function for method : 'Widget::DropDown.SlotCloseDropDown()' */
+void WidgetDropDown_SlotCloseDropDown( WidgetDropDown _this, XObject sender )
+{
+  /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
+  EW_UNUSED_ARG( sender );
+
+  WidgetDropDown_OnSetIsOpen( _this, 0 );
+  CoreGroup_OnSetVisible((CoreGroup)&_this->VerticalList, 0 );
+  ViewsRectangle_OnSetVisible( &_this->ListBg, 0 );
+  CoreSimpleTouchHandler_OnSetEnabled( &_this->ListTouchHandler, 0 );
+  ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_DropDown_Arrow, 
+  ResourcesBitmap ));
+}
+
+/* 'C' function for method : 'Widget::DropDown.SlotListTouch()' */
+void WidgetDropDown_SlotListTouch( WidgetDropDown _this, XObject sender )
+{
+  XInt32 itemNo;
+
+  /* Dummy expressions to avoid the 'C' warning 'unused argument'. */
+  EW_UNUSED_ARG( sender );
+
+  itemNo = CoreVerticalList_GetItemAtPosition( &_this->VerticalList, _this->ListTouchHandler.CurrentPos );
+  EwTrace( "%i", itemNo );
+
+  if ( _this->ListTouchHandler.AutoDeflected )
+    return;
+
+  if ( itemNo < 0 )
+    return;
+
+  CoreVerticalList_OnSetSelectedItem( &_this->VerticalList, itemNo );
+  WidgetDropDown_OnSetSelectedValue( _this, _this->MinValue + itemNo );
+
+  if ( _this->IsMonth )
+    switch ( _this->SelectedValue )
+    {
+      case 1 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const006F ));
+      break;
+
+      case 2 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0070 ));
+      break;
+
+      case 3 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0071 ));
+      break;
+
+      case 4 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0072 ));
+      break;
+
+      case 5 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0073 ));
+      break;
+
+      case 6 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0074 ));
+      break;
+
+      case 7 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0075 ));
+      break;
+
+      case 8 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0076 ));
+      break;
+
+      case 9 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0077 ));
+      break;
+
+      case 10 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0078 ));
+      break;
+
+      case 11 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const0079 ));
+      break;
+
+      case 12 :
+        WidgetDropDown_OnSetSelectedText( _this, EwLoadString( &_Const007A ));
+      break;
+
+      default : 
+        WidgetDropDown_OnSetSelectedText( _this, 0 );
+    }
+  else
+    if ( _this->TwoDigit )
+      WidgetDropDown_OnSetSelectedText( _this, EwNewStringInt( _this->SelectedValue, 
+      2, 10 ));
+    else
+      WidgetDropDown_OnSetSelectedText( _this, EwNewStringInt( _this->SelectedValue, 
+      0, 10 ));
+
+  ViewsText_OnSetString( &_this->Text, _this->SelectedText );
+  WidgetDropDown_OnSetIsOpen( _this, 0 );
+  ViewsImage_OnSetBitmap( &_this->Image, EwLoadResource( &ResSettings_DropDown_Arrow, 
+  ResourcesBitmap ));
+  CoreGroup_OnSetVisible((CoreGroup)&_this->VerticalList, 0 );
+  ViewsRectangle_OnSetVisible( &_this->ListBg, 0 );
+  EwPostSignal( EwNewSlot( _this, WidgetDropDown_SlotCloseDropDown ), ((XObject)_this ));
+}
+
+/* 'C' function for method : 'Widget::DropDown.OnSetIsMonth()' */
+void WidgetDropDown_OnSetIsMonth( WidgetDropDown _this, XBool value )
+{
+  if ( _this->IsMonth == value )
+    return;
+
+  _this->IsMonth = value;
+}
+
+/* Variants derived from the class : 'Widget::DropDown' */
+EW_DEFINE_CLASS_VARIANTS( WidgetDropDown )
+EW_END_OF_CLASS_VARIANTS( WidgetDropDown )
+
+/* Virtual Method Table (VMT) for the class : 'Widget::DropDown' */
+EW_DEFINE_CLASS( WidgetDropDown, CoreGroup, Rectangle, Rectangle, Rectangle, Rectangle, 
+                 SelectedText, MinValue, "Widget::DropDown" )
+  CoreRectView_initLayoutContext,
+  CoreView_GetRoot,
+  CoreGroup_Draw,
+  CoreView_HandleEvent,
+  CoreGroup_CursorHitTest,
+  CoreRectView_ArrangeView,
+  CoreRectView_MoveView,
+  CoreRectView_GetExtent,
+  CoreGroup_ChangeViewState,
+  CoreGroup_OnSetBounds,
+  CoreGroup_OnSetFocus,
+  CoreGroup_OnSetBuffered,
+  CoreGroup_OnSetOpacity,
+  CoreGroup_IsCurrentDialog,
+  CoreGroup_IsActiveDialog,
+  CoreGroup_DispatchEvent,
+  CoreGroup_BroadcastEvent,
+  CoreGroup_UpdateViewState,
+  CoreGroup_InvalidateArea,
+  CoreGroup_FindViewAtPosition,
+  CoreGroup_FindNextView,
+  CoreGroup_FindSiblingView,
+  CoreGroup_RestackTop,
+  CoreGroup_Remove,
+  CoreGroup_Add,
+EW_END_OF_CLASS( WidgetDropDown )
 
 /* Embedded Wizard */

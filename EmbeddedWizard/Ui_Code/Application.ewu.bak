@@ -634,6 +634,7 @@ class ProfileScreen : Core::Group
     itemView.H2.String = ProfileH2[itemNo];
 
     itemView.OnSelectRadioBT = SlotSelectRadioBT;
+    itemView.OnPressEdit =   SlotSelectEditBT;
     itemView.ItemNo = itemNo;
 
     if ( itemView.ItemNo == VerticalList.SelectedItem )
@@ -680,7 +681,7 @@ class ProfileScreen : Core::Group
   $rect <20,20,160,60>
   object Core::SlideTouchHandler SlideTouchHandler
   {
-    preset Bounds = <118,184,1186,588>;
+    preset Bounds = <118,184,1090,587>;
     preset SlideHorz = false;
     preset RetargetDelay = 0;
     preset RetargetCondition = Core::RetargetReason[LongPress];
@@ -749,6 +750,43 @@ class ProfileScreen : Core::Group
 
   $rect <1324,650,1524,690>
   var int32 SelectedItem;
+
+  $rect <1370,579,1570,619>
+  slot SlotSelectEditBT
+  {
+    var Widget::ProfileListItem ListItem =
+      (Widget::ProfileListItem)sender;
+
+    trace "SENDER = ", sender;
+    trace "LIST ITEM = ", ListItem;
+
+    if ( ListItem == null )
+    {
+      trace "ERROR LISTITEM NULL";
+      return;
+    }
+
+    trace "CLICKED ITEM = ", ListItem.ItemNo;
+
+    VerticalList.SelectedItem = ListItem.ItemNo;
+
+    trace "AFTER SET SELECTED = ", VerticalList.SelectedItem;
+
+    VerticalList.InvalidateItems(
+      0,
+      VerticalList.NoOfItems - 1
+    );
+
+    if (( SelectedItem >= 0 ) && ( SelectedItem < 3 ))
+    {
+        Application::GlobalSettings.SelectedProfile = ProfileH1[SelectedItem];
+    }
+
+    if (Owner != null)
+    {
+        Owner.SwitchToDialog(new Application::SettingsEditSurgicalProfile, null, null, null, null, null, null, null, null, null, false);
+    }
+  }
 }
 
 $rect <870,210,1070,250>
@@ -1087,7 +1125,7 @@ class Settings
   // Theme
   note group Note1
   {
-    attr Bounds = <521,480,2169,1000>;
+    attr Bounds = <520,480,2169,1060>;
   }
 
   $rect <560,569,760,609>
@@ -1099,14 +1137,41 @@ class Settings
   $rect <560,689,760,729>
   var color Color1 = #334F93FF;
 
-  $rect <920,600,1120,640>
+  $rect <929,629,1129,669>
   var string SelectedProfile;
 
   $rect <929,680,1140,720>
   var string SurgerCompletedTime;
 
-  $rect <909,729,1120,769>
+  $rect <929,729,1140,769>
   var string SurgerCompletedTime1;
+
+  $rect <-150,880,50,920>
+  array string ProfileName[ 4 ];
+
+  $rect <-150,929,50,969>
+  array int32 ProfileCurrEnergy[ 4 ];
+
+  $rect <-150,980,50,1020>
+  array int32 ProfileCoagEnergy[ 4 ];
+
+  $rect <69,829,289,869>
+  array float ProfileMaxGraspForce[ 4 ];
+
+  $rect <69,878,300,918>
+  array string ProfileMotionSpeedLimit[ 4 ];
+
+  $rect <-149,829,51,869>
+  var int32 SelectedProfileIndex;
+
+  $rect <-150,1029,50,1069>
+  array bool ProfileValid[ 4 ];
+
+  // Profiles
+  note group Note
+  {
+    attr Bounds = <-180,729,340,1180>;
+  }
 }
 
 $rect <870,380,1070,420>
@@ -3812,6 +3877,25 @@ class DeviceClass : Templates::DeviceClass
       }
     $endif  */
   }
+
+  $rect <129,815,329,855>
+  property bool SurgeryCompleted = false;
+
+  $rect <129,855,329,895>
+  onset SurgeryCompleted
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure SurgeryCompleted == value )
+      return;
+
+    // Remember the property's new value.
+    pure SurgeryCompleted = value;
+    notifyobservers ^SurgeryCompleted;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
 }
 
 $rect <1090,200,1290,240>
@@ -4707,7 +4791,7 @@ class SettingsChangePassword : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::AlphaNumKeyboard1 AlphaNumKeyboard1
+  object Application::AlphaNumKeyboard AlphaNumKeyboard1
   {
     preset Bounds = <84,1788,1360,2198>;
     preset Enabled = false;
@@ -4809,7 +4893,7 @@ class SettingsChangePassword : Core::Group
   }
 }
 
-$rect <490,310,710,350>
+$rect <490,280,710,320>
 $output false
 class SettingsDateTime : Core::Group
 {
@@ -5022,36 +5106,6 @@ class SettingsDateTime : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonDay
-  {
-    preset Bounds = <114,204,476,356>;
-    preset ValueType = 0;
-    preset Value = 12;
-    preset ValueMin = 1;
-    preset ValueMax = 31;
-  }
-
-  $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonMonth
-  {
-    preset Bounds = <484,204,846,356>;
-    preset ValueType = 1;
-    preset Value = 1;
-    preset ValueMin = 1;
-    preset ValueMax = 12;
-  }
-
-  $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonYear
-  {
-    preset Bounds = <846,204,1208,356>;
-    preset ValueType = 0;
-    preset Value = 2026;
-    preset ValueMin = 2022;
-    preset ValueMax = 2035;
-  }
-
-  $rect <20,20,160,60>
   object Views::Text txtTime
   {
     preset Layout = Core::Layout[AlignToLeft, AlignToTop];
@@ -5062,26 +5116,6 @@ class SettingsDateTime : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonDay1
-  {
-    preset Bounds = <122,356,484,508>;
-    preset ValueType = 0;
-    preset Value = 14;
-    preset ValueMin = 0;
-    preset ValueMax = 23;
-  }
-
-  $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonDay2
-  {
-    preset Bounds = <484,356,846,508>;
-    preset ValueType = 0;
-    preset Value = 33;
-    preset ValueMin = 0;
-    preset ValueMax = 59;
-  }
-
-  $rect <20,20,160,60>
   object Views::Text txtTime1
   {
     preset Layout = Core::Layout[AlignToLeft, AlignToTop];
@@ -5089,16 +5123,6 @@ class SettingsDateTime : Core::Group
     preset Alignment = Views::TextAlignment[AlignVertCenter];
     preset String = ":";
     preset Font = Application::FontBold28;
-  }
-
-  $rect <20,20,160,60>
-  object Application::SpinButton SpinButtonDay3
-  {
-    preset Bounds = <846,356,1208,508>;
-    preset ValueType = 0;
-    preset Value = 12;
-    preset ValueMin = 0;
-    preset ValueMax = 59;
   }
 
   $rect <20,20,160,60>
@@ -5154,6 +5178,72 @@ class SettingsDateTime : Core::Group
     preset String = "24-hour";
     preset Font = Application::FontNormal28;
   }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown DayDropDown
+  {
+    preset Bounds = <114,204,432,675>;
+    preset MinValue = 1;
+    preset MaxValue = 31;
+    preset TwoDigit = true;
+    preset Placeholder = "DD";
+    preset IsMonth = false;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown MonthDropDown
+  {
+    preset Bounds = <483,204,801,675>;
+    preset MinValue = 1;
+    preset MaxValue = 12;
+    preset TwoDigit = false;
+    preset Placeholder = "MM";
+    preset IsMonth = true;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown YearDropDown
+  {
+    preset Bounds = <845,204,1163,675>;
+    preset MinValue = 2022;
+    preset MaxValue = 2099;
+    preset TwoDigit = false;
+    preset Placeholder = "YYYY";
+    preset IsMonth = false;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown HourDropDown
+  {
+    preset Bounds = <113,360,431,831>;
+    preset MinValue = 0;
+    preset MaxValue = 23;
+    preset TwoDigit = true;
+    preset Placeholder = "HH";
+    preset IsMonth = false;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown MinDropDown
+  {
+    preset Bounds = <483,357,801,828>;
+    preset MinValue = 0;
+    preset MaxValue = 59;
+    preset TwoDigit = true;
+    preset Placeholder = "MM";
+    preset IsMonth = false;
+  }
+
+  $rect <20,20,160,60>
+  object Widget::DropDown HourDropDown2
+  {
+    preset Bounds = <845,357,1163,828>;
+    preset MinValue = 0;
+    preset MaxValue = 59;
+    preset TwoDigit = true;
+    preset Placeholder = "SS";
+    preset IsMonth = false;
+  }
 }
 
 $rect <1440,300,1640,340>
@@ -5172,19 +5262,31 @@ resource Resources::Font FontNormal33
   attr fontrowdistance RowDistance;
 }
 
-$rect <490,260,720,300>
+$rect <190,240,420,280>
 $output false
 class ProfileSurgeryInProgressScreen : Core::Group
 {
-  $rect <-309,120,-109,160>
+  $rect <-240,250,-40,290>
   inherited method Init()
   {
     ElapsedSeconds = 0;
     this.ProfileTxt.String = Application::GlobalSettings.SelectedProfile + " started";
+    Application::Device.SurgeryCompleted = false;
+    $if !$prototyper
+
+    native
+    {
+      extern void Gui_StartSurgery(void);
+
+      Gui_StartSurgery();
+    }
+
+    $endif
+
     Timer.Enabled = true;
   }
 
-  $rect <1320,10,1520,50>
+  $rect <1370,30,1570,70>
   inherited property Bounds = <0,0,1280,720>;
 
   $rect <20,20,160,60>
@@ -5208,7 +5310,7 @@ class ProfileSurgeryInProgressScreen : Core::Group
     preset Color = #555D6DFF;
   }
 
-  $rect <1339,70,1539,110>
+  $rect <1360,80,1560,120>
   slot SlotOnEnter
   {
     /*var Application::ScreenManager man = new Application::ScreenManager;
@@ -5241,28 +5343,37 @@ class ProfileSurgeryInProgressScreen : Core::Group
     } */
   }
 
-  $rect <1530,270,1730,310>
+  $rect <1360,270,1560,310>
   object Core::PropertyObserver PropertyObserver
   {
-    preset OnEvent = onEvent;
-    preset Outlet = ^Application::GlobalSettings.LoginResult;
+    preset OnEvent = SlotSurgeryComplete;
+    preset Outlet = ^Application::Device.SurgeryCompleted;
   }
 
   // This slot method is executed when the associated property observer 'PropertyObserver' \
   // is notified.
-  $rect <1730,270,1930,310>
-  slot onEvent
+  $rect <1360,320,1560,360>
+  slot SlotSurgeryComplete
   {
-    var int32 result = Application::GlobalSettings.LoginResult;
+    if ( !Application::Device.SurgeryCompleted)
+      return;
 
-      if ( result == 1 )
-      {
-          this.SwitchToDialog( new Application::ProfileScreen, null, null, null, null, null, null, null, null, null, false );
-      }
-      else if ( result == 2 )
-      {
-        //H2.String = "Invalid PIN";
-      }
+    Timer.Enabled = false;
+
+    Application::GlobalSettings.SurgerCompletedTime =
+      Text1.String;
+
+    trace "SURGERY COMPLETE";
+
+    if ( Owner != null )
+    {
+      Owner.SwitchToDialog(
+        new Application::ProfileSurgeryCompletedScreen,
+        null, null, null, null,
+        null, null, null, null, null,
+        false
+      );
+    }
   }
 
   $rect <-259,399,-59,439>
@@ -5270,10 +5381,10 @@ class ProfileSurgeryInProgressScreen : Core::Group
   {
   }
 
-  $rect <1349,120,1620,160>
+  $rect <1349,130,1560,170>
   var Application::Settings theme;
 
-  $rect <-296,253,-96,293>
+  $rect <-250,299,-50,339>
   slot onBack
   {
     if (Owner != null)
@@ -5309,12 +5420,12 @@ class ProfileSurgeryInProgressScreen : Core::Group
     Default[3] = Res::Settings_Logs;
   );
 
-  $rect <1318,570,1518,610>
+  $rect <1379,419,1579,459>
   slot SlotOnRelease
   {
   }
 
-  $rect <1372,492,1572,532>
+  $rect <1370,370,1570,410>
   method void SwitchScreen( arg int16 screenNo )
   {
   }
@@ -5380,13 +5491,13 @@ class ProfileSurgeryInProgressScreen : Core::Group
     preset Color = #000000FF;
   }
 
-  $rect <-230,608,-30,648>
+  $rect <-250,499,-50,539>
   object Core::Timer Timer
   {
     preset OnTrigger = slotTimer;
   }
 
-  $rect <-764,-52,-564,-12>
+  $rect <-250,350,-50,390>
   var int32 ElapsedSeconds = 0;
 
   $rect <-928,656,-728,696>
@@ -5402,6 +5513,31 @@ class ProfileSurgeryInProgressScreen : Core::Group
       string( hours,   2, 10 ) + ":" +
       string( minutes, 2, 10 ) + ":" +
       string( seconds, 2, 10 );
+
+    /*var bool result = false;
+
+    $if !$prototyper
+
+    native ( result )
+    {
+      extern int Gui_IsSurgeryComplete(void);
+
+      result = Gui_IsSurgeryComplete() != 0;
+    }
+
+    $endif
+    // Check backend surgery status
+    if (result)
+    {
+      Timer.Enabled = false;
+      Application::GlobalSettings.SurgerCompletedTime = this.Text1.String;
+
+      trace "SURGERY COMPLETE";
+      if ( Owner != null )
+      {
+            Owner.SwitchToDialog(new Application::ProfileSurgeryCompletedScreen,null, null, null, null, null, null, null, null, null,false);
+      }
+    }  */
   }
 
   $rect <20,20,160,60>
@@ -5422,7 +5558,7 @@ class ProfileSurgeryInProgressScreen : Core::Group
     this.Timer.Enabled = false;
   }
 
-  $rect <-100,904,100,940>
+  $rect <-250,550,-50,590>
   slot slotRelease
   {
     this.rctComplete.Color =  #FF6B5DFF;
@@ -5436,11 +5572,11 @@ class ProfileSurgeryInProgressScreen : Core::Group
 
   }
 
-  $rect <-146,-126,54,-86>
+  $rect <-250,450,-50,490>
   var Application::Settings Variable;
 }
 
-$rect <490,360,720,400>
+$rect <480,330,710,370>
 $output false
 class ProfileSurgeryCompletedScreen : Core::Group
 {
@@ -5672,24 +5808,10 @@ class ProfileSurgeryCompletedScreen : Core::Group
   }
 }
 
-$rect <200,240,400,280>
-$output false
-class AlphaNumKeyboard : Core::Group
-{
-  $rect <20,20,220,60>
-  inherited property Bounds = <0,0,1748,956>;
-
-  $rect <20,20,160,60>
-  object Templates::NumKeyboard NumKeyboard
-  {
-    preset Bounds = <744,732,744,732>;
-  }
-}
-
 // This component implements a virtual keyboard.
-$rect <1090,240,1290,280>
+$rect <1090,250,1290,290>
 $output false
-class AlphaNumKeyboard1 : Templates::AlphaNumKeyboard
+class AlphaNumKeyboard : Templates::AlphaNumKeyboard
 {
   $rect <710,290,910,330>
   inherited method Init()
@@ -6710,7 +6832,7 @@ class AlphaNumKeyboard1 : Templates::AlphaNumKeyboard
   }
 }
 
-$rect <-252,-232,-52,-192>
+$rect <1090,330,1290,370>
 $output false
 class Keyboard : Core::Group
 {
@@ -6718,7 +6840,7 @@ class Keyboard : Core::Group
   inherited property Bounds = <0,0,1276,698>;
 
   $rect <20,20,160,60>
-  object Application::AlphaNumKeyboard1 AlphaNumKeyboard1
+  object Application::AlphaNumKeyboard AlphaNumKeyboard1
   {
     preset Bounds = <10,264,1263,668>;
   }
@@ -7795,7 +7917,7 @@ class SettingsMotorTest : Core::Group
   }
 }
 
-$rect <490,430,710,470>
+$rect <480,390,700,430>
 $output false
 class SettingsBuzzerTest : Core::Group
 {
@@ -8014,7 +8136,7 @@ class SettingsBuzzerTest : Core::Group
   }
 }
 
-$rect <490,490,710,530>
+$rect <480,440,700,480>
 $output false
 class SettingsDisplayTest : Core::Group
 {
@@ -8506,5 +8628,291 @@ class SettingsLEDTest : Core::Group
     preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
     preset String = "Power on";
     preset Font = Application::FontNormal22;
+  }
+}
+
+$rect <460,490,680,530>
+$output false
+class SettingsEditSurgicalProfile : Core::Group
+{
+  $rect <-309,120,-109,160>
+  inherited method Init()
+  {
+    //var Application::ScreenManager theme = new Application::ScreenManager;
+    this.CustomButton.label.String = "Save Profile";
+    theme = new Application::Settings;
+    this.ProfileNameInput.Rectangle.Bounds.w  = 1220;
+    this.ProfileNameInput.Border.Bounds.w = 1220;
+    //this.SettingsInputField.TextEditor.String = "Custom Profile 2";
+    //this.SettingsInputField.SimpleTouchHandler.OnPress = Slot;
+    this.rctTitile.Color = theme.SecondaryColor;
+    this.TopLine.Color = theme.Color1;
+    this.TopLine1.Color = theme.Color1;
+    this.ProfileNameInput.TextEditor.ObtainFocus();
+    this.CutEnergyInput.Rectangle.Bounds.w = 583;
+    this.CutEnergyInput.Border.Bounds.w = 583;
+    this.CutEnergyInput.TextEditor.Bounds.w = 575;
+
+    this.CoagulationEnergyInput.Rectangle.Bounds.w = 583;
+    this.CoagulationEnergyInput.Border.Bounds.w = 583;
+    this.CoagulationEnergyInput.TextEditor.Bounds.w = 575;
+
+    this.MaxGraspInput.Rectangle.Bounds.w = 583;
+    this.MaxGraspInput.Border.Bounds.w = 583;
+    this.MaxGraspInput.TextEditor.Bounds.w = 575;
+
+    this.MotionSpeedInput.Rectangle.Bounds.w = 583;
+    this.MotionSpeedInput.Border.Bounds.w = 583;
+    this.MotionSpeedInput.TextEditor.Bounds.w = 575;
+    this.Text.String = Application::GlobalSettings.SelectedProfile;
+    trace "Application::GlobalSettings.SelectedProfile",Application::GlobalSettings.SelectedProfile;
+  }
+
+  $rect <1320,10,1520,50>
+  inherited property Bounds = <0,0,1280,720>;
+
+  $rect <20,20,160,60>
+  object Application::TitleBar TitleBar
+  {
+    preset Bounds = <0,0,1280,64>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,64,1280,720>;
+    preset Color = #141A2BFF;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line TopLine
+  {
+    preset Point2 = <1280,64>;
+    preset Point1 = <0,64>;
+    preset Color = #555D6DFF;
+  }
+
+  $rect <1339,70,1539,110>
+  slot SlotOnEnter
+  {
+    /*var Application::ScreenManager man = new Application::ScreenManager;
+
+    if ( this.NumPad.Number == "" )
+      return;
+
+    var string pin =  this.NumPad.Number;
+
+    Application::Navigation.CheckLogin( pin );
+
+    this.NumPad.Number = "";   */
+
+
+
+
+
+    /*if(this.NumPad.Number == "1234")
+    {
+        trace"Go to Next Screen.................";
+        this.NumPad.Number = "";
+        var Core::Group newScreen = new Application::ProfileScreen;
+        man.showScreen( this, newScreen);
+        //this.SwitchToDialog( new Application::ProfileScreen, null, null, null, null, null, null, null, null, null, false );
+        //this.PresentDialog( new Application::ProfileScreen, null, null, null, null, null, null, null, null, false );
+    }
+    else
+    {
+        this.NumPad.Number = "";
+    } */
+  }
+
+  $rect <1530,270,1730,310>
+  object Core::PropertyObserver PropertyObserver
+  {
+    preset OnEvent = onEvent;
+    preset Outlet = ^Application::GlobalSettings.LoginResult;
+  }
+
+  // This slot method is executed when the associated property observer 'PropertyObserver' \
+  // is notified.
+  $rect <1730,270,1930,310>
+  slot onEvent
+  {
+    var int32 result = Application::GlobalSettings.LoginResult;
+
+      if ( result == 1 )
+      {
+          this.SwitchToDialog( new Application::ProfileScreen, null, null, null, null, null, null, null, null, null, false );
+      }
+      else if ( result == 2 )
+      {
+        //H2.String = "Invalid PIN";
+      }
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text txtProfile
+  {
+    preset Bounds = <25,139,252,211>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Profile Name";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SettingsInputField ProfileNameInput
+  {
+    preset Bounds = <21,199,1246,298>;
+    preset Visible = true;
+    preset InputType = 0;
+    preset MaxLength = 6;
+    preset Value = "Custom Profile 2";
+    preset Password = false;
+    preset ShowPassword = false;
+  }
+
+  $rect <-259,399,-59,439>
+  slot Slot
+  {
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle rctTitile
+  {
+    preset Bounds = <0,66,1280,141>;
+    preset Color;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line TopLine1
+  {
+    preset Point2 = <1280,142>;
+    preset Point1 = <0,142>;
+    preset Width = 1;
+    preset Color = #555D6DFF;
+  }
+
+  $rect <1349,120,1620,160>
+  var Application::Settings theme;
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <84,83,714,125>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Edit - Laparoscopic General";
+    preset Font = Application::FontBold32;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <4,69,91,142>;
+    preset Bitmap = Res::DefaultBckArrow;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text txtCutEnergy
+  {
+    preset Bounds = <25,267,270,339>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Cut Energy (W)";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SettingsInputField CutEnergyInput
+  {
+    preset Bounds = <20,336,632,434>;
+    preset InputType = 0;
+    preset MaxLength = 6;
+    preset Value = "30";
+    preset Password = false;
+    preset ShowPassword = false;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text txtCoagulation
+  {
+    preset Bounds = <663,269,991,341>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Coagulation Energy (W)";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SettingsInputField CoagulationEnergyInput
+  {
+    preset Bounds = <656,335,1268,433>;
+    preset InputType = 0;
+    preset MaxLength = 6;
+    preset Value = "25";
+    preset Password = false;
+    preset ShowPassword = false;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text txtMaxGrasp
+  {
+    preset Bounds = <25,412,404,485>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Max Grasp Force (N)";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SettingsInputField MaxGraspInput
+  {
+    preset Bounds = <24,476,636,574>;
+    preset InputType = 0;
+    preset MaxLength = 6;
+    preset Value = "6.0";
+    preset Password = false;
+    preset ShowPassword = false;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text txtMotion
+  {
+    preset Bounds = <662,414,990,486>;
+    preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
+    preset String = "Motion Speed Limit";
+    preset Font = Application::FontNormal28;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SettingsInputField MotionSpeedInput
+  {
+    preset Bounds = <656,476,1268,574>;
+    preset InputType = 0;
+    preset MaxLength = 6;
+    preset Value = "Standard";
+    preset Password = false;
+    preset ShowPassword = false;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <5,68>;
+    preset Point3 = <85,68>;
+    preset Point2 = <85,138>;
+    preset Point1 = <5,138>;
+    preset OnRelease = onBack;
+  }
+
+  $rect <-296,253,-96,293>
+  slot onBack
+  {
+    theme = null;
+    if (Owner != null)
+    {
+        Owner.SwitchToDialog(new Application::ProfileScreen, null, null, null, null, null, null, null, null, null, false);
+    }
+  }
+
+  $rect <20,20,160,60>
+  object Widget::CustomButton CustomButton
+  {
+    preset Bounds = <54,608,1207,689>;
   }
 }

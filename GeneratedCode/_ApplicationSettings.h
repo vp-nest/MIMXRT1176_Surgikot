@@ -42,6 +42,12 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
+/* Forward declaration of the class Application::ConfigItem */
+#ifndef _ApplicationConfigItem_
+  EW_DECLARE_CLASS( ApplicationConfigItem )
+#define _ApplicationConfigItem_
+#endif
+
 /* Forward declaration of the class Application::Settings */
 #ifndef _ApplicationSettings_
   EW_DECLARE_CLASS( ApplicationSettings )
@@ -53,7 +59,12 @@
 EW_DEFINE_FIELDS( ApplicationSettings, XObject )
   EW_VARIABLE( SelectedProfile, XString )
   EW_VARIABLE( SurgerCompletedTime, XString )
+  EW_ARRAY   ( ProfileName,     XString, [4])
+  EW_ARRAY   ( ProfileMotionSpeedLimit, XString, [4])
   EW_PROPERTY( LoginResult,     XInt32 )
+  EW_ARRAY   ( ProfileCurrEnergy, XInt32, [4])
+  EW_ARRAY   ( ProfileCoagEnergy, XInt32, [4])
+  EW_ARRAY   ( ProfileMaxGraspForce, XFloat, [4])
 EW_END_OF_FIELDS( ApplicationSettings )
 
 /* Virtual Method Table (VMT) for the class : 'Application::Settings' */
@@ -75,6 +86,13 @@ void ApplicationSettings__UpdateLoginResult( void* _this, XInt32 aNewValue );
 
 /* The following define announces the presence of the method Application::Settings.UpdateLoginResult(). */
 #define _ApplicationSettings__UpdateLoginResult_
+
+/* 'C' function for method : 'Application::Settings.SaveConfig()' */
+XString ApplicationSettings_SaveConfig( ApplicationSettings _this );
+
+/* 'C' function for method : 'Application::Settings.AddConfigItem()' */
+void ApplicationSettings_AddConfigItem( ApplicationSettings _this, XString configKey, 
+  XString configValue, XBool isParent, ApplicationConfigItem configItem );
 
 #ifdef __cplusplus
   }

@@ -98,6 +98,7 @@
 
 /* Deklaration of class : 'Widget::CustomButton' */
 EW_DEFINE_FIELDS( WidgetCustomButton, CoreGroup )
+  EW_PROPERTY( OnRelease,       XSlot )
   EW_OBJECT  ( Image,           ViewsImage )
   EW_OBJECT  ( label,           ViewsText )
   EW_OBJECT  ( SimpleTouchHandler, CoreSimpleTouchHandler )

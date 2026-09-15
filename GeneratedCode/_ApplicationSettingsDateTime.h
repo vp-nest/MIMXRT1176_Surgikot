@@ -42,7 +42,6 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
-#include "_ApplicationSpinButton.h"
 #include "_ApplicationTitleBar.h"
 #include "_CoreGroup.h"
 #include "_CorePropertyObserver.h"
@@ -52,6 +51,7 @@
 #include "_ViewsRectangle.h"
 #include "_ViewsText.h"
 #include "_WidgetCustomButton.h"
+#include "_WidgetDropDown.h"
 
 /* Forward declaration of the class Application::Settings */
 #ifndef _ApplicationSettings_
@@ -129,20 +129,20 @@ EW_DEFINE_FIELDS( ApplicationSettingsDateTime, CoreGroup )
   EW_OBJECT  ( slBack,          CoreSimpleTouchHandler )
   EW_OBJECT  ( CustomButton,    WidgetCustomButton )
   EW_OBJECT  ( txtDate,         ViewsText )
-  EW_OBJECT  ( SpinButtonDay,   ApplicationSpinButton )
-  EW_OBJECT  ( SpinButtonMonth, ApplicationSpinButton )
-  EW_OBJECT  ( SpinButtonYear,  ApplicationSpinButton )
   EW_OBJECT  ( txtTime,         ViewsText )
-  EW_OBJECT  ( SpinButtonDay1,  ApplicationSpinButton )
-  EW_OBJECT  ( SpinButtonDay2,  ApplicationSpinButton )
   EW_OBJECT  ( txtTime1,        ViewsText )
-  EW_OBJECT  ( SpinButtonDay3,  ApplicationSpinButton )
   EW_OBJECT  ( txtTime2,        ViewsText )
   EW_OBJECT  ( txtTime3,        ViewsText )
   EW_OBJECT  ( Image1,          ViewsImage )
   EW_OBJECT  ( Image2,          ViewsImage )
   EW_OBJECT  ( txtTime4,        ViewsText )
   EW_OBJECT  ( txtTime5,        ViewsText )
+  EW_OBJECT  ( DayDropDown,     WidgetDropDown )
+  EW_OBJECT  ( MonthDropDown,   WidgetDropDown )
+  EW_OBJECT  ( YearDropDown,    WidgetDropDown )
+  EW_OBJECT  ( HourDropDown,    WidgetDropDown )
+  EW_OBJECT  ( MinDropDown,     WidgetDropDown )
+  EW_OBJECT  ( HourDropDown2,   WidgetDropDown )
 EW_END_OF_FIELDS( ApplicationSettingsDateTime )
 
 /* Virtual Method Table (VMT) for the class : 'Application::SettingsDateTime' */

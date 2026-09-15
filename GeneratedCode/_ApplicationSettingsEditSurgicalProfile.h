@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef _ApplicationSpinButton_H
-#define _ApplicationSpinButton_H
+#ifndef _ApplicationSettingsEditSurgicalProfile_H
+#define _ApplicationSettingsEditSurgicalProfile_H
 
 #ifdef __cplusplus
   extern "C"
@@ -42,16 +42,27 @@
   #error Wrong version of Embedded Wizard Graphics Engine.
 #endif
 
+#include "_ApplicationSettingsInputField.h"
+#include "_ApplicationTitleBar.h"
 #include "_CoreGroup.h"
+#include "_CorePropertyObserver.h"
 #include "_CoreSimpleTouchHandler.h"
-#include "_ViewsBorder.h"
+#include "_ViewsImage.h"
+#include "_ViewsLine.h"
 #include "_ViewsRectangle.h"
 #include "_ViewsText.h"
+#include "_WidgetCustomButton.h"
 
-/* Forward declaration of the class Application::SpinButton */
-#ifndef _ApplicationSpinButton_
-  EW_DECLARE_CLASS( ApplicationSpinButton )
-#define _ApplicationSpinButton_
+/* Forward declaration of the class Application::Settings */
+#ifndef _ApplicationSettings_
+  EW_DECLARE_CLASS( ApplicationSettings )
+#define _ApplicationSettings_
+#endif
+
+/* Forward declaration of the class Application::SettingsEditSurgicalProfile */
+#ifndef _ApplicationSettingsEditSurgicalProfile_
+  EW_DECLARE_CLASS( ApplicationSettingsEditSurgicalProfile )
+#define _ApplicationSettingsEditSurgicalProfile_
 #endif
 
 /* Forward declaration of the class Core::DialogContext */
@@ -97,24 +108,33 @@
 #endif
 
 
-/* Deklaration of class : 'Application::SpinButton' */
-EW_DEFINE_FIELDS( ApplicationSpinButton, CoreGroup )
-  EW_OBJECT  ( rctBaseBtn,      ViewsRectangle )
-  EW_OBJECT  ( Border,          ViewsBorder )
-  EW_OBJECT  ( rctNegBtn,       ViewsRectangle )
-  EW_OBJECT  ( rctPosBtn,       ViewsRectangle )
-  EW_OBJECT  ( txt,             ViewsText )
-  EW_OBJECT  ( txt1,            ViewsText )
-  EW_OBJECT  ( stPostive,       CoreSimpleTouchHandler )
-  EW_OBJECT  ( stNegative,      CoreSimpleTouchHandler )
-  EW_OBJECT  ( txtValue,        ViewsText )
-  EW_PROPERTY( Value,           XInt32 )
-  EW_PROPERTY( ValueMin,        XInt32 )
-  EW_PROPERTY( ValueMax,        XInt32 )
-EW_END_OF_FIELDS( ApplicationSpinButton )
+/* Deklaration of class : 'Application::SettingsEditSurgicalProfile' */
+EW_DEFINE_FIELDS( ApplicationSettingsEditSurgicalProfile, CoreGroup )
+  EW_VARIABLE( theme,           ApplicationSettings )
+  EW_OBJECT  ( TitleBar,        ApplicationTitleBar )
+  EW_OBJECT  ( Rectangle,       ViewsRectangle )
+  EW_OBJECT  ( TopLine,         ViewsLine )
+  EW_OBJECT  ( PropertyObserver, CorePropertyObserver )
+  EW_OBJECT  ( txtProfile,      ViewsText )
+  EW_OBJECT  ( ProfileNameInput, ApplicationSettingsInputField )
+  EW_OBJECT  ( rctTitile,       ViewsRectangle )
+  EW_OBJECT  ( TopLine1,        ViewsLine )
+  EW_OBJECT  ( Text,            ViewsText )
+  EW_OBJECT  ( Image,           ViewsImage )
+  EW_OBJECT  ( txtCutEnergy,    ViewsText )
+  EW_OBJECT  ( CutEnergyInput,  ApplicationSettingsInputField )
+  EW_OBJECT  ( txtCoagulation,  ViewsText )
+  EW_OBJECT  ( CoagulationEnergyInput, ApplicationSettingsInputField )
+  EW_OBJECT  ( txtMaxGrasp,     ViewsText )
+  EW_OBJECT  ( MaxGraspInput,   ApplicationSettingsInputField )
+  EW_OBJECT  ( txtMotion,       ViewsText )
+  EW_OBJECT  ( MotionSpeedInput, ApplicationSettingsInputField )
+  EW_OBJECT  ( SimpleTouchHandler, CoreSimpleTouchHandler )
+  EW_OBJECT  ( CustomButton,    WidgetCustomButton )
+EW_END_OF_FIELDS( ApplicationSettingsEditSurgicalProfile )
 
-/* Virtual Method Table (VMT) for the class : 'Application::SpinButton' */
-EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
+/* Virtual Method Table (VMT) for the class : 'Application::SettingsEditSurgicalProfile' */
+EW_DEFINE_METHODS( ApplicationSettingsEditSurgicalProfile, CoreGroup )
   EW_METHOD( initLayoutContext, void )( CoreRectView _this, XRect aBounds, CoreOutline 
     aOutline )
   EW_METHOD( GetRoot,           CoreRoot )( CoreView _this )
@@ -150,38 +170,31 @@ EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
   EW_METHOD( Remove,            void )( CoreGroup _this, CoreView aView )
   EW_METHOD( Add,               void )( CoreGroup _this, CoreView aView, XInt32 
     aOrder )
-EW_END_OF_METHODS( ApplicationSpinButton )
+EW_END_OF_METHODS( ApplicationSettingsEditSurgicalProfile )
 
 /* The method Init() is invoked automatically after the component has been created. 
    This method can be overridden and filled with logic containing additional initialization 
    statements. */
-void ApplicationSpinButton_Init( ApplicationSpinButton _this, XHandle aArg );
+void ApplicationSettingsEditSurgicalProfile_Init( ApplicationSettingsEditSurgicalProfile _this, 
+  XHandle aArg );
 
-/* 'C' function for method : 'Application::SpinButton.OnRelease()' */
-void ApplicationSpinButton_OnRelease( ApplicationSpinButton _this, XObject sender );
+/* This slot method is executed when the associated property observer 'PropertyObserver' 
+   is notified. */
+void ApplicationSettingsEditSurgicalProfile_onEvent( ApplicationSettingsEditSurgicalProfile _this, 
+  XObject sender );
 
-/* 'C' function for method : 'Application::SpinButton.OnPress()' */
-void ApplicationSpinButton_OnPress( ApplicationSpinButton _this, XObject sender );
+/* 'C' function for method : 'Application::SettingsEditSurgicalProfile.onBack()' */
+void ApplicationSettingsEditSurgicalProfile_onBack( ApplicationSettingsEditSurgicalProfile _this, 
+  XObject sender );
 
-/* 'C' function for method : 'Application::SpinButton.OnGetValueType()' */
-XInt32 ApplicationSpinButton_OnGetValueType( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.UpdateValueText()' */
-void ApplicationSpinButton_UpdateValueText( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValue()' */
-void ApplicationSpinButton_OnSetValue( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMin()' */
-void ApplicationSpinButton_OnSetValueMin( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMax()' */
-void ApplicationSpinButton_OnSetValueMax( ApplicationSpinButton _this, XInt32 value );
+/* 'C' function for method : 'Application::SettingsEditSurgicalProfile.Slot1()' */
+void ApplicationSettingsEditSurgicalProfile_Slot1( ApplicationSettingsEditSurgicalProfile _this, 
+  XObject sender );
 
 #ifdef __cplusplus
   }
 #endif
 
-#endif /* _ApplicationSpinButton_H */
+#endif /* _ApplicationSettingsEditSurgicalProfile_H */
 
 /* Embedded Wizard */

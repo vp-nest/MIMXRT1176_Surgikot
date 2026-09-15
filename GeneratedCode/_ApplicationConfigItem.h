@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef _ApplicationSpinButton_H
-#define _ApplicationSpinButton_H
+#ifndef _ApplicationConfigItem_H
+#define _ApplicationConfigItem_H
 
 #ifdef __cplusplus
   extern "C"
@@ -43,15 +43,11 @@
 #endif
 
 #include "_CoreGroup.h"
-#include "_CoreSimpleTouchHandler.h"
-#include "_ViewsBorder.h"
-#include "_ViewsRectangle.h"
-#include "_ViewsText.h"
 
-/* Forward declaration of the class Application::SpinButton */
-#ifndef _ApplicationSpinButton_
-  EW_DECLARE_CLASS( ApplicationSpinButton )
-#define _ApplicationSpinButton_
+/* Forward declaration of the class Application::ConfigItem */
+#ifndef _ApplicationConfigItem_
+  EW_DECLARE_CLASS( ApplicationConfigItem )
+#define _ApplicationConfigItem_
 #endif
 
 /* Forward declaration of the class Core::DialogContext */
@@ -97,24 +93,16 @@
 #endif
 
 
-/* Deklaration of class : 'Application::SpinButton' */
-EW_DEFINE_FIELDS( ApplicationSpinButton, CoreGroup )
-  EW_OBJECT  ( rctBaseBtn,      ViewsRectangle )
-  EW_OBJECT  ( Border,          ViewsBorder )
-  EW_OBJECT  ( rctNegBtn,       ViewsRectangle )
-  EW_OBJECT  ( rctPosBtn,       ViewsRectangle )
-  EW_OBJECT  ( txt,             ViewsText )
-  EW_OBJECT  ( txt1,            ViewsText )
-  EW_OBJECT  ( stPostive,       CoreSimpleTouchHandler )
-  EW_OBJECT  ( stNegative,      CoreSimpleTouchHandler )
-  EW_OBJECT  ( txtValue,        ViewsText )
-  EW_PROPERTY( Value,           XInt32 )
-  EW_PROPERTY( ValueMin,        XInt32 )
-  EW_PROPERTY( ValueMax,        XInt32 )
-EW_END_OF_FIELDS( ApplicationSpinButton )
+/* Deklaration of class : 'Application::ConfigItem' */
+EW_DEFINE_FIELDS( ApplicationConfigItem, CoreGroup )
+  EW_VARIABLE( ConfigKey,       XString )
+  EW_VARIABLE( ConfigValue,     XString )
+  EW_VARIABLE( ItemLevel,       XString )
+  EW_VARIABLE( IsParent,        XBool )
+EW_END_OF_FIELDS( ApplicationConfigItem )
 
-/* Virtual Method Table (VMT) for the class : 'Application::SpinButton' */
-EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
+/* Virtual Method Table (VMT) for the class : 'Application::ConfigItem' */
+EW_DEFINE_METHODS( ApplicationConfigItem, CoreGroup )
   EW_METHOD( initLayoutContext, void )( CoreRectView _this, XRect aBounds, CoreOutline 
     aOutline )
   EW_METHOD( GetRoot,           CoreRoot )( CoreView _this )
@@ -150,38 +138,12 @@ EW_DEFINE_METHODS( ApplicationSpinButton, CoreGroup )
   EW_METHOD( Remove,            void )( CoreGroup _this, CoreView aView )
   EW_METHOD( Add,               void )( CoreGroup _this, CoreView aView, XInt32 
     aOrder )
-EW_END_OF_METHODS( ApplicationSpinButton )
-
-/* The method Init() is invoked automatically after the component has been created. 
-   This method can be overridden and filled with logic containing additional initialization 
-   statements. */
-void ApplicationSpinButton_Init( ApplicationSpinButton _this, XHandle aArg );
-
-/* 'C' function for method : 'Application::SpinButton.OnRelease()' */
-void ApplicationSpinButton_OnRelease( ApplicationSpinButton _this, XObject sender );
-
-/* 'C' function for method : 'Application::SpinButton.OnPress()' */
-void ApplicationSpinButton_OnPress( ApplicationSpinButton _this, XObject sender );
-
-/* 'C' function for method : 'Application::SpinButton.OnGetValueType()' */
-XInt32 ApplicationSpinButton_OnGetValueType( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.UpdateValueText()' */
-void ApplicationSpinButton_UpdateValueText( ApplicationSpinButton _this );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValue()' */
-void ApplicationSpinButton_OnSetValue( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMin()' */
-void ApplicationSpinButton_OnSetValueMin( ApplicationSpinButton _this, XInt32 value );
-
-/* 'C' function for method : 'Application::SpinButton.OnSetValueMax()' */
-void ApplicationSpinButton_OnSetValueMax( ApplicationSpinButton _this, XInt32 value );
+EW_END_OF_METHODS( ApplicationConfigItem )
 
 #ifdef __cplusplus
   }
 #endif
 
-#endif /* _ApplicationSpinButton_H */
+#endif /* _ApplicationConfigItem_H */
 
 /* Embedded Wizard */
